@@ -42,6 +42,8 @@ output            : papaja::apa6_pdf
 library("papaja")
 ```
 
+  Test test test
+  
   Previous research conducted on judgments of associative memory (JAM) has found that these judgments tend to be stable and highly generalizable across varying contexts [@Maki2007a; @Maki2007; @Valentine2013]. This task can be viewed as a manipulation of the traditional judgment of learning task (JOL). In a judgment of learning task, participants are presented with cue-target word pairs and are asked to make a judgment (typically on a scale of zero to 100) of how accurately they would be able to respond with the proper target word based on the presentation of a particular cue word [@Nelson1991; @Dunlosky1994a]. JAM tasks expand upon this concept by changing the focus of the judgments performed by participants. When presented with the item pair, such as cheese-mouse, participants are asked to judge the number of people out of 100 who would respond with the pair's target word if they were only shown the cue [@Maki2007a].
 
   This process mimics the creation of associative words norms (i.e., forward strength; @Nelson2004). As such, these judgments can be viewed as the participants' approximations of how associatively related they perceive the paired items to be. The JAM function can then be created by plotting participant judgments against the word's normed associative strength and calculating a line of best fit. This fit line typically displays a high intercept (bias) and a shallow slope (sensitivity), meaning that participants are biased towards overestimating the associative relatedness between word pairs, and show difficulties differentiating between different amounts of item relatedness [@Maki2007a].
