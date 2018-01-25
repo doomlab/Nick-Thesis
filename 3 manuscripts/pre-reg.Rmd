@@ -1,0 +1,493 @@
+---
+title             : "The title"
+shorttitle        : "Title"
+
+author: 
+  - name          : "Nicholas P. Maxwell"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "901 S. National Ave, Springfield, MO, 65897"
+    email         : "maxwell270@live.missouristate.edu"
+  - name          : "Erin M. Buchanan"
+    affiliation   : "1"
+
+affiliation:
+  - id            : "1"
+    institution   : "Missouri State University"
+
+
+author_note: >
+  Nicholas P. Maxwell is a graduate student at Missouri State University. Erin M. Buchanan is an Associate Professor of Psychology at Missouri State University
+
+abstract: >
+  Enter abstract here (note the indentation, if you start a new paragraph).
+  
+keywords          : "keywords"
+wordcount         : "X"
+
+bibliography      : ["nick_ref2.bib"]
+
+figsintext        : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+lineno            : yes
+
+lang              : "english"
+class             : "man"
+output            : papaja::apa6_pdf
+---
+
+```{r include = FALSE}
+library("papaja")
+```
+
+  Previous research conducted on judgments of associative memory (JAM) has found that these judgments tend to be stable and highly generalizable across varying contexts [@Maki2007a; @Maki2007; @Valentine2013]. This task can be viewed as a manipulation of the traditional judgment of learning task (JOL). In a judgment of learning task, participants are presented with cue-target word pairs and are asked to make a judgment (typically on a scale of zero to 100) of how accurately they would be able to respond with the proper target word based on the presentation of a particular cue word [@Nelson1991; @Dunlosky1994a]. JAM tasks expand upon this concept by changing the focus of the judgments performed by participants. When presented with the item pair, such as cheese-mouse, participants are asked to judge the number of people out of 100 who would respond with the pair's target word if they were only shown the cue [@Maki2007a].
+
+  This process mimics the creation of associative words norms (i.e., forward strength; @Nelson2004). As such, these judgments can be viewed as the participants' approximations of how associatively related they perceive the paired items to be. The JAM function can then be created by plotting participant judgments against the word's normed associative strength and calculating a line of best fit. This fit line typically displays a high intercept (bias) and a shallow slope (sensitivity), meaning that participants are biased towards overestimating the associative relatedness between word pairs, and show difficulties differentiating between different amounts of item relatedness [@Maki2007a].
+  
+  Building upon this research, we initially completed a pilot study in which we sought to examine recall accuracy within the context of item judgments, while also expanding the JAM task to incorporate judgments of semantic and thematic memory. In the pilot study, 63 word-pairs of varying associative, semantic, and thematic overlap were created and arranged into three blocks, consisting of 21 word-pairs each. Associative overlap was measured with forward strength (FSG; @Nelson2004), semantic overlap was measured with cosine (COS; @McRae2005), and thematic relatedness between pairs was measured with latent semantic analysis (LSA; @Landauer1997; @Landauer1998). Participants were randomly assigned to a condition in which they received a set of instructions explaining either an associative, semantic, or thematic relationship between words. Participants then judged the word-pairs in each block based on the instructions that they received. The order of block presentation and judgment instructions were counterbalanced so that each word-pair received each of the three types of judgments. After completing the judgment phase, participants then completed a cued recall task in which they were presented with the cue word from each of the previously presented word pairs and were asked to complete each pair with the missing target.
+  
+  Multilevel modeling was then used to predict recall and judgment scores. This type of analysis was selected due to its ability to retain all data points while controlling for correlated error between participants. Significant three-way interactions were found between database norms when predicting judgments ($\beta$ = 3.324, $p$ < .001) and recall ($\beta$ = 24.571, $p$ < .001). Simple slopes analyses were then conducted to further examine these interactions. When semantic overlap was low, thematic and associative strength were competitive, with increases in thematic overlap decreasing the strength of associative overlap as a predictor. However, this trend saw a reversal when semantic overlap was high, with thematic and associative strength complimenting one another. This result was found when investing the three-way interactions for both the judgment and recall tasks.  Overall, our findings from this study indicated the degree to which the processing of associative, semantic, and thematic information impacts retrieval and judgment making, while also displaying the interactive relationship that exists between these three types of information.
+  
+  The proposed study seeks to expand upon this work by extending the original analysis to include multiple single word norms. These norms provide information about different "neighborhoods" of concept information. Broadly speaking, they can be separated into one of three categories. Base values refer to norms which capture information based on a word's structure. These include part of speech (PoS), word frequency, and the number of syllables, morphemes, and phonemes that comprise a word. Rated values refer to age of acquisition (AoA), concreteness, imageability, valence, and familiarity. Finally, we seek to examine norms that provide information about the connections a word shares with others based on context. These norms include orthographic neighborhood, phonographic neighborhood, cue and target set sizes, and feature set size. 
+
+  First, we are interested in assessing the impact of base word norms. Chief amongst these is word frequency. Several sets of norms currently exist for measuring the frequency with which words occur in everyday language, and it is important to determine which of these offers the best representation of everyday language. One of the most commonly used collections of these norms is the @Kucera1967 frequency norms. This set consists of frequency values for words, which were generated by analyzing books, magazines, and newspapers. However, the validity of using these norms has been questioned on factors such as the properties of the sources analyzed, the size of the corpus analyzed, and the overall age of these norms.  First, these norms were created from an analysis of written text. It is important to keep in mind that stylistically, writing tends to be more formal than everyday language and as a result, it may not be the best approximation of it [@Brysbaert2009]. Additionally, these norms were generated fifty years ago, meaning that these norms may not accurately reflect the current state of the English language. As such, the Kucera and Francis norms may not be the best choice for researchers interested in gauging the effects of word frequency.
+
+  Several viable alternatives to the KF frequency norms now exist. One popular method is to use frequency norms obtained from the HAL corpus, which consists of 131 million words (@Burgess1997; @Lund1996). Other collections of frequency norms include CELEX [@Baayen1995] which is based on written text, the Zeno frequency norms [@Zeno1995] which were created from American children's textbooks, and Google Book's collection of word frequencies which is derived from 131 billion words taken from books published in the United States. (See @Brysbaert2011 for an overview and comparison of these norms to SUBLTEX). For the present study, we plan to use data taken from the both the SUBTLEX project [@Brysbaert2009], which is a collection of frequency norms derived from a corpus of approximately 51 million words, which were generated from movie and television subtitles, and the HAL corpus. SUBTLEX norms are thought to better approximate everyday language, as lines from movies and television tend to be more reflective of everyday speech than writing samples. Additionally, the larger corpus size of both SUBTLEX and HAL contributes to the validity of these norms compared to KF frequency norms.
+  
+  Next, we are interested in testing the effects of several measures of lexical information related to the physical make-up of words. These measures include the numbers of phonemes, morphemes, and syllables that comprise each word as well as its part of speech. The number of phonemes refers to the number of individual sounds that comprise a word (i.e., the word CAT has three phonemes, each of which correspond to the sounds its letters make), while the term morpheme refers to the number of sound units that contain meaning. DRIVE contains one morpheme, while DRIVER contains two. Morphemes typically consist of root words and their affixes. We are also interested in word length (measured as the number of individual characters a word consists of) and the number of syllables a word contains, as previous research has suggested that the number of syllables may play a role in processing time. In general, longer words require longer processing time [@Kuperman2012], and shorter words tend to be more easily remembered [@Cowan2003]. Finally, we are interested in the part of speech of each word. For the present study, part of speech will be coded as nouns, verbs, adjectives, and other, and will be based on category size.
+
+  Third, we are interested in exploring the effects of norms measuring word properties that are rated by participants. The first of these is age of acquisition (AoA), which is a measure of the age at which a word is learned. This norm is measured by presenting participants with a word and having them enter the age (in years) in which they believe that they would have learned the word [@Kuperman2012]. AoA ratings have been found to be predictive of recall. For example, @Dewhurst1998 found recall to be higher for late acquired words. Also of interest are measures of a word's valence, which refers to its intrinsic pleasantness or perceived positiveness. Valence ratings are important across multiple psycholinguistic research settings. These include research on emotion, the impact of emotion of lexical processing and memory, estimating the sentiments of larger passages of text, and estimating the emotional value of new words based on valence ratings of semantically similar words (See @Warriner2013 for a review). The next of these rated measures is concreteness, which refers to the degree that a word relates to a perceptible object [@Brysbaert2013].  Similar to concreteness, imageability is described as being a measure of a word's ability to generate a mental image [@Stadthagen-Gonzalez2006]. Both imageability and concreteness have been linked to recall, as items rated higher in these areas tend to be more easily recalled [@Nelson1992] Finally, familiarity norms can be described as an application of word frequency. These norms measure the frequency of exposure to a particular word [@Stadthagen-Gonzalez2006].
+
+  The final group of norms that we are interested in examining are those which provide information based on connections with neighboring words. Phonographic neighborhood refers to refers to the number of words that can be created by changing one sound in a word (i.e., CAT to KITE). Similarly, orthographic neighborhood refers to the number of words created by changing a single letter in word (i.e., CAT to BAT, @Adelman2007; @Peereman1997). Previous findings have suggested that the frequency of a target word relative to that of its orthographic neighbors has an effect on recall, increasing the likelihood of recall for that word [@Carreiras1997]. Additionally, both of measures have been found to effect processing speed for items (@Buchanan2013; @Adelman2007; @Coltheart1977). Next, we are interested in examining two single word norms that are directly related to item associations. These norms measure the number of associates a word shares connections with. Cue set size (QSS) refers to the number of cue words that a target word is connected to, while target set size (TSS) is a count of the number of target words a cue word is connected to (@Schreiber1998). Previous research has shown that cue words that are linked to a larger number of associates (target words) tend to be less likely to be recalled than cue words with smaller target sets [@Nelson1999]. We will also calculate these values for the semantic feature overlap and thematic overlap norms. Finally, feature list sizes will be calculated for each word overlap norm from the Buchanan et al. 2013 semantic feature norm set.
+
+	In summary, this study seeks to expand upon previous work by examining how single word norms belonging to these three neighborhoods of item information impact the accuracy of item judgments and recall. These findings will be assessed within the context of associative, semantic, and thematic memory systems. Specifically, we utilize a three-tiered view of the interconnections between these systems as it relates to processing concept information. First, semantic information is processed, which provides a means for categorizing concepts based on feature similarity. Next, processing moves into the associative memory network, where contextual information pertaining to the items is added. Finally, the thematic network incorporates information from both the associative and semantic networks to generate a mental representation of the concept containing both the items meaning and its place in the world.
+
+  As such, the present study has two aims. First, we seek to replicate the interaction results from the pilot study using a new set of stimuli. These three-way interactions occurred between the associative, semantic, and thematic database norms when predicting participant judgments and recall. Second, we wish to expand upon these findings by extending the analysis to include neighborhood information for the item pairs. The extended analysis will be run by introducing the different types single word norms through a series of steps based on the type of neighborhood they belong to. First, base word norms will be analyzed. Next, measures of word ratings will be analyzed. Third, single word norms measuring connections between concepts will be analyzed. Finally, network norms and their interactions will be reanalyzed. The end goal is to determine both which neighborhood of norms have the greatest overall impact on recall and judgment ability, and to further assess the impact of network connections after controlling for the various neighborhoods of single word information.
+
+# Methods
+
+## Participants
+
+  A power analysis was conducted using the $SIMR$ package in $R$ [@Green2016], which uses simulations to calculate power for mixed linear models created from the $LME4$ and $nlme$ packages [@Bates2015; @Pinheiro2017]. The results of this analyses suggested a minimum of 35 participants was required to find an effect at 80% power. However, because power often is underestimated [@Brysbaert2018], we plan to extend the analysis to include 200 participants, a number determined by the amount of available funding. Participants will be recruited from Amazon's Mechanical Turk, which is a website where individuals can host projects and be connected with a large respondent pool who complete tasks for small amounts of money [@Buhrmester2011]. Participants will be paid $2.00 for their participation. Participant responses will be screened for a basic understanding of study instructions.
+
+## Material
+
+  First, mimicking the design of the original pilot study, sixty-three word pairs of varying associative, semantic, and thematic overlap were created to use as stimuli. These word pairs were created using the Buchanan et al. (2013) word norm database. Next, neighborhood information for all cue and target items was collected. Word frequency was collected from the SUBTLEX project [@Brysbaert2009] and the HAL corpus [@Burgess1997]. Part of speech (POS), word length, and the number of morphemes, phonemes, and syllables of each item was derived from the Buchanan et al. (2013) word norms. For items with multiple parts of speech (for example, Drink can refer to both a beverage and the act of drinking a beverage), the most commonly used form was used. Following the design of @Buchanan2013, this was determined using Google's "Define"" feature. Concreteness, cue set size (QSS), and target set size (TSS) were taken from the South Florida Free Association Norms [@Nelson2004]. Imageability and familiarity norms were taken from the [@Toglia2009; @Toglia1978] semantic word norms. Age of acquisition ratings (AoA) were pulled from the [@Kuperman2012] database. Finally, valence ratings for all items were obtained from the [@Warriner2013] norms. After gathering neighborhood information, network norms measuring associative, semantic, and thematic overlap were generated for each pair. Forward strength (FSG) was used as a measure of associative overlap. FSG is a value ranging from zero to one which measures of the probability that a cue word will elicit a particular target word in response to it [@Nelson2004]. Cosine (COS) strength was used to measure semantic overlap between concepts (@Buchanan2013; @McRae2005; @Vinson2008). As with FSG, this value ranges from zero to one, with higher values indicating more shared features between concepts. Finally, thematic overlap was measured with Latent Semantic Analysis (LSA), which is a measure generated based upon the co-occurrences of words within a document [@Landauer1997; @Landauer1998]. Like the measures of associative and semantic overlap, LSA values range from zero to one, with higher values indicating higher co-occurrence between items.
+
+	As such, the selected stimuli contained a range of values across both the network and neighborhood norms. As with the pilot study, stimuli will be arranged into three blocks, with each block consisting of 21 word pairs. The blocks will be structured to have seven words of low COS (0 - .33), medium COS (.34 - .66), and high COS (.67 - 1). COS was chosen due to both limitations with the size of the available dataset and the desire to recreate the selection process used for the pilot study. The result of this selection process is that values for the remaining network norms (FSG and LSA) and information neighborhood norms will be contingent upon the COS strengths of the selected stimuli. To counter this, we selected stimuli at random based on the different COS groupings so as to cover a broad range of FSG, LSA, and information neighborhood values.
+	
+	The stimuli will be presented to the participants online via Qualtrics surveys. Three different surveys will be created, which will counter-balance the order in which stimuli blocks are presented. Judgment conditions will be counter-balanced across blocks, so that each word pair receives a judgment for each type of memory. Finally, word pairs will be randomized within blocks. 
+```{r, include=FALSE}
+####setup####
+dat = read.csv("stimuli jan 18.csv")
+
+library(papaja)
+
+##network norms
+##descriptives
+m1 = mean(dat$FSG)
+m2 = mean(dat$COS)
+m3 = mean(dat$LSA)
+m1;m2;m3
+
+sd1 = sd(dat$FSG)
+sd2 = sd(dat$COS)
+sd3 = sd(dat$LSA)
+sd1;sd2;sd3
+
+min1 = min(dat$FSG)
+min2 = min(dat$COS)
+min3 = min(dat$LSA)
+min1;min2;min3
+
+max1 = max(dat$FSG)
+max2 = max(dat$COS)
+max3 = max(dat$LSA)
+max1;max2;max3
+
+##individual norms for cue words
+m4 = mean(dat$QSS.1)
+m5 = mean(dat$TSS.1)
+m6 = mean(dat$QCON.1)
+m7 = mean(dat$LogHAL.1)
+m8 = mean(dat$LogSub.1)
+m9 = mean(dat$Length.1)
+m10 = mean(dat$Ortho.1)
+m11 = mean(dat$Phono.1)
+m12 = mean(dat$Phonemes.1)
+m13 = mean(dat$Syllables.1)
+m14 = mean(dat$Morphemes.1)
+m15 = mean(dat$AOA.1)
+m16 = mean(dat$Valence.1)
+m17 = mean(dat$Imageability.1)
+m18 = mean(dat$Familiarity.1)
+
+m4;m5;m6;m7;m8;m9;m10;m11;m12;m13;m14;m15;m16;m17;m18
+
+sd4 = sd(dat$QSS.1)
+sd5 = sd(dat$TSS.1)
+sd6 = sd(dat$QCON.1)
+sd7 = sd(dat$LogHAL.1)
+sd8 = sd(dat$LogSub.1)
+sd9 = sd(dat$Length.1)
+sd10 = sd(dat$Ortho.1)
+sd11 = sd(dat$Phono.1)
+sd12 = sd(dat$Phonemes.1)
+sd13 = sd(dat$Syllables.1)
+sd14 = sd(dat$Morphemes.1)
+sd15 = sd(dat$AOA.1)
+sd16 = sd(dat$Valence.1)
+sd17 = sd(dat$Imageability.1)
+sd18 = sd(dat$Familiarity.1)
+
+sd4;sd5;sd6;sd7;sd8;sd9;sd10;sd11;sd12;sd13;sd14;sd15;sd16;sd17;sd18
+
+min4 = min(dat$QSS.1)
+min5 = min(dat$TSS.1)
+min6 = min(dat$QCON.1)
+min7 = min(dat$LogHAL.1)
+min8 = min(dat$LogSub.1)
+min9 = min(dat$Length.1)
+min10 = min(dat$Ortho.1)
+min11 = min(dat$Phono.1)
+min12 = min(dat$Phonemes.1)
+min13 = min(dat$Syllables.1)
+min14 = min(dat$Morphemes.1)
+min15 = min(dat$AOA.1)
+min16 = min(dat$Valence.1)
+min17 = min(dat$Imageability.1)
+min18 = min(dat$Familiarity.1)
+
+min4;min5;min6;min7;min8;min9;min10;min11;min12;min13;min14;min15;min16;min17;min18
+
+max4 = max(dat$QSS.1)
+max5 = max(dat$TSS.1)
+max6 = max(dat$QCON.1)
+max7 = max(dat$LogHAL.1)
+max8 = max(dat$LogSub.1)
+max9 = max(dat$Length.1)
+max10 = max(dat$Ortho.1)
+max11 = max(dat$Phono.1)
+max12 = max(dat$Phonemes.1)
+max13 = max(dat$Syllables.1)
+max14 = max(dat$Morphemes.1)
+max15 = max(dat$AOA.1)
+max16 = max(dat$Valence.1)
+max17 = max(dat$Imageability.1)
+max18 = max(dat$Familiarity.1)
+
+max4;max5;max6;max7;max8;max9;max10;max11;max12;max13;max14;max15;max16;max17;max18
+
+#individual norms for target items
+m19 = mean(dat$QSS.2)
+m20 = mean(dat$TSS.2)
+m21 = mean(dat$QCON.2)
+m22= mean(dat$LogHAL.2)
+m23 = mean(dat$LogSub.2)
+m24 = mean(dat$Length.2)
+m25 = mean(dat$Ortho.2)
+m26 = mean(dat$Phono.2)
+m27 = mean(dat$Phonemes.2)
+m28 = mean(dat$Syllables.2)
+m29 = mean(dat$Morphemes.2)
+m30 = mean(dat$AOA.2)
+m31 = mean(dat$Valence.2)
+m32 = mean(dat$Imageability.2)
+m33 = mean(dat$Familiarity.2)
+
+m19;m20;m21;m22;m23;m24;m25;m26;m27;m28;m29;m30;m31;m32;m33
+
+sd19 = sd(dat$QSS.2)
+sd20 = sd(dat$TSS.2)
+sd21 = sd(dat$QCON.2)
+sd22= sd(dat$LogHAL.2)
+sd23 = sd(dat$LogSub.2)
+sd24 = sd(dat$Length.2)
+sd25 = sd(dat$Ortho.2)
+sd26 = sd(dat$Phono.2)
+sd27 = sd(dat$Phonemes.2)
+sd28 = sd(dat$Syllables.2)
+sd29 = sd(dat$Morphemes.2)
+sd30 = sd(dat$AOA.2)
+sd31 = sd(dat$Valence.2)
+sd32 = sd(dat$Imageability.2)
+sd33 = sd(dat$Familiarity.2)
+
+sd19;sd20;sd21;sd22;sd23;sd24;sd25;sd26;sd27;sd28;sd29;sd30;sd31;sd32;sd33
+
+min19 = min(dat$QSS.2)
+min20 = min(dat$TSS.2)
+min21 = min(dat$QCON.2)
+min22 = min(dat$LogHAL.2)
+min23 = min(dat$LogSub.2)
+min24 = min(dat$Length.2)
+min25 = min(dat$Ortho.2)
+min26 = min(dat$Phono.2)
+min27 = min(dat$Phonemes.2)
+min28 = min(dat$Syllables.2)
+min29 = min(dat$Morphemes.2)
+min30 = min(dat$AOA.2)
+min31 = min(dat$Valence.2)
+min32 = min(dat$Imageability.2)
+min33 = min(dat$Familiarity.2)
+
+min19;min20;min21;min22;min23;min24;min25;min26;min27;min28;min29;min30;min31;min32;min33
+
+max19 = max(dat$QSS.2)
+max20 = max(dat$TSS.2)
+max21 = max(dat$QCON.2)
+max22= max(dat$LogHAL.2)
+max23 = max(dat$LogSub.2)
+max24 = max(dat$Length.2)
+max25 = max(dat$Ortho.2)
+max26 = max(dat$Phono.2)
+max27 = max(dat$Phonemes.2)
+max28 = max(dat$Syllables.2)
+max29 = max(dat$Morphemes.2)
+max30 = max(dat$AOA.2)
+max31 = max(dat$Valence.2)
+max32 = max(dat$Imageability.2)
+max33 = max(dat$Familiarity.2)
+
+max19;max20;max21;max22;max23;max24;max25;max26;max27;max28;max29;max30;max31;max32;max33
+
+##overall
+m34 = (m4 + m19)/2
+m35 = (m5 + m20)/2
+m36 = (m6 + m21)/2
+m37 = (m7 + m22)/2
+m38 = (m8 + m23)/2
+m39 = (m9 + m24)/2
+m40 = (m10 + m25)/2
+m41 = (m11 + m26)/2
+m42 = (m12 + m27)/2
+m43 = (m13 + m28)/2
+m44 = (m14 + m29)/2
+m45 = (m15 + m30)/2
+m46 = (m16 + m31)/2
+m47 = (m17 + m32)/2
+m48 = (m18 + m33)/2
+
+m34;m35;m36;m37;m38;m39;m40;m41;m42;m43;m44;m45;m46;m47;m48
+
+dat2 = dat[ ,6:23]
+dat3 = dat[ ,24:41]
+
+colnames(dat2)[1] = "QSS"
+colnames(dat2)[2] = "QCON"
+colnames(dat2)[3] = "HAL"
+colnames(dat2)[4] = "LogHAL"
+colnames(dat2)[5] = "SUBTLEX"
+colnames(dat2)[6] = "LogSUB"
+colnames(dat2)[7] = "Length"
+colnames(dat2)[8] = "POS"
+colnames(dat2)[9] = "Ortho"
+colnames(dat2)[10] = "Phono"
+colnames(dat2)[11] = "Phonemes"
+colnames(dat2)[12] = "Syllables"
+colnames(dat2)[13] = "Morphemes"
+colnames(dat2)[14] = "AOA"
+colnames(dat2)[15] = "Valence"
+colnames(dat2)[16] = "Imageability"
+colnames(dat2)[17] = "Familiarity"
+colnames(dat2)[18] = "TSS"
+
+colnames(dat3)[1] = "QSS"
+colnames(dat3)[2] = "QCON"
+colnames(dat3)[3] = "HAL"
+colnames(dat3)[4] = "LogHAL"
+colnames(dat3)[5] = "SUBTLEX"
+colnames(dat3)[6] = "LogSUB"
+colnames(dat3)[7] = "Length"
+colnames(dat3)[8] = "POS"
+colnames(dat3)[9] = "Ortho"
+colnames(dat3)[10] = "Phono"
+colnames(dat3)[11] = "Phonemes"
+colnames(dat3)[12] = "Syllables"
+colnames(dat3)[13] = "Morphemes"
+colnames(dat3)[14] = "AOA"
+colnames(dat3)[15] = "Valence"
+colnames(dat3)[16] = "Imageability"
+colnames(dat3)[17] = "Familiarity"
+colnames(dat3)[18] = "TSS"
+
+combined = rbind(dat2, dat3)
+
+sd34 = sd(combined$QSS)
+sd35 = sd(combined$TSS)
+sd36 = sd(combined$QCON)
+sd37 = sd(combined$LogHAL)
+sd38 = sd(combined$LogSUB)
+sd39 = sd(combined$Length)
+sd40 = sd(combined$Ortho)
+sd41 = sd(combined$Phono)
+sd42 = sd(combined$Phonemes)
+sd43 = sd(combined$Syllables)
+sd44 = sd(combined$Morphemes)
+sd45 = sd(combined$AOA)
+sd46 = sd(combined$Valence)
+sd47 = sd(combined$Imageability)
+sd48 = sd(combined$Familiarity)
+
+sd34;sd35;sd36;sd37;sd38;sd39;sd40;sd41;sd42;sd43;sd44;sd45;sd46;sd47;sd48
+
+min34 = min(combined$QSS)
+min35 = min(combined$TSS)
+min36 = min(combined$QCON)
+min37 = min(combined$LogHAL)
+min38 = min(combined$LogSUB)
+min39 = min(combined$Length)
+min40 = min(combined$Ortho)
+min41 = min(combined$Phono)
+min42 = min(combined$Phonemes)
+min43 = min(combined$Syllables)
+min44 = min(combined$Morphemes)
+min45 = min(combined$AOA)
+min46 = min(combined$Valence)
+min47 = min(combined$Imageability)
+min48 = min(combined$Familiarity)
+
+min34;min35;min36;min37;min38;min39;min40;min41;min42;min43;min44;min45;min46;min47;min48
+
+max34 = max(combined$QSS)
+max35 = max(combined$TSS)
+max36 = max(combined$QCON)
+max37 = max(combined$LogHAL)
+max38 = max(combined$LogSUB)
+max39 = max(combined$Length)
+max40 = max(combined$Ortho)
+max41 = max(combined$Phono)
+max42 = max(combined$Phonemes)
+max43 = max(combined$Syllables)
+max44 = max(combined$Morphemes)
+max45 = max(combined$AOA)
+max46 = max(combined$Valence)
+max47 = max(combined$Imageability)
+max48 = max(combined$Familiarity)
+
+max34;max35;max36;max37;max38;max39;max40;max41;max42;max43;max44;max45;max46;max47;max48
+```
+
+```{r, echo=FALSE, results='asis'}
+####overall network####
+tableprint1 = matrix(NA, nrow = 3, ncol = 6)
+
+colnames(tableprint1) = c("Variable", "Citation", "Mean", "SD",
+                         "Min", "Max")
+
+tableprint1[1, ] = c("FSG", "Nelson, McEvoy, and Schrieber, 2004", m1, sd1 ,min1, max1)
+tableprint1[2, ] = c("COS", "Maki, McKinley, & Thompson, 2004", m2, sd2, min2, max2)
+tableprint1[3, ] = c("LSA", "Landauer and Dumais, 1997", m3, sd3, min3, max3)
+
+apa_table(tableprint1,
+          align = c(rep("l", 2), rep("c", 4)), 
+          caption = "Summary Statistics for Network Norms",
+          note = "COS: Cosine, FSG: Forward Strength, LSA: Latent Semantic Analysis."
+)
+
+####single cue####
+tableprint2 = matrix(NA, nrow = 15, ncol = 6)
+colnames(tableprint2) = c("Variable", "Citation", "Mean", 
+                         "SD", "Min", "Max")
+
+tableprint2[1, ] = c("QSS", "Nelson et al., 2004", m4, sd4, min4, max4)
+tableprint2[2, ] = c("TSS", "Nelson et al., 2004",  m5, sd5, min5, max5)
+tableprint2[3, ] = c("Concreteness", "Nelson et al., 2004", m6, sd6, min6, max6)
+tableprint2[4, ] = c("HAL Frequency", "Lund & Burgess, 1996", m7, sd7, min7, max7)
+tableprint2[5, ] = c("SUBTLEX Frequency", "Brysbaert and New, 2009", m8, sd8, min8, max8)
+tableprint2[6, ] = c("Length", "Buchanan et al., 2013", m9, sd9, min9, max9)
+tableprint2[7, ] = c("Ortho N", "Buchanan et al., 2013", m10, sd10, min10, max10)
+tableprint2[8, ] = c("Phono N", "Buchanan et al., 2013", m11, sd11, min11, max11)
+tableprint2[9, ] = c("Phonemes", "Buchanan et al., 2013", m12, sd12, min12, max12)
+tableprint2[10, ] = c("Syllables", "Buchanan et al., 2013", m13, sd13, min13, max13)
+tableprint2[11, ] = c("Morphemes", "Buchanan et al., 2013", m14, sd14, min14, max14)
+tableprint2[12, ] = c("AOA", "Kuperman et al., 2012", m15, sd15, min15, max15)
+tableprint2[13, ] = c("Valence", "Warriner et al., 2013", m16, sd16, min16, max16)
+tableprint2[14, ] = c("Imageability", "Toglia and Battig, 1978", m17, sd17, min17, max17)
+tableprint2[15, ] = c("Familiarity", "Toglia and Battig, 1978", m18, sd18, min18, max18)
+
+apa_table(tableprint2,
+          align = c(rep("l", 2), rep("c", 4)), 
+          caption = "Summary Statistics of Single Word Norms for Cue Items",
+          note = ""
+)
+
+####single target####
+tableprint3 = matrix(NA, nrow = 15, ncol = 6)
+colnames(tableprint3) = c("Variable", "Citation", "Mean", 
+                          "SD", "Min", "Max")
+
+tableprint3[1, ] = c("QSS", "Nelson et al., 2004", m19, sd19, min19, max19)
+tableprint3[2, ] = c("TSS", "Nelson et al., 2004", m20, sd20, min20, max20)
+tableprint3[3, ] = c("Concreteness", "Nelson et al., 2004", m21, sd21, min21, max21)
+tableprint3[4, ] = c("HAL Frequency", "Lund & Burgess, 1996", m22, sd22, min22, max22)
+tableprint3[5, ] = c("SUBTLEX Frequency", "Brysbaert and New, 2009",m23, sd23, min23, max23)
+tableprint3[6, ] = c("Length", "Buchanan et al., 2013", m24, sd24, min24, max24)
+tableprint3[7, ] = c("Ortho N", "Buchanan et al., 2013", m25, sd25, min25, max25)
+tableprint3[8, ] = c("Phono N", "Buchanan et al., 2013", m26, sd26, min26, max26)
+tableprint3[9, ] = c("Phonemes", "Buchanan et al., 2013", m27, sd27, min27, max27)
+tableprint3[10, ] = c("Syllables", "Buchanan et al., 2013", m28, sd28, min28, max28)
+tableprint3[11, ] = c("Morphemes", "Buchanan et al., 2013", m29, sd29, min29, max29)
+tableprint3[12, ] = c("AOA", "Kuperman et al., 2012", m30, sd30, min30, max30)
+tableprint3[13, ] = c("Valence", "Warriner et al., 2013", m31, sd31, min31, max31)
+tableprint3[14, ] = c("Imageability", "Toglia and Battig, 1978", m32, sd32, min32, max32)
+tableprint3[15, ] = c("Familiarity", "Toglia and Battig, 1978", m33, sd33, min33, max33)
+
+apa_table(tableprint3,
+          align = c(rep("l", 2), rep("c", 4)), 
+          caption = "Summary Statistics of Single Word Norms for Target Items",
+          note = ""
+)
+
+####overall single####
+tableprint4 = matrix(NA, nrow = 15, ncol = 6)
+colnames(tableprint4) = c("Variable", "Citation", "Mean", 
+                          "SD", "Min", "Max")
+
+tableprint4[1, ] = c("QSS", "Nelson et al., 2004", m34, sd34, min34, max34)
+tableprint4[2, ] = c("TSS", "Nelson et al., 2004", m35, sd35, min35, max35)
+tableprint4[3, ] = c("Concreteness", "Nelson et al., 2004", m36, sd36, min36, max36)
+tableprint4[4, ] = c("HAL Frequency", "Lund & Burgess, 1996", m37, sd37, min37, max37)
+tableprint4[5, ] = c("SUBTLEX Frequency", "Brysbaert and New, 2009", m38, sd38, min38, max38)
+tableprint4[6, ] = c("Length", "Buchanan et al., 2013", m39, sd39, min39, max39)
+tableprint4[7, ] = c("Ortho N", "Buchanan et al., 2013", m40, sd40, min40, max40)
+tableprint4[8, ] = c("Phono N", "Buchanan et al., 2013", m41, sd41, min41, max41)
+tableprint4[9, ] = c("Phonemes", "Buchanan et al., 2013", m42, sd42, min42, max42)
+tableprint4[10, ] = c("Syllables", "Buchanan et al., 2013", m43, sd43, min43, max43)
+tableprint4[11, ] = c("Morphemes", "Buchanan et al., 2013", m44, sd44, min44, max44)
+tableprint4[12, ] = c("AOA", "Kuperman et al., 2012", m45, sd45, min45, max45)
+tableprint4[13, ] = c("Valence", "Warriner et al., 2013", m46, sd46, min46, max46)
+tableprint4[14, ] = c("Imageability", "Toglia and Battig, 1978", m47, sd47, min47, max47)
+tableprint4[15, ] = c("Familiarity", "Toglia and Battig, 1978", m48, sd48, min48, max48)
+
+apa_table(tableprint4,
+          align = c(rep("l", 2), rep("c", 4)), 
+          caption = "Summary Statistics of Single Word Norms for All Items",
+          note = ""
+)
+```
+
+
+## Procedure
+
+This study will be divided into three sections. First, participants will be presented with word pairs and will be asked to judge how related the items are to one another. This section will comprise three blocks, with each block containing 21 word pairs. Each item block will be preceded by a set of instructions explaining one of the three types of relationships. Participants will also be provided with examples illustrating the type of relationship to be judged. The associative instructions explain associative relationships between concepts, how these relationships can be strong or weak, and the role of free association tasks in determining the magnitude of these relationships. The semantic instructions will provide participants with a brief overview of how words can be related by meaning and will give participants examples of item pairs with high and low levels of semantic overlap. Finally, the thematic instructions will explain how concepts can be connected by overarching themes. These instruction sets are modeled after @Buchanan2010 and [@Valentine2013].
+
+	Participants will then rate the relatedness of the word pairs based on the set of instructions they receive at the start of each judgment block. These judgments will be made using a scale of zero (no relatedness between pairs) to one hundred (a perfect relationships). Judgments were recorded by the participant typing it into the survey. Participants will complete each of the three judgment blocks in this manner, with judgment instructions changing with each block. Three versions of the study will be created to counter balance the order in which judgment blocks appear. Participants will be randomly assigned to survey conditions. After completing the judgment blocks, participants will be presented with a short distractor task to account for recency effects. This section will be timed to last two minutes, and will task participants with alphabetizing a scrambled list of the fifty U.S. states. Once two minutes elapses, participants will automatically progress to a cued recall task, in which they will be presented with each of the 63 cues that had previously been judged as cue-target pairs. Participants will be asked to complete each word pair with the appropriate target word, based on the available cue word. Presentation of these pairs will be randomized, and participants will be informed that there is no penalty for guessing. 
+
+# Results
+
+First, the results from the recall section will be coded as zero for incorrect responses and one for correct responses. NA will be used to denote missing responses from participants who did not complete the recall section. Responses that are words instead of numbers in the judgment phase will be deleted and treated as missing data. Data will then be screened for out of range judgment responses (i.e., responses greater than 100), recall and judgment scores will be screened for outliers using Mahalanobis distance at p < .001, and multicollinearity between predictor variables will be measured with Pearson correlations. Mean judgment and recall scores will also be reported for each judgment condition.
+
+	Multilevel modeling will then be used to analyze the data. First, network norms and neighborhood norms will be mean centered, so as to control for multicollinearity. Next, two maximum likelihood multilevel models will be created. These models will be both use the network norms as predictors and will examine their effects on recall and judgments. The goal of these models is to replicate three-way interaction findings from the pilot study. If significant three-way interactions are found between the network norms, these interactions will be broken down with moderation analyses. Finally, neighborhood norms will be added introduced into each model in steps. Initially, base word norms will be added, followed by lexical information, rated properties, and norms measuring neighborhood connections.
+
+\newpage
+
+# References
+```{r create_r-references}
+r_refs(file = "r-references.bib")
+```
+
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
