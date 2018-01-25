@@ -389,7 +389,9 @@ apa_table(tableprint1,
           caption = "Summary Statistics for Network Norms",
           note = "COS: Cosine, FSG: Forward Strength, LSA: Latent Semantic Analysis."
 )
+```
 
+```{r}
 ####single cue####
 tableprint2 = matrix(NA, nrow = 15, ncol = 6)
 colnames(tableprint2) = c("Variable", "Citation", "Mean", 
@@ -416,7 +418,9 @@ apa_table(tableprint2,
           caption = "Summary Statistics of Single Word Norms for Cue Items",
           note = ""
 )
+```
 
+```{r}
 ####single target####
 tableprint3 = matrix(NA, nrow = 15, ncol = 6)
 colnames(tableprint3) = c("Variable", "Citation", "Mean", 
@@ -442,7 +446,9 @@ apa_table(tableprint3,
           caption = "Summary Statistics of Single Word Norms for Target Items",
           note = ""
 )
+```
 
+```{r}
 ####overall single####
 tableprint4 = matrix(NA, nrow = 15, ncol = 6)
 colnames(tableprint4) = c("Variable", "Citation", "Mean", 
