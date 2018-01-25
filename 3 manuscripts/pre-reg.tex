@@ -1,0 +1,848 @@
+\documentclass[english,man]{apa6}
+
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+
+% Table formatting
+\usepackage{longtable, booktabs}
+\usepackage{lscape}
+% \usepackage[counterclockwise]{rotating}   % Landscape page setup for large tables
+\usepackage{multirow}		% Table styling
+\usepackage{tabularx}		% Control Column width
+\usepackage[flushleft]{threeparttable}	% Allows for three part tables with a specified notes section
+\usepackage{threeparttablex}            % Lets threeparttable work with longtable
+
+% Create new environments so endfloat can handle them
+% \newenvironment{ltable}
+%   {\begin{landscape}\begin{center}\begin{threeparttable}}
+%   {\end{threeparttable}\end{center}\end{landscape}}
+
+\newenvironment{lltable}
+  {\begin{landscape}\begin{center}\begin{ThreePartTable}}
+  {\end{ThreePartTable}\end{center}\end{landscape}}
+
+  \usepackage{ifthen} % Only add declarations when endfloat package is loaded
+  \ifthenelse{\equal{\string man}{\string man}}{%
+   \DeclareDelayedFloatFlavor{ThreePartTable}{table} % Make endfloat play with longtable
+   % \DeclareDelayedFloatFlavor{ltable}{table} % Make endfloat play with lscape
+   \DeclareDelayedFloatFlavor{lltable}{table} % Make endfloat play with lscape & longtable
+  }{}%
+
+
+
+% The following enables adjusting longtable caption width to table width
+% Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
+\makeatletter
+\newcommand\LastLTentrywidth{1em}
+\newlength\longtablewidth
+\setlength{\longtablewidth}{1in}
+\newcommand\getlongtablewidth{%
+ \begingroup
+  \ifcsname LT@\roman{LT@tables}\endcsname
+  \global\longtablewidth=0pt
+  \renewcommand\LT@entry[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}%
+  \@nameuse{LT@\roman{LT@tables}}%
+  \fi
+\endgroup}
+
+
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            pdfauthor={},
+            pdftitle={We need a reall title here, something with a colon},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=black,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+
+\setlength{\parindent}{0pt}
+%\setlength{\parskip}{0pt plus 0pt minus 0pt}
+
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage{}
+\else
+  \usepackage[english]{babel}
+\fi
+
+% Manuscript styling
+\captionsetup{font=singlespacing,justification=justified}
+\usepackage{csquotes}
+\usepackage{upgreek}
+
+ % Line numbering
+  \usepackage{lineno}
+  \linenumbers
+
+
+\usepackage{tikz} % Variable definition to generate author note
+
+% fix for \tightlist problem in pandoc 1.14
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Essential manuscript parts
+  \title{We need a reall title here, something with a colon}
+
+  \shorttitle{Title}
+
+
+  \author{Nicholas P. Maxwell\textsuperscript{1}~\& Erin M. Buchanan\textsuperscript{1}}
+
+  \def\affdep{{"", ""}}%
+  \def\affcity{{"", ""}}%
+
+  \affiliation{
+    \vspace{0.5cm}
+          \textsuperscript{1} Missouri State University  }
+
+  \authornote{
+    \newcounter{author}
+    Nicholas P. Maxwell is a graduate student at Missouri State University.
+    Erin M. Buchanan is an Associate Professor of Psychology at Missouri
+    State University
+
+                      Correspondence concerning this article should be addressed to Nicholas P. Maxwell, 901 S. National Ave, Springfield, MO, 65897. E-mail: \href{mailto:maxwell270@live.missouristate.edu}{\nolinkurl{maxwell270@live.missouristate.edu}}
+                          }
+
+
+  \abstract{Enter abstract here (note the indentation, if you start a new
+paragraph).}
+  \keywords{keywords \\
+
+    \indent Word count: X
+  }
+
+
+
+
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\begin{document}
+
+\maketitle
+
+\setcounter{secnumdepth}{0}
+
+
+
+Test test test
+
+Previous research conducted on judgments of associative memory (JAM) has
+found that these judgments tend to be stable and highly generalizable
+across varying contexts (Maki, 2007a, 2007b; Valentine \& Buchanan,
+2013). This task can be viewed as a manipulation of the traditional
+judgment of learning task (JOL). In a judgment of learning task,
+participants are presented with cue-target word pairs and are asked to
+make a judgment (typically on a scale of zero to 100) of how accurately
+they would be able to respond with the proper target word based on the
+presentation of a particular cue word (Dunlosky \& Nelson, 1994; Nelson
+\& Dunlosky, 1991). JAM tasks expand upon this concept by changing the
+focus of the judgments performed by participants. When presented with
+the item pair, such as cheese-mouse, participants are asked to judge the
+number of people out of 100 who would respond with the pair's target
+word if they were only shown the cue (Maki, 2007a).
+
+This process mimics the creation of associative words norms (i.e.,
+forward strength; D. L. Nelson, McEvoy, and Schreiber (2004)). As such,
+these judgments can be viewed as the participants' approximations of how
+associatively related they perceive the paired items to be. The JAM
+function can then be created by plotting participant judgments against
+the word's normed associative strength and calculating a line of best
+fit. This fit line typically displays a high intercept (bias) and a
+shallow slope (sensitivity), meaning that participants are biased
+towards overestimating the associative relatedness between word pairs,
+and show difficulties differentiating between different amounts of item
+relatedness (Maki, 2007a).
+
+Building upon this research, we initially completed a pilot study in
+which we sought to examine recall accuracy within the context of item
+judgments, while also expanding the JAM task to incorporate judgments of
+semantic and thematic memory. In the pilot study, 63 word-pairs of
+varying associative, semantic, and thematic overlap were created and
+arranged into three blocks, consisting of 21 word-pairs each.
+Associative overlap was measured with forward strength (FSG; D. L.
+Nelson et al. (2004)), semantic overlap was measured with cosine (COS;
+McRae, Cree, Seidenberg, and McNorgan (2005)), and thematic relatedness
+between pairs was measured with latent semantic analysis (LSA; Landauer
+and Dumais (1997); Landauer, Foltz, and Laham (1998)). Participants were
+randomly assigned to a condition in which they received a set of
+instructions explaining either an associative, semantic, or thematic
+relationship between words. Participants then judged the word-pairs in
+each block based on the instructions that they received. The order of
+block presentation and judgment instructions were counterbalanced so
+that each word-pair received each of the three types of judgments. After
+completing the judgment phase, participants then completed a cued recall
+task in which they were presented with the cue word from each of the
+previously presented word pairs and were asked to complete each pair
+with the missing target.
+
+Multilevel modeling was then used to predict recall and judgment scores.
+This type of analysis was selected due to its ability to retain all data
+points while controlling for correlated error between participants.
+Significant three-way interactions were found between database norms
+when predicting judgments (\(\beta\) = 3.324, \(p\) \textless{} .001)
+and recall (\(\beta\) = 24.571, \(p\) \textless{} .001). Simple slopes
+analyses were then conducted to further examine these interactions. When
+semantic overlap was low, thematic and associative strength were
+competitive, with increases in thematic overlap decreasing the strength
+of associative overlap as a predictor. However, this trend saw a
+reversal when semantic overlap was high, with thematic and associative
+strength complimenting one another. This result was found when investing
+the three-way interactions for both the judgment and recall tasks.
+Overall, our findings from this study indicated the degree to which the
+processing of associative, semantic, and thematic information impacts
+retrieval and judgment making, while also displaying the interactive
+relationship that exists between these three types of information.
+
+The proposed study seeks to expand upon this work by extending the
+original analysis to include multiple single word norms. These norms
+provide information about different \enquote{neighborhoods} of concept
+information. Broadly speaking, they can be separated into one of three
+categories. Base values refer to norms which capture information based
+on a word's structure. These include part of speech (PoS), word
+frequency, and the number of syllables, morphemes, and phonemes that
+comprise a word. Rated values refer to age of acquisition (AoA),
+concreteness, imageability, valence, and familiarity. Finally, we seek
+to examine norms that provide information about the connections a word
+shares with others based on context. These norms include orthographic
+neighborhood, phonographic neighborhood, cue and target set sizes, and
+feature set size.
+
+First, we are interested in assessing the impact of base word norms.
+Chief amongst these is word frequency. Several sets of norms currently
+exist for measuring the frequency with which words occur in everyday
+language, and it is important to determine which of these offers the
+best representation of everyday language. One of the most commonly used
+collections of these norms is the Kucera and Francis (1967) frequency
+norms. This set consists of frequency values for words, which were
+generated by analyzing books, magazines, and newspapers. However, the
+validity of using these norms has been questioned on factors such as the
+properties of the sources analyzed, the size of the corpus analyzed, and
+the overall age of these norms. First, these norms were created from an
+analysis of written text. It is important to keep in mind that
+stylistically, writing tends to be more formal than everyday language
+and as a result, it may not be the best approximation of it (Brysbaert
+\& New, 2009). Additionally, these norms were generated fifty years ago,
+meaning that these norms may not accurately reflect the current state of
+the English language. As such, the Kucera and Francis norms may not be
+the best choice for researchers interested in gauging the effects of
+word frequency.
+
+Several viable alternatives to the KF frequency norms now exist. One
+popular method is to use frequency norms obtained from the HAL corpus,
+which consists of 131 million words (Burgess and Lund (1997); Lund and
+Burgess (1996)). Other collections of frequency norms include CELEX
+(Baayen, Piepenbrock, \& Gulikers, 1995) which is based on written text,
+the Zeno frequency norms (Zeno, Ivens, Millard, \& Duvvuri, 1995) which
+were created from American children's textbooks, and Google Book's
+collection of word frequencies which is derived from 131 billion words
+taken from books published in the United States. (See Brysbaert,
+Keuleers, and New (2011) for an overview and comparison of these norms
+to SUBLTEX). For the present study, we plan to use data taken from the
+both the SUBTLEX project (Brysbaert \& New, 2009), which is a collection
+of frequency norms derived from a corpus of approximately 51 million
+words, which were generated from movie and television subtitles, and the
+HAL corpus. SUBTLEX norms are thought to better approximate everyday
+language, as lines from movies and television tend to be more reflective
+of everyday speech than writing samples. Additionally, the larger corpus
+size of both SUBTLEX and HAL contributes to the validity of these norms
+compared to KF frequency norms.
+
+Next, we are interested in testing the effects of several measures of
+lexical information related to the physical make-up of words. These
+measures include the numbers of phonemes, morphemes, and syllables that
+comprise each word as well as its part of speech. The number of phonemes
+refers to the number of individual sounds that comprise a word (i.e.,
+the word CAT has three phonemes, each of which correspond to the sounds
+its letters make), while the term morpheme refers to the number of sound
+units that contain meaning. DRIVE contains one morpheme, while DRIVER
+contains two. Morphemes typically consist of root words and their
+affixes. We are also interested in word length (measured as the number
+of individual characters a word consists of) and the number of syllables
+a word contains, as previous research has suggested that the number of
+syllables may play a role in processing time. In general, longer words
+require longer processing time (Kuperman, Stadthagen-Gonzalez, \&
+Brysbaert, 2012), and shorter words tend to be more easily remembered
+(Cowan, Baddeley, Elliott, \& Norris, 2003). Finally, we are interested
+in the part of speech of each word. For the present study, part of
+speech will be coded as nouns, verbs, adjectives, and other, and will be
+based on category size.
+
+Third, we are interested in exploring the effects of norms measuring
+word properties that are rated by participants. The first of these is
+age of acquisition (AoA), which is a measure of the age at which a word
+is learned. This norm is measured by presenting participants with a word
+and having them enter the age (in years) in which they believe that they
+would have learned the word (Kuperman et al., 2012). AoA ratings have
+been found to be predictive of recall. For example, Dewhurst, Hitch, and
+Barry (1998) found recall to be higher for late acquired words. Also of
+interest are measures of a word's valence, which refers to its intrinsic
+pleasantness or perceived positiveness. Valence ratings are important
+across multiple psycholinguistic research settings. These include
+research on emotion, the impact of emotion of lexical processing and
+memory, estimating the sentiments of larger passages of text, and
+estimating the emotional value of new words based on valence ratings of
+semantically similar words (See Warriner, Kuperman, and Brysbaert (2013)
+for a review). The next of these rated measures is concreteness, which
+refers to the degree that a word relates to a perceptible object
+(Brysbaert, Warriner, \& Kuperman, 2013). Similar to concreteness,
+imageability is described as being a measure of a word's ability to
+generate a mental image (Stadthagen-Gonzalez \& Davis, 2006). Both
+imageability and concreteness have been linked to recall, as items rated
+higher in these areas tend to be more easily recalled (Nelson \&
+Schreiber, 1992) Finally, familiarity norms can be described as an
+application of word frequency. These norms measure the frequency of
+exposure to a particular word (Stadthagen-Gonzalez \& Davis, 2006).
+
+The final group of norms that we are interested in examining are those
+which provide information based on connections with neighboring words.
+Phonographic neighborhood refers to refers to the number of words that
+can be created by changing one sound in a word (i.e., CAT to KITE).
+Similarly, orthographic neighborhood refers to the number of words
+created by changing a single letter in word (i.e., CAT to BAT, Adelman
+and Brown (2007); Peereman and Content (1997)). Previous findings have
+suggested that the frequency of a target word relative to that of its
+orthographic neighbors has an effect on recall, increasing the
+likelihood of recall for that word (Carreiras, Perea, \& Grainger,
+1997). Additionally, both of measures have been found to effect
+processing speed for items (Buchanan, Holmes, Teasley, and Hutchison
+(2013); Adelman and Brown (2007); Coltheart, Davelaar, Jonasson, and
+Besner (1977)). Next, we are interested in examining two single word
+norms that are directly related to item associations. These norms
+measure the number of associates a word shares connections with. Cue set
+size (QSS) refers to the number of cue words that a target word is
+connected to, while target set size (TSS) is a count of the number of
+target words a cue word is connected to (Schreiber and Nelson (1998)).
+Previous research has shown that cue words that are linked to a larger
+number of associates (target words) tend to be less likely to be
+recalled than cue words with smaller target sets (D. L. Nelson,
+Schreiber, \& Xu, 1999). We will also calculate these values for the
+semantic feature overlap and thematic overlap norms. Finally, feature
+list sizes will be calculated for each word overlap norm from the
+Buchanan et al. 2013 semantic feature norm set.
+
+\begin{verbatim}
+In summary, this study seeks to expand upon previous work by examining how single word norms belonging to these three neighborhoods of item information impact the accuracy of item judgments and recall. These findings will be assessed within the context of associative, semantic, and thematic memory systems. Specifically, we utilize a three-tiered view of the interconnections between these systems as it relates to processing concept information. First, semantic information is processed, which provides a means for categorizing concepts based on feature similarity. Next, processing moves into the associative memory network, where contextual information pertaining to the items is added. Finally, the thematic network incorporates information from both the associative and semantic networks to generate a mental representation of the concept containing both the items meaning and its place in the world.
+\end{verbatim}
+
+As such, the present study has two aims. First, we seek to replicate the
+interaction results from the pilot study using a new set of stimuli.
+These three-way interactions occurred between the associative, semantic,
+and thematic database norms when predicting participant judgments and
+recall. Second, we wish to expand upon these findings by extending the
+analysis to include neighborhood information for the item pairs. The
+extended analysis will be run by introducing the different types single
+word norms through a series of steps based on the type of neighborhood
+they belong to. First, base word norms will be analyzed. Next, measures
+of word ratings will be analyzed. Third, single word norms measuring
+connections between concepts will be analyzed. Finally, network norms
+and their interactions will be reanalyzed. The end goal is to determine
+both which neighborhood of norms have the greatest overall impact on
+recall and judgment ability, and to further assess the impact of network
+connections after controlling for the various neighborhoods of single
+word information.
+
+\section{Methods}\label{methods}
+
+\subsection{Participants}\label{participants}
+
+A power analysis was conducted using the \(SIMR\) package in \(R\)
+(Green \& MacLeod, 2016), which uses simulations to calculate power for
+mixed linear models created from the \(LME4\) and \(nlme\) packages (D.
+Bates, Machler, Bolker, \& Walker, 2015; Pinheiro, Bates, Debroy,
+Sarkar, \& R Core Team, 2017). The results of this analyses suggested a
+minimum of 35 participants was required to find an effect at 80\% power.
+However, because power often is underestimated (Brysbaert \& Stevens,
+2018), we plan to extend the analysis to include 200 participants, a
+number determined by the amount of available funding. Participants will
+be recruited from Amazon's Mechanical Turk, which is a website where
+individuals can host projects and be connected with a large respondent
+pool who complete tasks for small amounts of money (Buhrmester, Kwang,
+\& Gosling, 2011). Participants will be paid \$2.00 for their
+participation. Participant responses will be screened for a basic
+understanding of study instructions.
+
+\subsection{Material}\label{material}
+
+First, mimicking the design of the original pilot study, sixty-three
+word pairs of varying associative, semantic, and thematic overlap were
+created to use as stimuli. These word pairs were created using the
+Buchanan et al. (2013) word norm database. Next, neighborhood
+information for all cue and target items was collected. Word frequency
+was collected from the SUBTLEX project (Brysbaert \& New, 2009) and the
+HAL corpus (Burgess \& Lund, 1997). Part of speech (POS), word length,
+and the number of morphemes, phonemes, and syllables of each item was
+derived from the Buchanan et al. (2013) word norms. For items with
+multiple parts of speech (for example, Drink can refer to both a
+beverage and the act of drinking a beverage), the most commonly used
+form was used. Following the design of Buchanan et al. (2013), this was
+determined using Google's \enquote{Define}" feature. Concreteness, cue
+set size (QSS), and target set size (TSS) were taken from the South
+Florida Free Association Norms (D. L. Nelson et al., 2004). Imageability
+and familiarity norms were taken from the (Toglia, 2009; Toglia \&
+Battig, 1978) semantic word norms. Age of acquisition ratings (AoA) were
+pulled from the (Kuperman et al., 2012) database. Finally, valence
+ratings for all items were obtained from the (Warriner et al., 2013)
+norms. After gathering neighborhood information, network norms measuring
+associative, semantic, and thematic overlap were generated for each
+pair. Forward strength (FSG) was used as a measure of associative
+overlap. FSG is a value ranging from zero to one which measures of the
+probability that a cue word will elicit a particular target word in
+response to it (D. L. Nelson et al., 2004). Cosine (COS) strength was
+used to measure semantic overlap between concepts (Buchanan et al.
+(2013); McRae et al. (2005); Vinson and Vigliocco (2008)). As with FSG,
+this value ranges from zero to one, with higher values indicating more
+shared features between concepts. Finally, thematic overlap was measured
+with Latent Semantic Analysis (LSA), which is a measure generated based
+upon the co-occurrences of words within a document (Landauer \& Dumais,
+1997; Landauer et al., 1998). Like the measures of associative and
+semantic overlap, LSA values range from zero to one, with higher values
+indicating higher co-occurrence between items.
+
+\begin{verbatim}
+As such, the selected stimuli contained a range of values across both the network and neighborhood norms. As with the pilot study, stimuli will be arranged into three blocks, with each block consisting of 21 word pairs. The blocks will be structured to have seven words of low COS (0 - .33), medium COS (.34 - .66), and high COS (.67 - 1). COS was chosen due to both limitations with the size of the available dataset and the desire to recreate the selection process used for the pilot study. The result of this selection process is that values for the remaining network norms (FSG and LSA) and information neighborhood norms will be contingent upon the COS strengths of the selected stimuli. To counter this, we selected stimuli at random based on the different COS groupings so as to cover a broad range of FSG, LSA, and information neighborhood values.
+
+The stimuli will be presented to the participants online via Qualtrics surveys. Three different surveys will be created, which will counter-balance the order in which stimuli blocks are presented. Judgment conditions will be counter-balanced across blocks, so that each word pair receives a judgment for each type of memory. Finally, word pairs will be randomized within blocks. 
+\end{verbatim}
+
+\begin{table}[tbp]
+\begin{center}
+\begin{threeparttable}
+\caption{\label{tab:stim-table}Summary Statistics for Network Norms}
+\begin{tabular}{llcccc}
+\toprule
+Variable & \multicolumn{1}{c}{Citation} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{SD} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max}\\
+\midrule
+FSG & Nelson, McEvoy, and Schrieber, 2004 & 0.129619047619048 & 0.185730504431818 & 0.012 & 0.828\\
+COS & Maki, McKinley, and Thompson, 2004 & 0.418047852190476 & 0.293968441493145 & 0 & 0.837274111\\
+LSA & Landauer and Dumais, 1997 & 0.376225349206349 & 0.20317769658611 & 0.051331 & 0.879634\\
+\bottomrule
+\addlinespace
+\end{tabular}
+\begin{tablenotes}[para]
+\textit{Note.} COS: Cosine, FSG: Forward Strength, LSA: Latent Semantic Analysis.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+\begin{table}[tbp]
+\begin{center}
+\begin{threeparttable}
+\caption{\label{tab:stim-table}Summary Statistics of Single Word Norms for Cue Items}
+\begin{tabular}{llcccc}
+\toprule
+Variable & \multicolumn{1}{c}{Citation} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{SD} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max}\\
+\midrule
+QSS & Nelson et al., 2004 & 14.7619047619048 & 4.44940839022914 & 4 & 24\\
+TSS & Nelson et al., 2004 & 14.5873015873016 & 4.53529143579308 & 4 & 24\\
+Concreteness & Nelson et al., 2004 & 5.35206349206349 & 0.998381203830382 & 1.98 & 7\\
+HAL Frequency & Lund and Burgess, 1996 & 9.34031746031746 & 1.66721224557253 & 6.26 & 13.39\\
+SUBTLEX Frequency & Brysbaert and New, 2009 & 3.15444444444444 & 0.742102022761278 & 1.76 & 5.2\\
+Length & Buchanan et al., 2013 & 4.90476190476191 & 1.49961592625155 & 3 & 10\\
+Ortho N & Buchanan et al., 2013 & 7.44444444444444 & 5.91001822435315 & 0 & 19\\
+Phono N & Buchanan et al., 2013 & 19 & 15.1124814896229 & 0 & 51\\
+Phonemes & Buchanan et al., 2013 & 3.93650793650794 & 1.38974372054957 & 2 & 9\\
+Syllables & Buchanan et al., 2013 & 1.34920634920635 & 0.59996586351091 & 1 & 3\\
+Morphemes & Buchanan et al., 2013 & 1.0952380952381 & 0.295901341136934 & 1 & 2\\
+AOA & Kuperman et al., 2012 & 5.14920634920635 & 1.53225145496728 & 2.47 & 8.5\\
+Valence & Warriner et al., 2013 & 5.76730158730159 & 1.22517570346146 & 1.91 & 7.72\\
+Imageability & Toglia and Battig, 1978 & 5.51698412698413 & 0.684719473805514 & 3.22 & 6.61\\
+Familiarity & Toglia and Battig, 1978 & 6.17396825396825 & 0.2779332693323 & 5.58 & 6.75\\
+\bottomrule
+\addlinespace
+\end{tabular}
+\begin{tablenotes}[para]
+\textit{Note.} 
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+\begin{table}[tbp]
+\begin{center}
+\begin{threeparttable}
+\caption{\label{tab:stim-table}Summary Statistics of Single Word Norms for Target Items}
+\begin{tabular}{llcccc}
+\toprule
+Variable & \multicolumn{1}{c}{Citation} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{SD} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max}\\
+\midrule
+QSS & Nelson et al., 2004 & 15.4444444444444 & 4.85525248596908 & 5 & 26\\
+TSS & Nelson et al., 2004 & 15.4444444444444 & 4.85525248596908 & 5 & 26\\
+Concreteness & Nelson et al., 2004 & 5.4 & 1.007752209687 & 1.28 & 7\\
+NA & NA & NA & NA & NA & NA\\
+SUBTLEX Frequency & Brysbaert and New, 2009 & 3.33603174603175 & 0.642202710642504 & 1.59 & 4.74\\
+Length & Buchanan et al., 2013 & 4.61904761904762 & 1.66973603697702 & 3 & 10\\
+Ortho N & Buchanan et al., 2013 & 9.01587301587302 & 7.76985918312233 & 0 & 29\\
+Phono N & Buchanan et al., 2013 & 21.5079365079365 & 16.7089632271107 & 0 & 59\\
+Phonemes & Buchanan et al., 2013 & 3.6984126984127 & 1.49876207665419 & 1 & 10\\
+Syllables & Buchanan et al., 2013 & 1.25396825396825 & 0.537864773995255 & 1 & 3\\
+Morphemes & Buchanan et al., 2013 & 1.04761904761905 & 0.214669395370546 & 1 & 2\\
+AOA & Kuperman et al., 2012 & 4.87365079365079 & 1.56386545662044 & 2.5 & 9.16\\
+Valence & Warriner et al., 2013 & 5.84301587301587 & 1.26729917912914 & 1.95 & 7.89\\
+Imageability & Toglia and Battig, 1978 & 5.49857142857143 & 0.71003375009029 & 2.95 & 6.43\\
+Familiarity & Toglia and Battig, 1978 & 6.27809523809524 & 0.319409016490875 & 5.19 & 6.85\\
+\bottomrule
+\addlinespace
+\end{tabular}
+\begin{tablenotes}[para]
+\textit{Note.} 
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+\begin{table}[tbp]
+\begin{center}
+\begin{threeparttable}
+\caption{\label{tab:stim-table}Summary Statistics of Single Word Norms for All Items}
+\begin{tabular}{llcccc}
+\toprule
+Variable & \multicolumn{1}{c}{Citation} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{SD} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max}\\
+\midrule
+QSS & Nelson et al., 2004 & 15.1031746031746 & 4.65072788295229 & 4 & 26\\
+TSS & Nelson et al., 2004 & 15.015873015873 & 4.69890902569373 & 4 & 26\\
+Concreteness & Nelson et al., 2004 & 5.37603174603175 & 0.999347050320421 & 1.28 & 7\\
+HAL Frequency & Lund and Burgess, 1996 & 9.55825396825397 & 1.60321630698547 & 6.05 & 13.39\\
+SUBTLEX Frequency & Brysbaert and New, 2009 & 3.2452380952381 & 0.697156182542436 & 1.59 & 5.2\\
+Length & Buchanan et al., 2013 & 4.76190476190476 & 1.58709077965224 & 3 & 10\\
+Ortho N & Buchanan et al., 2013 & 8.23015873015873 & 6.92030369092305 & 0 & 29\\
+Phono N & Buchanan et al., 2013 & 20.2539682539683 & 15.9167516826451 & 0 & 59\\
+Phonemes & Buchanan et al., 2013 & 3.81746031746032 & 1.44444200243994 & 1 & 10\\
+Syllables & Buchanan et al., 2013 & 1.3015873015873 & 0.56948877101964 & 1 & 3\\
+Morphemes & Buchanan et al., 2013 & 1.07142857142857 & 0.2585674822114 & 1 & 2\\
+AOA & Kuperman et al., 2012 & 5.01142857142857 & 1.54812646216552 & 2.47 & 9.16\\
+Valence & Warriner et al., 2013 & 5.80515873015873 & 1.24200143905036 & 1.91 & 7.89\\
+Imageability & Toglia and Battig, 1978 & 5.50777777777778 & 0.694757383711913 & 2.95 & 6.61\\
+Familiarity & Toglia and Battig, 1978 & 6.22603174603175 & 0.302737059152207 & 5.19 & 6.85\\
+\bottomrule
+\addlinespace
+\end{tabular}
+\begin{tablenotes}[para]
+\textit{Note.} 
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+\subsection{Procedure}\label{procedure}
+
+This study will be divided into three sections. First, participants will
+be presented with word pairs and will be asked to judge how related the
+items are to one another. This section will comprise three blocks, with
+each block containing 21 word pairs. Each item block will be preceded by
+a set of instructions explaining one of the three types of
+relationships. Participants will also be provided with examples
+illustrating the type of relationship to be judged. The associative
+instructions explain associative relationships between concepts, how
+these relationships can be strong or weak, and the role of free
+association tasks in determining the magnitude of these relationships.
+The semantic instructions will provide participants with a brief
+overview of how words can be related by meaning and will give
+participants examples of item pairs with high and low levels of semantic
+overlap. Finally, the thematic instructions will explain how concepts
+can be connected by overarching themes. These instruction sets are
+modeled after Buchanan (2010) and (Valentine \& Buchanan, 2013).
+
+\begin{verbatim}
+Participants will then rate the relatedness of the word pairs based on the set of instructions they receive at the start of each judgment block. These judgments will be made using a scale of zero (no relatedness between pairs) to one hundred (a perfect relationships). Judgments were recorded by the participant typing it into the survey. Participants will complete each of the three judgment blocks in this manner, with judgment instructions changing with each block. Three versions of the study will be created to counter balance the order in which judgment blocks appear. Participants will be randomly assigned to survey conditions. After completing the judgment blocks, participants will be presented with a short distractor task to account for recency effects. This section will be timed to last two minutes, and will task participants with alphabetizing a scrambled list of the fifty U.S. states. Once two minutes elapses, participants will automatically progress to a cued recall task, in which they will be presented with each of the 63 cues that had previously been judged as cue-target pairs. Participants will be asked to complete each word pair with the appropriate target word, based on the available cue word. Presentation of these pairs will be randomized, and participants will be informed that there is no penalty for guessing. 
+\end{verbatim}
+
+\section{Results}\label{results}
+
+First, the results from the recall section will be coded as zero for
+incorrect responses and one for correct responses. NA will be used to
+denote missing responses from participants who did not complete the
+recall section. Responses that are words instead of numbers in the
+judgment phase will be deleted and treated as missing data. Data will
+then be screened for out of range judgment responses (i.e., responses
+greater than 100), recall and judgment scores will be screened for
+outliers using Mahalanobis distance at p \textless{} .001, and
+multicollinearity between predictor variables will be measured with
+Pearson correlations. Mean judgment and recall scores will also be
+reported for each judgment condition.
+
+\begin{verbatim}
+Multilevel modeling will then be used to analyze the data. First, network norms and neighborhood norms will be mean centered, so as to control for multicollinearity. Next, two maximum likelihood multilevel models will be created. These models will be both use the network norms as predictors and will examine their effects on recall and judgments. The goal of these models is to replicate three-way interaction findings from the pilot study. If significant three-way interactions are found between the network norms, these interactions will be broken down with moderation analyses. Finally, neighborhood norms will be added introduced into each model in steps. Initially, base word norms will be added, followed by lexical information, rated properties, and norms measuring neighborhood connections.
+\end{verbatim}
+
+\newpage
+
+\section{References}\label{references}
+
+\setlength{\parindent}{-0.5in} \setlength{\leftskip}{0.5in}
+
+\hypertarget{refs}{}
+\hypertarget{ref-Adelman2007}{}
+Adelman, J. S., \& Brown, G. D. A. (2007). Phonographic neighbors, not
+orthographic neighbors, determine word naming latencies.
+\emph{Psychonomic Bulletin \& Review}, \emph{14}, 455--459.
+
+\hypertarget{ref-Baayen1995}{}
+Baayen, R. H., Piepenbrock, R., \& Gulikers, L. (1995). The CELEX
+lexical database (CD-ROM). Philidelphia.
+
+\hypertarget{ref-Bates2015}{}
+Bates, D., Machler, M., Bolker, B., \& Walker, S. (2015). Fitting Linear
+Mixed-Effects Models Using lme4. \emph{Journal of Statistical Software},
+\emph{67}(1), 1--48.
+
+\hypertarget{ref-Brysbaert2009}{}
+Brysbaert, M., \& New, B. (2009). Moving beyond Kučera and Francis: A
+critical evaluation of current word frequency norms and the introduction
+of a new and improved word frequency measure for American English.
+\emph{Behavior Research Methods}, \emph{41}(4), 977--990.
+doi:\href{https://doi.org/10.3758/BRM.41.4.977}{10.3758/BRM.41.4.977}
+
+\hypertarget{ref-Brysbaert2018}{}
+Brysbaert, M., \& Stevens, M. (2018). Power Analysis and Effect Size in
+Mixed Effects Models: A Tutorial. \emph{Journal of Cognition},
+\emph{1}(1), 1--20.
+doi:\href{https://doi.org/10.5334/joc.10}{10.5334/joc.10}
+
+\hypertarget{ref-Brysbaert2011}{}
+Brysbaert, M., Keuleers, E., \& New, B. (2011). Assessing the usefulness
+of Google Books' word frequencies for psycholinguistic research on word
+processing. \emph{Frontiers in Psychology}, \emph{2}(MAR), 1--8.
+doi:\href{https://doi.org/10.3389/fpsyg.2011.00027}{10.3389/fpsyg.2011.00027}
+
+\hypertarget{ref-Brysbaert2013}{}
+Brysbaert, M., Warriner, A. B., \& Kuperman, V. (2013). Concreteness
+ratings for 40 thousand generally known English word lemmas.
+\emph{Behavior Research Methods}, \emph{41}, 977--990.
+
+\hypertarget{ref-Buchanan2010}{}
+Buchanan, E. M. (2010). Access into Memory: Differences in Judgments and
+Priming for Semantic and Associative Memory. \emph{Journal of Scientific
+Psychology.}, (March), 1--8. Retrieved from
+\href{http://www.psyencelab.com/images/Access\%7B/_\%7Dinto\%7B/_\%7DMemory\%7B/_\%7D\%7B/_\%7DDifferences\%7B/_\%7Din\%7B/_\%7DJudgments\%7B/_\%7Dand\%7B/_\%7DPriming\%7B/_\%7Dfor\%7B/_\%7DSemantic\%7B/_\%7Dand\%7B/_\%7DAssociative\%7B/_\%7DMemory.pdf}{http://www.psyencelab.com/images/Access\{\textbackslash{}\_\}into\{\textbackslash{}\_\}Memory\{\textbackslash{}\_\}\{\textbackslash{}\_\}Differences\{\textbackslash{}\_\}in\{\textbackslash{}\_\}Judgments\{\textbackslash{}\_\}and\{\textbackslash{}\_\}Priming\{\textbackslash{}\_\}for\{\textbackslash{}\_\}Semantic\{\textbackslash{}\_\}and\{\textbackslash{}\_\}Associative\{\textbackslash{}\_\}Memory.pdf}
+
+\hypertarget{ref-Buchanan2013}{}
+Buchanan, E. M., Holmes, J. L., Teasley, M. L., \& Hutchison, K. A.
+(2013). English semantic word-pair norms and a searchable Web portal for
+experimental stimulus creation. \emph{Behavior Research Methods},
+\emph{45}(3), 746--757.
+doi:\href{https://doi.org/10.3758/s13428-012-0284-z}{10.3758/s13428-012-0284-z}
+
+\hypertarget{ref-Buhrmester2011}{}
+Buhrmester, M., Kwang, T., \& Gosling, S. D. (2011). Amazon's Mechanical
+Turk. \emph{Perspectives on Psychological Science}, \emph{6}(1), 3--5.
+doi:\href{https://doi.org/10.1177/1745691610393980}{10.1177/1745691610393980}
+
+\hypertarget{ref-Burgess1997}{}
+Burgess, C., \& Lund, K. (1997). Representing abstract words and
+emotional connotation in a high-dimensional memory space.
+\emph{Proceedings of the Cognitive Science Society}, 61--66. Retrieved
+from
+\href{http://books.google.com/books?hl=en\%7B/\&\%7Dlr=\%7B/\&\%7Did=sQyJiDk45HEC\%7B/\&\%7Doi=fnd\%7B/\&\%7Dpg=PA61\%7B/\&\%7Ddq=representing+abstract+words+and+emotional+connotation+in+a+high+dimensional+memory+space\%7B/\&\%7Dots=59Iul8u8kD\%7B/\&\%7Dsig=-iCt-Jbg6O8i27OKajqGo\%7B/_\%7DADoko\%7B/\%\%7D5Cnpapers3://publication/uuid/FE5168D9-C7C7-4C0F}{http://books.google.com/books?hl=en\{\textbackslash{}\&\}lr=\{\textbackslash{}\&\}id=sQyJiDk45HEC\{\textbackslash{}\&\}oi=fnd\{\textbackslash{}\&\}pg=PA61\{\textbackslash{}\&\}dq=representing+abstract+words+and+emotional+connotation+in+a+high+dimensional+memory+space\{\textbackslash{}\&\}ots=59Iul8u8kD\{\textbackslash{}\&\}sig=-iCt-Jbg6O8i27OKajqGo\{\textbackslash{}\_\}ADoko\{\textbackslash{}\%\}5Cnpapers3://publication/uuid/FE5168D9-C7C7-4C0F}
+
+\hypertarget{ref-Carreiras1997}{}
+Carreiras, M., Perea, M., \& Grainger, J. (1997). Effects of
+orthographic neighborhood in visual word recognition: cross-task
+comparisons. \emph{Journal of Experimental Psychology. Learning, Memory,
+and Cognition}, \emph{23}(4), 857--871.
+doi:\href{https://doi.org/10.1037/0278-7393.23.4.857}{10.1037/0278-7393.23.4.857}
+
+\hypertarget{ref-Coltheart1977}{}
+Coltheart, M., Davelaar, E., Jonasson, T., \& Besner, D. (1977). Access
+to the internal lexicon. In S. Dornic (Ed.), \emph{Attention and
+performance vi} (pp. 535--555). Hillsdale, NJ: Earlbaum.
+
+\hypertarget{ref-Cowan2003}{}
+Cowan, N., Baddeley, A. D., Elliott, E. M., \& Norris, J. (2003). List
+composition and the word length effect in immediate recall: A comparison
+of localist and globalist assumptions. \emph{Psychonomic Bulletin and
+Review}, \emph{10}(1), 74--79.
+doi:\href{https://doi.org/10.3758/BF03196469}{10.3758/BF03196469}
+
+\hypertarget{ref-Dewhurst1998}{}
+Dewhurst, S. a., Hitch, G. J., \& Barry, C. (1998). Separate effects of
+word frequency and age of acquisition in recognition and recall.
+\emph{Journal of Experimental Psychology: Learning, Memory, and
+Cognition}, \emph{24}(2), 284--298.
+doi:\href{https://doi.org/10.1037/0278-7393.24.2.284}{10.1037/0278-7393.24.2.284}
+
+\hypertarget{ref-Dunlosky1994a}{}
+Dunlosky, J., \& Nelson, T. O. (1994). Does the sensitivity of judgments
+of learning (JOLs) to the effects of various study activities depend on
+when the JOLs occur?
+doi:\href{https://doi.org/10.1006/jmla.1994.1026}{10.1006/jmla.1994.1026}
+
+\hypertarget{ref-Green2016}{}
+Green, P., \& MacLeod, C. J. (2016). SIMR: An R Package for Power
+Analysis of Generalized Linear Mixed Models by Simulation. \emph{Methods
+in Ecology and Evolution}, \emph{7}(4), 493--498.
+
+\hypertarget{ref-Kucera1967}{}
+Kucera, H., \& Francis, W. N. (1967). \emph{Computational analysis of
+present-day English}. Providence, RI: Brown University Press.
+
+\hypertarget{ref-Kuperman2012}{}
+Kuperman, V., Stadthagen-Gonzalez, H., \& Brysbaert, M. (2012).
+Age-of-acquisition ratings for 30,000 English words. \emph{Behavior
+Research Methods}, \emph{44}(4), 978--990.
+doi:\href{https://doi.org/10.3758/s13428-012-0210-4}{10.3758/s13428-012-0210-4}
+
+\hypertarget{ref-Landauer1997}{}
+Landauer, T. K., \& Dumais, S. T. (1997). A solution to Plato's problem:
+The latent semantic analysis theory of acquisition, induction, and
+representation of knowledge. \emph{Psychological Review}, \emph{104}(2),
+211--240.
+doi:\href{https://doi.org/10.1037//0033-295X.104.2.211}{10.1037//0033-295X.104.2.211}
+
+\hypertarget{ref-Landauer1998}{}
+Landauer, T. K., Foltz, P. W., \& Laham, D. (1998). An introduction to
+latent semantic analysis. \emph{Discourse Processes}, \emph{25}(2),
+259--284.
+doi:\href{https://doi.org/10.1080/01638539809545028}{10.1080/01638539809545028}
+
+\hypertarget{ref-Lund1996}{}
+Lund, K., \& Burgess, C. (1996). Producing high-dimensional semantic
+spaces from lexical co-occurrence. \emph{Behavior Research Methods,
+Instruments, \& Computers}, \emph{28}(2), 203--208.
+doi:\href{https://doi.org/10.3758/BF03204766}{10.3758/BF03204766}
+
+\hypertarget{ref-Maki2007a}{}
+Maki, W. S. (2007a). Judgments of associative memory. \emph{Cognitive
+Psychology}, \emph{54}(4), 319--353.
+doi:\href{https://doi.org/10.1016/j.cogpsych.2006.08.002}{10.1016/j.cogpsych.2006.08.002}
+
+\hypertarget{ref-Maki2007}{}
+Maki, W. S. (2007b). Separating bias and sensitivity in judgments of
+associative memory. \emph{Journal of Experimental Psychology. Learning,
+Memory, and Cognition}, \emph{33}(1), 231--7.
+doi:\href{https://doi.org/10.1037/0278-7393.33.1.231}{10.1037/0278-7393.33.1.231}
+
+\hypertarget{ref-McRae2005}{}
+McRae, K., Cree, G. S., Seidenberg, M. S., \& McNorgan, C. (2005).
+Semantic feature production norms for a large set of living and
+nonliving things. \emph{Behavior Research Methods}, \emph{37}(4),
+547--559.
+doi:\href{https://doi.org/10.3758/BRM.40.1.183}{10.3758/BRM.40.1.183}
+
+\hypertarget{ref-Nelson2004}{}
+Nelson, D. L., McEvoy, C. L., \& Schreiber, T. A. (2004). The University
+of South Florida free association, rhyme, and word fragment norms.
+\emph{Behavior Research Methods, Instruments, \& Computers},
+\emph{36}(3), 402--407.
+doi:\href{https://doi.org/10.3758/BF03195588}{10.3758/BF03195588}
+
+\hypertarget{ref-Nelson1999}{}
+Nelson, D. L., Schreiber, T. A., \& Xu, J. (1999). Cue set size effects:
+sampling activated associates or cross-target interference? \emph{Memory
+\& Cognition}, \emph{27}(3), 465--477.
+doi:\href{https://doi.org/10.3758/BF03211541}{10.3758/BF03211541}
+
+\hypertarget{ref-Nelson1991}{}
+Nelson, T. O., \& Dunlosky, J. (1991). When people's judgments of
+learning (JOLs) are extremely acurate at predicting subsequent recall:
+The delayed-JOL effect. \emph{Psychological Science}, \emph{2}(4),
+267--270.
+doi:\href{https://doi.org/10.1111/j.1467-9280.1991.tb00147.x}{10.1111/j.1467-9280.1991.tb00147.x}
+
+\hypertarget{ref-Nelson1992}{}
+Nelson, T. O., \& Schreiber, T. A. (1992). Word concreteness and word
+structure as independent determinants of recall. \emph{Journal of Memory
+and Language}, \emph{31}, 237--260.
+
+\hypertarget{ref-Peereman1997}{}
+Peereman, R., \& Content, A. (1997). Orthographic and phonological
+neighborhoods in naming: Not all neighbors are equally influential in
+orthographic space. \emph{Journal of Memory and Language}, \emph{37},
+382--410.
+
+\hypertarget{ref-Pinheiro2017}{}
+Pinheiro, J., Bates, D., Debroy, S., Sarkar, D., \& R Core Team. (2017).
+nlme: Linear and Nonlinear Mixed Effects Models. Retrieved from
+\url{https://cran.r-project.org/package=nlme}
+
+\hypertarget{ref-Schreiber1998}{}
+Schreiber, T. A., \& Nelson, D. L. (1998). The relation between feelings
+of knowing and the number of neighboring concepts linked to the test
+cue. \emph{Memory \& Cognition}, \emph{26}(5), 869--83.
+doi:\href{https://doi.org/10.3758/BF03201170}{10.3758/BF03201170}
+
+\hypertarget{ref-Stadthagen-Gonzalez2006}{}
+Stadthagen-Gonzalez, H., \& Davis, C. J. (2006). The Bristol norms for
+age of acquisition, imageability, and familiarity. \emph{Behavior
+Research Methods}, \emph{38}, 598--605.
+
+\hypertarget{ref-Toglia2009}{}
+Toglia, M. P. (2009). Withstanding the test of time: The 1978 semantic
+word norms. \emph{Behavior Research Methods}, \emph{41}(2), 531--533.
+doi:\href{https://doi.org/10.3758/BRM.41.2.531}{10.3758/BRM.41.2.531}
+
+\hypertarget{ref-Toglia1978}{}
+Toglia, M. P., \& Battig, W. F. (1978). \emph{Handbook of semantic word
+norms}. Hillside, NJ: Earlbaum.
+
+\hypertarget{ref-Valentine2013}{}
+Valentine, K. D., \& Buchanan, E. M. (2013). JAM-boree: An application
+of observation oriented modelling to judgements of associative memory.
+\emph{Journal of Cognitive Psychology}, \emph{25}(4), 400--422.
+doi:\href{https://doi.org/10.1080/20445911.2013.775120}{10.1080/20445911.2013.775120}
+
+\hypertarget{ref-Vinson2008}{}
+Vinson, D. P., \& Vigliocco, G. (2008). Semantic feature production
+norms for a large set of objects and events. \emph{Behavior Research
+Methods}, \emph{40}(1), 183--190.
+doi:\href{https://doi.org/10.3758/BRM.40.1.183}{10.3758/BRM.40.1.183}
+
+\hypertarget{ref-Warriner2013}{}
+Warriner, A. B., Kuperman, V., \& Brysbaert, M. (2013). Norms of
+Valence, Arousal, and Dominance for 13,915 English Lemmas.
+\emph{Behavior Research Methods}, \emph{45}(4), 1191--1207.
+
+\hypertarget{ref-Zeno1995}{}
+Zeno, S. M., Ivens, S. H., Millard, R. T., \& Duvvuri, R. (1995).
+\emph{The educators's word frequency guide}. Brewster, NY: Touchstone
+Applied Science.
+
+
+
+
+
+
+\end{document}

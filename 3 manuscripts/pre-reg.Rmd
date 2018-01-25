@@ -81,7 +81,8 @@ library("papaja")
 	As such, the selected stimuli contained a range of values across both the network and neighborhood norms. As with the pilot study, stimuli will be arranged into three blocks, with each block consisting of 21 word pairs. The blocks will be structured to have seven words of low COS (0 - .33), medium COS (.34 - .66), and high COS (.67 - 1). COS was chosen due to both limitations with the size of the available dataset and the desire to recreate the selection process used for the pilot study. The result of this selection process is that values for the remaining network norms (FSG and LSA) and information neighborhood norms will be contingent upon the COS strengths of the selected stimuli. To counter this, we selected stimuli at random based on the different COS groupings so as to cover a broad range of FSG, LSA, and information neighborhood values.
 	
 	The stimuli will be presented to the participants online via Qualtrics surveys. Three different surveys will be created, which will counter-balance the order in which stimuli blocks are presented. Judgment conditions will be counter-balanced across blocks, so that each word pair receives a judgment for each type of memory. Finally, word pairs will be randomized within blocks. 
-```{r, include=FALSE}
+	
+```{r descriptives, include=FALSE}
 ####setup####
 dat = read.csv("stimuli jan 18.csv")
 
@@ -372,7 +373,7 @@ max48 = max(combined$Familiarity)
 max34;max35;max36;max37;max38;max39;max40;max41;max42;max43;max44;max45;max46;max47;max48
 ```
 
-```{r, echo=FALSE, results='asis'}
+```{r stim-table, echo=FALSE, results='asis'}
 ####overall network####
 tableprint1 = matrix(NA, nrow = 3, ncol = 6)
 
@@ -380,7 +381,7 @@ colnames(tableprint1) = c("Variable", "Citation", "Mean", "SD",
                          "Min", "Max")
 
 tableprint1[1, ] = c("FSG", "Nelson, McEvoy, and Schrieber, 2004", m1, sd1 ,min1, max1)
-tableprint1[2, ] = c("COS", "Maki, McKinley, & Thompson, 2004", m2, sd2, min2, max2)
+tableprint1[2, ] = c("COS", "Maki, McKinley, and Thompson, 2004", m2, sd2, min2, max2)
 tableprint1[3, ] = c("LSA", "Landauer and Dumais, 1997", m3, sd3, min3, max3)
 
 apa_table(tableprint1,
@@ -397,7 +398,7 @@ colnames(tableprint2) = c("Variable", "Citation", "Mean",
 tableprint2[1, ] = c("QSS", "Nelson et al., 2004", m4, sd4, min4, max4)
 tableprint2[2, ] = c("TSS", "Nelson et al., 2004",  m5, sd5, min5, max5)
 tableprint2[3, ] = c("Concreteness", "Nelson et al., 2004", m6, sd6, min6, max6)
-tableprint2[4, ] = c("HAL Frequency", "Lund & Burgess, 1996", m7, sd7, min7, max7)
+tableprint2[4, ] = c("HAL Frequency", "Lund and Burgess, 1996", m7, sd7, min7, max7)
 tableprint2[5, ] = c("SUBTLEX Frequency", "Brysbaert and New, 2009", m8, sd8, min8, max8)
 tableprint2[6, ] = c("Length", "Buchanan et al., 2013", m9, sd9, min9, max9)
 tableprint2[7, ] = c("Ortho N", "Buchanan et al., 2013", m10, sd10, min10, max10)
@@ -424,7 +425,6 @@ colnames(tableprint3) = c("Variable", "Citation", "Mean",
 tableprint3[1, ] = c("QSS", "Nelson et al., 2004", m19, sd19, min19, max19)
 tableprint3[2, ] = c("TSS", "Nelson et al., 2004", m20, sd20, min20, max20)
 tableprint3[3, ] = c("Concreteness", "Nelson et al., 2004", m21, sd21, min21, max21)
-tableprint3[4, ] = c("HAL Frequency", "Lund & Burgess, 1996", m22, sd22, min22, max22)
 tableprint3[5, ] = c("SUBTLEX Frequency", "Brysbaert and New, 2009",m23, sd23, min23, max23)
 tableprint3[6, ] = c("Length", "Buchanan et al., 2013", m24, sd24, min24, max24)
 tableprint3[7, ] = c("Ortho N", "Buchanan et al., 2013", m25, sd25, min25, max25)
@@ -451,7 +451,7 @@ colnames(tableprint4) = c("Variable", "Citation", "Mean",
 tableprint4[1, ] = c("QSS", "Nelson et al., 2004", m34, sd34, min34, max34)
 tableprint4[2, ] = c("TSS", "Nelson et al., 2004", m35, sd35, min35, max35)
 tableprint4[3, ] = c("Concreteness", "Nelson et al., 2004", m36, sd36, min36, max36)
-tableprint4[4, ] = c("HAL Frequency", "Lund & Burgess, 1996", m37, sd37, min37, max37)
+tableprint4[4, ] = c("HAL Frequency", "Lund and Burgess, 1996", m37, sd37, min37, max37)
 tableprint4[5, ] = c("SUBTLEX Frequency", "Brysbaert and New, 2009", m38, sd38, min38, max38)
 tableprint4[6, ] = c("Length", "Buchanan et al., 2013", m39, sd39, min39, max39)
 tableprint4[7, ] = c("Ortho N", "Buchanan et al., 2013", m40, sd40, min40, max40)
