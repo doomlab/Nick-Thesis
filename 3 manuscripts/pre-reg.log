@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2017.6.17)  25 JAN 2018 23:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2017.6.17)  26 JAN 2018 10:14
 entering extended mode
 **./pre-reg.tex
 (pre-reg.tex
@@ -1467,101 +1467,16 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [7]
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 363.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd"
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-Package microtype Info: Loading generic settings for font family
-(microtype)             `lmtt' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-
-Overfull \hbox (5120.47523pt too wide) in paragraph at lines 365--365
-[]\T1/lmtt/m/n/12 In summary, this study seeks to expand upon previous work by 
-examining how single word norms belonging to these three neighborhoods of item 
-information impact the accuracy of item judgments and recall. These findings wi
-ll be assessed within the context of associative, semantic, and thematic memory
- systems. Specifically, we utilize a three-tiered view of the interconnections 
-between these systems as it relates to processing concept information. First, s
-emantic information is processed, which provides a means for categorizing conce
-pts based on feature similarity. Next, processing moves into the associative me
-mory network, where contextual information pertaining to the items is added. Fi
-nally, the thematic network incorporates information from both the associative 
-and semantic networks to generate a mental representation of the concept contai
-ning both the items meaning and its place in the world.[] 
- []
-
-
-Underfull \vbox (badness 6542) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [8] [9]
-Overfull \hbox (4805.52907pt too wide) in paragraph at lines 445--445
-[]\T1/lmtt/m/n/12 As such, the selected stimuli contained a range of values acr
-oss both the network and neighborhood norms. As with the pilot study, stimuli w
-ill be arranged into three blocks, with each block consisting of 21 word pairs.
- The blocks will be structured to have seven words of low COS (0 - .33), medium
- COS (.34 - .66), and high COS (.67 - 1). COS was chosen due to both limitation
-s with the size of the available dataset and the desire to recreate the selecti
-on process used for the pilot study. The result of this selection process is th
-at values for the remaining network norms (FSG and LSA) and information neighbo
-rhood norms will be contingent upon the COS strengths of the selected stimuli. 
-To counter this, we selected stimuli at random based on the different COS group
-ings so as to cover a broad range of FSG, LSA, and information neighborhood val
-ues.[] 
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-Overfull \hbox (1859.76488pt too wide) in paragraph at lines 445--445
-[]\T1/lmtt/m/n/12 The stimuli will be presented to the participants online via 
-Qualtrics surveys. Three different surveys will be created, which will counter-
-balance the order in which stimuli blocks are presented. Judgment conditions wi
-ll be counter-balanced across blocks, so that each word pair receives a judgmen
-t for each type of memory. Finally, word pairs will be randomized within blocks
-.[] 
- []
-
+[10]
 \openout3 = `pre-reg.ttt'.
 
-(pre-reg.ttt) [10]
-Overfull \hbox (7825.11957pt too wide) in paragraph at lines 588--588
-[]\T1/lmtt/m/n/12 Participants will then rate the relatedness of the word pairs
- based on the set of instructions they receive at the start of each judgment bl
-ock. These judgments will be made using a scale of zero (no relatedness between
- pairs) to one hundred (a perfect relationships). Judgments were recorded by th
-e participant typing it into the survey. Participants will complete each of the
- three judgment blocks in this manner, with judgment instructions changing with
- each block. Three versions of the study will be created to counter balance the
- order in which judgment blocks appear. Participants will be randomly assigned 
-to survey conditions. After completing the judgment blocks, participants will b
-e presented with a short distractor task to account for recency effects. This s
-ection will be timed to last two minutes, and will task participants with alpha
-betizing a scrambled list of the fifty U.S. states. Once two minutes elapses, p
-articipants will automatically progress to a cued recall task, in which they wi
-ll be presented with each of the 63 cues that had previously been judged as cue
--target pairs. Participants will be asked to complete each word pair with the a
-ppropriate target word, based on the available cue word. Presentation of these 
-pairs will be randomized, and participants will be informed that there is no pe
-nalty for guessing.[] 
- []
-
-
-Overfull \hbox (4459.74991pt too wide) in paragraph at lines 606--606
-[]\T1/lmtt/m/n/12 Multilevel modeling will then be used to analyze the data. Fi
-rst, network norms and neighborhood norms will be mean centered, so as to contr
-ol for multicollinearity. Next, two maximum likelihood multilevel models will b
-e created. These models will be both use the network norms as predictors and wi
-ll examine their effects on recall and judgments. The goal of these models is t
-o replicate three-way interaction findings from the pilot study. If significant
- three-way interactions are found between the network norms, these interactions
- will be broken down with moderation analyses. Finally, neighborhood norms will
- be added introduced into each model in steps. Initially, base word norms will 
-be added, followed by lexical information, rated properties, and norms measurin
-g neighborhood connections.[] 
- []
-
-[11]
-Overfull \hbox (561.3493pt too wide) in paragraph at lines 654--658
+(pre-reg.ttt) [11] [12] [13]
+Overfull \hbox (561.3493pt too wide) in paragraph at lines 704--708
  [][]\T1/lmr/m/n/12 (-20) http://www.psyencelab.com/images/Access{\_}into{\_}Me
 mory{\_}{\_}Differences{\_}in{\_}Judgments{\_}and{\_}Priming{\_}for{\_}Semantic
 {\_}and{\_}Associative{\_}Memory.pdf[][]  
@@ -1570,51 +1485,50 @@ mory{\_}{\_}Differences{\_}in{\_}Judgments{\_}and{\_}Priming{\_}for{\_}Semantic
 
 Underfull \vbox (badness 1635) has occurred while \output is active []
 
-[12]
-Overfull \hbox (793.15718pt too wide) in paragraph at lines 672--677
+[14]
+Overfull \hbox (793.15718pt too wide) in paragraph at lines 722--727
  [][]\T1/lmr/m/n/12 (-20) http://books.google.com/books?hl=en{\&}lr={\&}id=sQyJ
 iDk45HEC{\&}oi=fnd{\&}pg=PA61{\&}dq=representing+abstract+words+and+emotional+c
 onnotation+in+a+high+dimensional+memory+space{\&}ots=59Iul8u8kD{\&}sig=- 
  []
 
-[13] [14] [15] AED endfloat: Processing end Figures and Tables [16] (pre-reg.tt
-t [17
+[15] [16] [17] AED endfloat: Processing end Figures and Tables [18] (pre-reg.tt
+t [19
 
-
-] [18
-
-] [19
 
 ] [20
 
+] [21
+
+] [22
+
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 845.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 845.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 895.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 895.
 (pre-reg.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 845.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 845.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 895.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 895.
 Package rerunfilecheck Info: File `pre-reg.out' has not changed.
 (rerunfilecheck)             Checksum: 66E1880A5FC9D8B44F0D9D5D8E7D7C4E;972.
  ) 
 Here is how much of TeX's memory you used:
- 25970 strings out of 493329
- 444045 string characters out of 3139063
- 540862 words of memory out of 3000000
- 28876 multiletter control sequences out of 15000+200000
- 50542 words of font info for 78 fonts, out of 3000000 for 9000
+ 25929 strings out of 493329
+ 443382 string characters out of 3139063
+ 542862 words of memory out of 3000000
+ 28838 multiletter control sequences out of 15000+200000
+ 50224 words of font info for 77 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,11n,54p,1362b,561s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 55i,11n,54p,838b,561s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files/M
 iKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/d
 vips/lm/lm-mathit.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx12
 .pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmmi12.pfb><C:/Program 
 Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/f
 onts/type1/public/lm/lmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/l
-m/lmri12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmss8.pfb><C:/P
-rogram Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt12.pfb>
-Output written on pre-reg.pdf (20 pages, 215236 bytes).
+m/lmri12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmss8.pfb>
+Output written on pre-reg.pdf (22 pages, 190463 bytes).
 PDF statistics:
- 257 PDF objects out of 1000 (max. 8388607)
- 77 named destinations out of 1000 (max. 500000)
- 11341 words of extra memory for PDF output out of 12000 (max. 10000000)
+ 262 PDF objects out of 1000 (max. 8388607)
+ 79 named destinations out of 1000 (max. 500000)
+ 10829 words of extra memory for PDF output out of 12000 (max. 10000000)
 
