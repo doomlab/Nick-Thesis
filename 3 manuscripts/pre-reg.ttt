@@ -47,6 +47,8 @@ AOA & Kuperman et al., 2012 & 5.15 & 1.53 & 2.47 & 8.5\\
 Valence & Warriner et al., 2013 & 5.77 & 1.23 & 1.91 & 7.72\\
 Imageability & Toglia and Battig, 1978 & 5.52 & 0.68 & 3.22 & 6.61\\
 Familiarity & Toglia and Battig, 1978 & 6.17 & 0.28 & 5.58 & 6.75\\
+FSS & Buchanan et al., 2013 & 17.37 & 11.61 & 5 & 48\\
+COSC & Buchanan et al., 2013 & 87.25 & 71.33 & 3 & 347\\
 \bottomrule
 \addlinespace
 \end{tabular}
@@ -83,6 +85,8 @@ AOA & Kuperman et al., 2012 & 4.87 & 1.56 & 2.5 & 9.16\\
 Valence & Warriner et al., 2013 & 5.84 & 1.27 & 1.95 & 7.89\\
 Imageability & Toglia and Battig, 1978 & 5.5 & 0.71 & 2.95 & 6.43\\
 Familiarity & Toglia and Battig, 1978 & 6.28 & 0.32 & 5.19 & 6.85\\
+FSS & Buchanan et al., 2013 & 16.7 & 11.62 & 5 & 54\\
+COSC & Buchanan et al., 2013 & 91.71 & 79.52 & 3 & 322\\
 \bottomrule
 \addlinespace
 \end{tabular}
@@ -119,6 +123,8 @@ AOA & Kuperman et al., 2012 & 5.01 & 1.55 & 2.47 & 9.16\\
 Valence & Warriner et al., 2013 & 5.8 & 1.24 & 1.91 & 7.89\\
 Imageability & Toglia and Battig, 1978 & 5.51 & 0.69 & 2.95 & 6.61\\
 Familiarity & Toglia and Battig, 1978 & 6.22 & 0.3 & 5.19 & 6.85\\
+FSS & Buchanan et al., 2013 & 17.04 & 11.57 & 5 & 54\\
+COSC & Buchanan et al., 2013 & 89.48 & 75.27 & 3 & 347\\
 \bottomrule
 \addlinespace
 \end{tabular}

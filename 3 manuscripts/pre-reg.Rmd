@@ -21,7 +21,7 @@ author_note: >
   Nicholas P. Maxwell is a graduate student at Missouri State University. Erin M. Buchanan is an Associate Professor of Psychology at Missouri State University.
 
 abstract: >
-  Enter abstract here (note the indentation, if you start a new paragraph).
+  This study examines the interactive relationship between semantic, thematic, and associative word pair strength in the prediction of item relatedness judgments and cued-recall performance. A pilot study was initially conducted and found significant three-way interactions between associative, semantic, thematic word overlap when predicting participant judgment strength and recall performance. For low semantic feature overlap, thematic and associative strength were competitive. As thematic strength increased, associative predictiveness decreased. However, this trend reversed for high semantic feature overlap, wherein thematic and associative strength were complimentary as both set of simple slopes increased together. These findings suggested a complex, three-tiered system in which feature information is first processed by the semantic memory system, has context added by the associative network, before being processes by the thematic system. The present study has two aims. First, we seek to replicate findings from the pilot study using a novel stimuli set. Second, we will investigate the affects of single concept information on relatedness judgments and recall accuaracy.
   
 keywords          : "judgments, memory, association, semantics, thematics"
 
@@ -122,8 +122,10 @@ m15 = round(mean(dat$AOA.1), digits = 2)
 m16 = round(mean(dat$Valence.1), digits = 2)
 m17 = round(mean(dat$Imageability.1), digits = 2)
 m18 = round(mean(dat$Familiarity.1), digits = 2)
+m49 = round(mean(dat$FSS.1), digits = 2)
+m50 = round(mean(dat$COSC.1), digits = 2)
 
-m4;m5;m6;m7;m8;m9;m10;m11;m12;m13;m14;m15;m16;m17;m18
+m4;m5;m6;m7;m8;m9;m10;m11;m12;m13;m14;m15;m16;m17;m18;m49;m50
 
 sd4 = round(sd(dat$QSS.1), digits = 2)
 sd5 = round(sd(dat$TSS.1), digits = 2)
@@ -140,8 +142,10 @@ sd15 = round(sd(dat$AOA.1), digits = 2)
 sd16 = round(sd(dat$Valence.1), digits = 2)
 sd17 = round(sd(dat$Imageability.1), digits = 2)
 sd18 = round(sd(dat$Familiarity.1), digits = 2)
+sd49 = round(sd(dat$FSS.1), digits = 2)
+sd50 = round(sd(dat$COSC.1), digits = 2)
 
-sd4;sd5;sd6;sd7;sd8;sd9;sd10;sd11;sd12;sd13;sd14;sd15;sd16;sd17;sd18
+sd4;sd5;sd6;sd7;sd8;sd9;sd10;sd11;sd12;sd13;sd14;sd15;sd16;sd17;sd18;sd49;sd50
 
 min4 = round(min(dat$QSS.1), digits = 2)
 min5 = round(min(dat$TSS.1), digits = 2)
@@ -158,8 +162,10 @@ min15 = round(min(dat$AOA.1), digits = 2)
 min16 = round(min(dat$Valence.1), digits = 2)
 min17 = round(min(dat$Imageability.1), digits = 2)
 min18 = round(min(dat$Familiarity.1), digits = 2)
+min49 = round(min(dat$FSS.1), digits = 2)
+min50 = round(min(dat$COSC.1), digits = 2)
 
-min4;min5;min6;min7;min8;min9;min10;min11;min12;min13;min14;min15;min16;min17;min18
+min4;min5;min6;min7;min8;min9;min10;min11;min12;min13;min14;min15;min16;min17;min18;min49;min50
 
 max4 = round(max(dat$QSS.1), digits = 2)
 max5 = round(max(dat$TSS.1), digits = 2)
@@ -176,8 +182,10 @@ max15 = round(max(dat$AOA.1), digits = 2)
 max16 = round(max(dat$Valence.1), digits = 2)
 max17 = round(max(dat$Imageability.1), digits = 2)
 max18 = round(max(dat$Familiarity.1), digits = 2)
+max49 = round(max(dat$FSS.1), digits = 2)
+max50 = round(max(dat$COSC.1), digits = 2)
 
-max4;max5;max6;max7;max8;max9;max10;max11;max12;max13;max14;max15;max16;max17;max18
+max4;max5;max6;max7;max8;max9;max10;max11;max12;max13;max14;max15;max16;max17;max18;max49;max50
 
 #individual norms for target items
 m19 = round(mean(dat$QSS.2), digits = 2)
@@ -195,8 +203,10 @@ m30 = round(mean(dat$AOA.2), digits = 2)
 m31 = round(mean(dat$Valence.2), digits = 2)
 m32 = round(mean(dat$Imageability.2), digits = 2)
 m33 = round(mean(dat$Familiarity.2), digits = 2)
+m51 = round(mean(dat$FSS.2), digits = 2)
+m52 = round(mean(dat$COSC.2), digits = 2)
 
-m19;m20;m21;m22;m23;m24;m25;m26;m27;m28;m29;m30;m31;m32;m33
+m19;m20;m21;m22;m23;m24;m25;m26;m27;m28;m29;m30;m31;m32;m33;m51;m52
 
 sd19 = round(sd(dat$QSS.2), digits = 2)
 sd20 = round(sd(dat$TSS.2), digits = 2)
@@ -213,8 +223,10 @@ sd30 = round(sd(dat$AOA.2), digits = 2)
 sd31 = round(sd(dat$Valence.2), digits = 2)
 sd32 = round(sd(dat$Imageability.2), digits = 2)
 sd33 = round(sd(dat$Familiarity.2), digits = 2)
+sd51 = round(sd(dat$FSS.2), digits = 2)
+sd52 = round(sd(dat$COSC.2), digits = 2)
 
-sd19;sd20;sd21;sd22;sd23;sd24;sd25;sd26;sd27;sd28;sd29;sd30;sd31;sd32;sd33
+sd19;sd20;sd21;sd22;sd23;sd24;sd25;sd26;sd27;sd28;sd29;sd30;sd31;sd32;sd33;sd51;sd52
 
 min19 = round(min(dat$QSS.2), digits = 2)
 min20 = round(min(dat$TSS.2), digits = 2)
@@ -231,8 +243,10 @@ min30 = round(min(dat$AOA.2), digits = 2)
 min31 = round(min(dat$Valence.2), digits = 2)
 min32 = round(min(dat$Imageability.2), digits = 2)
 min33 = round(min(dat$Familiarity.2), digits = 2)
+min51 = round(min(dat$FSS.2), digits = 2)
+min52 = round(min(dat$COSC.2), digits = 2)
 
-min19;min20;min21;min22;min23;min24;min25;min26;min27;min28;min29;min30;min31;min32;min33
+min19;min20;min21;min22;min23;min24;min25;min26;min27;min28;min29;min30;min31;min32;min33;min51;min52
 
 max19 = round(max(dat$QSS.2), digits = 2)
 max20 = round(max(dat$TSS.2), digits = 2)
@@ -249,8 +263,10 @@ max30 = round(max(dat$AOA.2), digits = 2)
 max31 = round(max(dat$Valence.2), digits = 2)
 max32 = round(max(dat$Imageability.2), digits = 2)
 max33 = round(max(dat$Familiarity.2), digits = 2)
+max51 = round(max(dat$FSS.2), digits = 2)
+max52 = round(max(dat$COSC.2), digits = 2)
 
-max19;max20;max21;max22;max23;max24;max25;max26;max27;max28;max29;max30;max31;max32;max33
+max19;max20;max21;max22;max23;max24;max25;max26;max27;max28;max29;max30;max31;max32;max33;max51;max52
 
 ##overall
 m34 = round((m4 + m19)/2, digits = 2)
@@ -268,11 +284,13 @@ m45 = round((m15 + m30)/2, digits = 2)
 m46 = round((m16 + m31)/2, digits = 2)
 m47 = round((m17 + m32)/2, digits = 2)
 m48 = round((m18 + m33)/2, digits = 2)
+m53 = round((m49 + m51)/2, digits = 2)
+m54 = round((m50 + m52)/2, digits = 2)
 
-m34;m35;m36;m37;m38;m39;m40;m41;m42;m43;m44;m45;m46;m47;m48
+m34;m35;m36;m37;m38;m39;m40;m41;m42;m43;m44;m45;m46;m47;m48;m53;m54
 
-dat2 = dat[ ,6:23]
-dat3 = dat[ ,24:41]
+dat2 = dat[ ,6:25]
+dat3 = dat[ ,26:45]
 
 colnames(dat2)[1] = "QSS"
 colnames(dat2)[2] = "QCON"
@@ -292,6 +310,8 @@ colnames(dat2)[15] = "Valence"
 colnames(dat2)[16] = "Imageability"
 colnames(dat2)[17] = "Familiarity"
 colnames(dat2)[18] = "TSS"
+colnames(dat2)[19] = "FSS"
+colnames(dat2)[20] = "COSC"
 
 colnames(dat3)[1] = "QSS"
 colnames(dat3)[2] = "QCON"
@@ -311,6 +331,8 @@ colnames(dat3)[15] = "Valence"
 colnames(dat3)[16] = "Imageability"
 colnames(dat3)[17] = "Familiarity"
 colnames(dat3)[18] = "TSS"
+colnames(dat3)[19] = "FSS"
+colnames(dat3)[20] = "COSC"
 
 combined = rbind(dat2, dat3)
 
@@ -329,8 +351,10 @@ sd45 = round(sd(combined$AOA), digits = 2)
 sd46 = round(sd(combined$Valence), digits = 2)
 sd47 = round(sd(combined$Imageability), digits = 2)
 sd48 = round(sd(combined$Familiarity), digits = 2)
+sd53 = round(sd(combined$FSS), digits = 2)
+sd54 = round(sd(combined$COSC), digits = 2)
 
-sd34;sd35;sd36;sd37;sd38;sd39;sd40;sd41;sd42;sd43;sd44;sd45;sd46;sd47;sd48
+sd34;sd35;sd36;sd37;sd38;sd39;sd40;sd41;sd42;sd43;sd44;sd45;sd46;sd47;sd48;sd53;sd54
 
 min34 = round(min(combined$QSS), digits = 2)
 min35 = round(min(combined$TSS), digits = 2)
@@ -347,8 +371,10 @@ min45 = round(min(combined$AOA), digits = 2)
 min46 = round(min(combined$Valence), digits = 2)
 min47 = round(min(combined$Imageability), digits = 2)
 min48 = round(min(combined$Familiarity), digits = 2)
+min53 = round(min(combined$FSS), digits = 2)
+min54 = round(min(combined$COSC), digits = 2)
 
-min34;min35;min36;min37;min38;min39;min40;min41;min42;min43;min44;min45;min46;min47;min48
+min34;min35;min36;min37;min38;min39;min40;min41;min42;min43;min44;min45;min46;min47;min48;min53;min54
 
 max34 = round(max(combined$QSS), digits = 2)
 max35 = round(max(combined$TSS), digits = 2)
@@ -365,8 +391,10 @@ max45 = round(max(combined$AOA), digits = 2)
 max46 = round(max(combined$Valence), digits = 2)
 max47 = round(max(combined$Imageability), digits = 2)
 max48 = round(max(combined$Familiarity), digits = 2)
+max53 = round(max(combined$FSS), digits = 2)
+max54 = round(max(combined$COSC), digits = 2)
 
-max34;max35;max36;max37;max38;max39;max40;max41;max42;max43;max44;max45;max46;max47;max48
+max34;max35;max36;max37;max38;max39;max40;max41;max42;max43;max44;max45;max46;max47;max48;max53;max54
 ```
 
 ```{r stim-table, echo=FALSE, results='asis'}
@@ -389,7 +417,7 @@ apa_table(tableprint1,
 
 ```{r, echo=FALSE, results='asis'}
 ####single cue####
-tableprint2 = matrix(NA, nrow = 15, ncol = 6)
+tableprint2 = matrix(NA, nrow = 17, ncol = 6)
 colnames(tableprint2) = c("Variable", "Citation", "Mean", 
                          "SD", "Min", "Max")
 
@@ -408,6 +436,8 @@ tableprint2[12, ] = c("AOA", "Kuperman et al., 2012", m15, sd15, min15, max15)
 tableprint2[13, ] = c("Valence", "Warriner et al., 2013", m16, sd16, min16, max16)
 tableprint2[14, ] = c("Imageability", "Toglia and Battig, 1978", m17, sd17, min17, max17)
 tableprint2[15, ] = c("Familiarity", "Toglia and Battig, 1978", m18, sd18, min18, max18)
+tableprint2[16, ] = c("FSS", "Buchanan et al., 2013", m49, sd49, min49, max49)
+tableprint2[17, ] = c("COSC", "Buchanan et al., 2013", m50, sd50, min50, max50)
 
 apa_table(tableprint2,
           align = c(rep("l", 2), rep("c", 4)), 
@@ -418,7 +448,7 @@ apa_table(tableprint2,
 
 ```{r, echo=FALSE, results='asis'}
 ####single target####
-tableprint3 = matrix(NA, nrow = 15, ncol = 6)
+tableprint3 = matrix(NA, nrow = 17, ncol = 6)
 colnames(tableprint3) = c("Variable", "Citation", "Mean", 
                           "SD", "Min", "Max")
 
@@ -437,6 +467,8 @@ tableprint3[12, ] = c("AOA", "Kuperman et al., 2012", m30, sd30, min30, max30)
 tableprint3[13, ] = c("Valence", "Warriner et al., 2013", m31, sd31, min31, max31)
 tableprint3[14, ] = c("Imageability", "Toglia and Battig, 1978", m32, sd32, min32, max32)
 tableprint3[15, ] = c("Familiarity", "Toglia and Battig, 1978", m33, sd33, min33, max33)
+tableprint3[16, ] = c("FSS", "Buchanan et al., 2013", m51, sd51, min51, max51)
+tableprint3[17, ] = c("COSC", "Buchanan et al., 2013", m52, sd52, min50, max52)
 
 apa_table(tableprint3,
           align = c(rep("l", 2), rep("c", 4)), 
@@ -447,7 +479,7 @@ apa_table(tableprint3,
 
 ```{r, echo=FALSE, results='asis'}
 ####overall single####
-tableprint4 = matrix(NA, nrow = 15, ncol = 6)
+tableprint4 = matrix(NA, nrow = 17, ncol = 6)
 colnames(tableprint4) = c("Variable", "Citation", "Mean", 
                           "SD", "Min", "Max")
 
@@ -466,6 +498,8 @@ tableprint4[12, ] = c("AOA", "Kuperman et al., 2012", m45, sd45, min45, max45)
 tableprint4[13, ] = c("Valence", "Warriner et al., 2013", m46, sd46, min46, max46)
 tableprint4[14, ] = c("Imageability", "Toglia and Battig, 1978", m47, sd47, min47, max47)
 tableprint4[15, ] = c("Familiarity", "Toglia and Battig, 1978", m48, sd48, min48, max48)
+tableprint4[16, ] = c("FSS", "Buchanan et al., 2013", m53, sd53, min53, max53)
+tableprint4[17, ] = c("COSC", "Buchanan et al., 2013", m54, sd54, min54, max54)
 
 apa_table(tableprint4,
           align = c(rep("l", 2), rep("c", 4)), 
