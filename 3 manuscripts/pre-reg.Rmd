@@ -18,13 +18,12 @@ affiliation:
 
 
 author_note: >
-  Nicholas P. Maxwell is a graduate student at Missouri State University. Erin M. Buchanan is an Associate Professor of Psychology at Missouri State University
+  Nicholas P. Maxwell is a graduate student at Missouri State University. Erin M. Buchanan is an Associate Professor of Psychology at Missouri State University.
 
 abstract: >
   Enter abstract here (note the indentation, if you start a new paragraph).
   
 keywords          : "judgments, memory, association, semantics, thematics"
-wordcount         : "X"
 
 bibliography      : ["nick_ref2.bib"]
 
