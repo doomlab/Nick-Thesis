@@ -442,7 +442,7 @@ tableprint2[17, ] = c("COSC", "Buchanan et al., 2013", m50, sd50, min50, max50)
 apa_table(tableprint2,
           align = c(rep("l", 2), rep("c", 4)), 
           caption = "Summary Statistics of Single Word Norms for Cue Items",
-          note = ""
+          note = "QSS: Cue Set Size, TSS: Target Set Size, Ortho N: Orthographic Neighborhood Size, Phono N: Phonographic Neighborhood Size, AOA: Age of Acquisition, FSS: Feature Set Size, COSC: Cosine Connectedness"
 )
 ```
 
@@ -473,7 +473,7 @@ tableprint3[17, ] = c("COSC", "Buchanan et al., 2013", m52, sd52, min50, max52)
 apa_table(tableprint3,
           align = c(rep("l", 2), rep("c", 4)), 
           caption = "Summary Statistics of Single Word Norms for Target Items",
-          note = ""
+          note = "QSS: Cue Set Size, TSS: Target Set Size, Ortho N: Orthographic Neighborhood Size, Phono N: Phonographic Neighborhood Size, AOA: Age of Acquisition, FSS: Feature Set Size, COSC: Cosine Connectedness"
 )
 ```
 
@@ -504,7 +504,7 @@ tableprint4[17, ] = c("COSC", "Buchanan et al., 2013", m54, sd54, min54, max54)
 apa_table(tableprint4,
           align = c(rep("l", 2), rep("c", 4)), 
           caption = "Summary Statistics of Single Word Norms for All Items",
-          note = ""
+          note = "QSS: Cue Set Size, TSS: Target Set Size, Ortho N: Orthographic Neighborhood Size, Phono N: Phonographic Neighborhood Size, AOA: Age of Acquisition, FSS: Feature Set Size, COSC: Cosine Connectedness"
 )
 ```
 
