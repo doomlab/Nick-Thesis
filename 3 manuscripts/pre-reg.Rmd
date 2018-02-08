@@ -21,7 +21,7 @@ author_note: >
   Nicholas P. Maxwell is a graduate student at Missouri State University. Erin M. Buchanan is an Associate Professor of Psychology at Missouri State University.
 
 abstract: >
-  This study examined the interactive relationship between semantic, thematic, and associative word pair strength in the prediction of item relatedness judgments and cued-recall performance. Previously, we found significant three-way interactions between associative, semantic, thematic word overlap when predicting participant judgment strength and recall performance [@Maxwell2018], expanding upon previous work by @Maki2007a. In this study, we first seek to replicate findings from the original study using a novel stimuli set. Second, this study will further explore the nature of the structure of memory, by investigating the effects of single concept information (i.e., word frequency, concreteness, etc.) on relatedness judgments and recall accuaracy. We hypothesize that associative, semantic, and thematic memory networks are interactive in their relationship to judgments and recall, even after controlling for base rates of single concept information, implying a set of interdependent memory systems used for both cognitive processes. 
+  This study examined the interactive relationship between semantic, thematic, and associative word pair strength in the prediction of item relatedness judgments and cued-recall performance. Previously, we found significant three-way interactions between associative, semantic, thematic word overlap when predicting participant judgment strength and recall performance [@Maxwell2018], expanding upon previous work by @Maki2007a. In this study, we first seek to replicate findings from the original study using a novel stimuli set. Second, this study will further explore the nature of the structure of memory, by investigating the effects of single concept information (i.e., word frequency, concreteness, etc.) on relatedness judgments and recall accuracy. We hypothesize that associative, semantic, and thematic memory networks are interactive in their relationship to judgments and recall, even after controlling for base rates of single concept information, implying a set of interdependent memory systems used for both cognitive processes. 
   
 keywords          : "judgments, memory, association, semantics, thematics"
 
@@ -417,67 +417,65 @@ apa_table(tableprint1,
 
 ```{r stim-table-cue, echo=FALSE, results='asis'}
 ####single cue####
-tableprint2 = matrix(NA, nrow = 17, ncol = 6)
+tableprint2 = matrix(NA, nrow = 16, ncol = 6)
 colnames(tableprint2) = c("Variable", "Citation", "Mean", 
                          "SD", "Min", "Max")
 
 tableprint2[1, ] = c("QSS", "Nelson et al., 2004", m4, sd4, min4, max4)
-tableprint2[2, ] = c("TSS", "Nelson et al., 2004",  m5, sd5, min5, max5)
-tableprint2[3, ] = c("Concreteness", "Nelson et al., 2004", m6, sd6, min6, max6)
-tableprint2[4, ] = c("HAL Frequency", "Lund and Burgess, 1996", m7, sd7, min7, max7)
-tableprint2[5, ] = c("SUBTLEX Frequency", "Brysbaert and New, 2009", m8, sd8, min8, max8)
-tableprint2[6, ] = c("Length", "Buchanan et al., 2013", m9, sd9, min9, max9)
-tableprint2[7, ] = c("Ortho N", "Buchanan et al., 2013", m10, sd10, min10, max10)
-tableprint2[8, ] = c("Phono N", "Buchanan et al., 2013", m11, sd11, min11, max11)
-tableprint2[9, ] = c("Phonemes", "Buchanan et al., 2013", m12, sd12, min12, max12)
-tableprint2[10, ] = c("Syllables", "Buchanan et al., 2013", m13, sd13, min13, max13)
-tableprint2[11, ] = c("Morphemes", "Buchanan et al., 2013", m14, sd14, min14, max14)
-tableprint2[12, ] = c("AOA", "Kuperman et al., 2012", m15, sd15, min15, max15)
-tableprint2[13, ] = c("Valence", "Warriner et al., 2013", m16, sd16, min16, max16)
-tableprint2[14, ] = c("Imageability", "Toglia and Battig, 1978", m17, sd17, min17, max17)
-tableprint2[15, ] = c("Familiarity", "Toglia and Battig, 1978", m18, sd18, min18, max18)
-tableprint2[16, ] = c("FSS", "Buchanan et al., 2013", m49, sd49, min49, max49)
-tableprint2[17, ] = c("COSC", "Buchanan et al., 2013", m50, sd50, min50, max50)
+tableprint2[2, ] = c("Concreteness", "Nelson et al., 2004", m6, sd6, min6, max6)
+tableprint2[3, ] = c("HAL Frequency", "Lund and Burgess, 1996", m7, sd7, min7, max7)
+tableprint2[4, ] = c("SUBTLEX Frequency", "Brysbaert and New, 2009", m8, sd8, min8, max8)
+tableprint2[5, ] = c("Length", "Buchanan et al., 2013", m9, sd9, min9, max9)
+tableprint2[6, ] = c("Ortho N", "Buchanan et al., 2013", m10, sd10, min10, max10)
+tableprint2[7, ] = c("Phono N", "Buchanan et al., 2013", m11, sd11, min11, max11)
+tableprint2[8, ] = c("Phonemes", "Buchanan et al., 2013", m12, sd12, min12, max12)
+tableprint2[9, ] = c("Syllables", "Buchanan et al., 2013", m13, sd13, min13, max13)
+tableprint2[10, ] = c("Morphemes", "Buchanan et al., 2013", m14, sd14, min14, max14)
+tableprint2[11, ] = c("AOA", "Kuperman et al., 2012", m15, sd15, min15, max15)
+tableprint2[12, ] = c("Valence", "Warriner et al., 2013", m16, sd16, min16, max16)
+tableprint2[13, ] = c("Imageability", "Toglia and Battig, 1978", m17, sd17, min17, max17)
+tableprint2[14, ] = c("Familiarity", "Toglia and Battig, 1978", m18, sd18, min18, max18)
+tableprint2[15, ] = c("FSS", "Buchanan et al., 2013", m49, sd49, min49, max49)
+tableprint2[16, ] = c("COSC", "Buchanan et al., 2013", m50, sd50, min50, max50)
 
 tableprint2[ , 3:6] = printnum(as.numeric(tableprint2[ , 3:6]))
 
 apa_table(tableprint2,
           align = c(rep("l", 2), rep("c", 4)), 
           caption = "Summary Statistics of Single Word Norms for Cue Items",
-          note = "QSS: Cue Set Size, TSS: Target Set Size, Ortho N: Orthographic Neighborhood Size, Phono N: Phonographic Neighborhood Size, AOA: Age of Acquisition, FSS: Feature Set Size, COSC: Cosine Connectedness"
+          note = "QSS: Cue Set Size, Ortho N: Orthographic Neighborhood Size, Phono N: Phonographic Neighborhood Size, AOA: Age of Acquisition, FSS: Feature Set Size, COSC: Cosine Connectedness"
 )
 ```
 
 ```{r stim-table-target, echo=FALSE, results='asis'}
 ####single target####
-tableprint3 = matrix(NA, nrow = 17, ncol = 6)
+tableprint3 = matrix(NA, nrow = 16, ncol = 6)
 colnames(tableprint3) = c("Variable", "Citation", "Mean", 
                           "SD", "Min", "Max")
 
-tableprint3[1, ] = c("QSS", "Nelson et al., 2004", m19, sd19, min19, max19)
-tableprint3[2, ] = c("TSS", "Nelson et al., 2004", m20, sd20, min20, max20)
-tableprint3[3, ] = c("Concreteness", "Nelson et al., 2004", m21, sd21, min21, max21)
-tableprint3[4, ] = c("HAL Frequency", "Lund and Burgess, 1996", m22, sd22, min22, max22)
-tableprint3[5, ] = c("SUBTLEX Frequency", "Brysbaert and New, 2009",m23, sd23, min23, max23)
-tableprint3[6, ] = c("Length", "Buchanan et al., 2013", m24, sd24, min24, max24)
-tableprint3[7, ] = c("Ortho N", "Buchanan et al., 2013", m25, sd25, min25, max25)
-tableprint3[8, ] = c("Phono N", "Buchanan et al., 2013", m26, sd26, min26, max26)
-tableprint3[9, ] = c("Phonemes", "Buchanan et al., 2013", m27, sd27, min27, max27)
-tableprint3[10, ] = c("Syllables", "Buchanan et al., 2013", m28, sd28, min28, max28)
-tableprint3[11, ] = c("Morphemes", "Buchanan et al., 2013", m29, sd29, min29, max29)
-tableprint3[12, ] = c("AOA", "Kuperman et al., 2012", m30, sd30, min30, max30)
-tableprint3[13, ] = c("Valence", "Warriner et al., 2013", m31, sd31, min31, max31)
-tableprint3[14, ] = c("Imageability", "Toglia and Battig, 1978", m32, sd32, min32, max32)
-tableprint3[15, ] = c("Familiarity", "Toglia and Battig, 1978", m33, sd33, min33, max33)
-tableprint3[16, ] = c("FSS", "Buchanan et al., 2013", m51, sd51, min51, max51)
-tableprint3[17, ] = c("COSC", "Buchanan et al., 2013", m52, sd52, min50, max52)
+tableprint3[1, ] = c("TSS", "Nelson et al., 2004", m20, sd20, min20, max20)
+tableprint3[2, ] = c("Concreteness", "Nelson et al., 2004", m21, sd21, min21, max21)
+tableprint3[3, ] = c("HAL Frequency", "Lund and Burgess, 1996", m22, sd22, min22, max22)
+tableprint3[4, ] = c("SUBTLEX Frequency", "Brysbaert and New, 2009",m23, sd23, min23, max23)
+tableprint3[5, ] = c("Length", "Buchanan et al., 2013", m24, sd24, min24, max24)
+tableprint3[6, ] = c("Ortho N", "Buchanan et al., 2013", m25, sd25, min25, max25)
+tableprint3[7, ] = c("Phono N", "Buchanan et al., 2013", m26, sd26, min26, max26)
+tableprint3[8, ] = c("Phonemes", "Buchanan et al., 2013", m27, sd27, min27, max27)
+tableprint3[9, ] = c("Syllables", "Buchanan et al., 2013", m28, sd28, min28, max28)
+tableprint3[10, ] = c("Morphemes", "Buchanan et al., 2013", m29, sd29, min29, max29)
+tableprint3[11, ] = c("AOA", "Kuperman et al., 2012", m30, sd30, min30, max30)
+tableprint3[12, ] = c("Valence", "Warriner et al., 2013", m31, sd31, min31, max31)
+tableprint3[13, ] = c("Imageability", "Toglia and Battig, 1978", m32, sd32, min32, max32)
+tableprint3[14, ] = c("Familiarity", "Toglia and Battig, 1978", m33, sd33, min33, max33)
+tableprint3[15, ] = c("FSS", "Buchanan et al., 2013", m51, sd51, min51, max51)
+tableprint3[16, ] = c("COSC", "Buchanan et al., 2013", m52, sd52, min50, max52)
 
 tableprint3[ , 3:6] = printnum(as.numeric(tableprint3[ , 3:6]))
 
 apa_table(tableprint3,
           align = c(rep("l", 2), rep("c", 4)), 
           caption = "Summary Statistics of Single Word Norms for Target Items",
-          note = "QSS: Cue Set Size, TSS: Target Set Size, Ortho N: Orthographic Neighborhood Size, Phono N: Phonographic Neighborhood Size, AOA: Age of Acquisition, FSS: Feature Set Size, COSC: Cosine Connectedness"
+          note = "TSS: Target Set Size, Ortho N: Orthographic Neighborhood Size, Phono N: Phonographic Neighborhood Size, AOA: Age of Acquisition, FSS: Feature Set Size, COSC: Cosine Connectedness"
 )
 ```
 
@@ -523,7 +521,7 @@ apa_table(tableprint4,
 
   First, the results from the recall section will be coded as zero for incorrect responses and one for correct responses. NA will be used to denote missing responses from participants who did not complete the recall section. Responses that are words instead of numbers in the judgment phase will be deleted and treated as missing data. Data will then be screened for out of range judgment responses (i.e., responses greater than 100). Recall and judgment scores will be screened for outliers using Mahalanobis distance at *p* < .001 [@Tabachnick2012], and multicollinearity between predictor variables will be measured with Pearson correlations. Data will then be screened for assumptions of normality, linearity, homogeneity, and homoscedasticity. Descriptive statistics of mean judgment and recall scores will be reported for each judgment condition.
   
-  Multilevel modeling will then be used to analyze the data [@Gelman2006] to control for the nested structure of the data using the *nlme* library. Each participant's judgment and recall ratings will be treated as a data point, using participants as a nested random intercept factor. As part of our replication, we will reanalyze these new stimuli using COS, FSG, LSA, and their interaction to predict judgments and recall separately as the dependent variables. Just as in @Maxwell2018, judgment condition was used as a control variable. Variables will be mean centered prior to analysis to controll for multicollinearity. If a significant three-way interaction occurs, simple slopes analyses will be used to explore that interaction. We will examine low (-1SD), average (mean), and high (+1SD) COS values for two-way interactions of FSG and LSA. If these values are significant, LSA will be further broken into low, average, and high simple slopes to examine FSG. $\alpha$ is set to .05 for analyses. We predict that the interaction found previously will replicate on a new set of stimuli. 
+  Multilevel modeling will then be used to analyze the data [@Gelman2006] to control for the nested structure of the data using the *nlme* library. Each participant's judgment and recall ratings will be treated as a data point, using participants as a nested random intercept factor. As part of our replication, we will reanalyze these new stimuli using COS, FSG, LSA, and their interaction to predict judgments and recall separately as the dependent variables. Just as in @Maxwell2018, judgment condition was used as a control variable. Variables will be mean centered prior to analysis to control for multicollinearity. If a significant three-way interaction occurs, simple slopes analyses will be used to explore that interaction. We will examine low (-1SD), average (mean), and high (+1SD) COS values for two-way interactions of FSG and LSA. If these values are significant, LSA will be further broken into low, average, and high simple slopes to examine FSG. $\alpha$ is set to .05 for analyses. We predict that the interaction found previously will replicate on a new set of stimuli. 
   
 A second set of analyses will be performed using the @Maxwell2018 stimuli set and this new stimuli set combined, examining the hypothesis of interactive networks after controlling for base word norm information. Stimuli sets from both studies will be combined to create a larger range of stimuli and values across normed information. These neighborhood norms will be added introduced into each model in steps, after controlling for judgment condition. Initially, base word norms will be added, followed by lexical information, rated properties, and norms measuring neighborhood connections, as described in the introduction and methods. Each set of variables will be used to predict the dependent variables of judgment and recall, again as a multilevel model. Each variable will be discussed in the step of the analysis it was entered. We expect that many of these variables will significantly predict judgments and recall, but do not predict which ones in particular. Last, the interaction of network norms will be added to the model with the prediction that the interaction of COS, FSG, and LSA may be significant, even after controlling for single concept information.
 
