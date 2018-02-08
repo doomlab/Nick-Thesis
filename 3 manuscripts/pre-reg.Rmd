@@ -38,7 +38,8 @@ class             : "man"
 output            : papaja::apa6_pdf
 ---
 
-```{r include = FALSE}
+```{r libraries, include = FALSE}
+knitr::opts_chunk$set(cache = TRUE)
 library("papaja")
 ```
   
