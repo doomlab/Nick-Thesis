@@ -73,9 +73,9 @@ library("papaja")
 
 ## Materials
 
-  First, mimicking the design of the original pilot study, sixty-three word pairs of varying associative, semantic, and thematic overlap were created to use as stimuli. These word pairs were created using the @Buchanan2013 word norm database. Next, neighborhood information for all cue and target items was collected. Word frequency was collected from the SUBTLEX project [@Brysbaert2009] and the HAL corpus [@Burgess1997]. Part of speech, word length, and the number of morphemes, phonemes, and syllables of each item was derived from the @Buchanan2013 word norms [originally contained in The English Lexicon Project, @Balota2007]. For items with multiple parts of speech (for example, *drink* can refer to both a beverage and the act of drinking a beverage), the most commonly used form was used. Following the design of @Buchanan2013, this part of speech was determined using Google's define feature. Concreteness, cue set size, and target set size were taken from the South Florida Free Association Norms [@Nelson2004]. Feature set size (i.e., the number of features listed as part of the definition of a concept) and cosine set size (i.e., number of semantically related words above a cosine of zero) were calculated from @Buchanan2013. Imageability and familiarity norms were taken from the Toglia and colleagues set of semantic word norms [@Toglia2009; @Toglia1978]. Age of acquisition ratings were pulled from the @Kuperman2012 database. Finally, valence ratings for all items were obtained from the @Warriner2013 norms. Stimuli information for cue and target words can be found in Tables @\ref:(tab:stim-table-cue) and @\ref:(tab:stim-table-target).
+  First, mimicking the design of the original pilot study, sixty-three word pairs of varying associative, semantic, and thematic overlap were created to use as stimuli. These word pairs were created using the @Buchanan2013 word norm database. Next, neighborhood information for all cue and target items was collected. Word frequency was collected from the SUBTLEX project [@Brysbaert2009] and the HAL corpus [@Burgess1997]. Part of speech, word length, and the number of morphemes, phonemes, and syllables of each item was derived from the @Buchanan2013 word norms [originally contained in The English Lexicon Project, @Balota2007]. For items with multiple parts of speech (for example, *drink* can refer to both a beverage and the act of drinking a beverage), the most commonly used form was used. Following the design of @Buchanan2013, this part of speech was determined using Google's define feature. Concreteness, cue set size, and target set size were taken from the South Florida Free Association Norms [@Nelson2004]. Feature set size (i.e., the number of features listed as part of the definition of a concept) and cosine set size (i.e., number of semantically related words above a cosine of zero) were calculated from @Buchanan2013. Imageability and familiarity norms were taken from the Toglia and colleagues set of semantic word norms [@Toglia2009; @Toglia1978]. Age of acquisition ratings were pulled from the @Kuperman2012 database. Finally, valence ratings for all items were obtained from the @Warriner2013 norms. Stimuli information for cue and target words can be found in Tables \@ref(tab:stim-table-cue) and \@ref(tab:stim-table-target).
   
-  After gathering neighborhood information, network norms measuring associative, semantic, and thematic overlap were generated for each pair. Forward strength (FSG) was used as a measure of associative overlap. FSG is a value ranging from zero to one which measures of the probability that a cue word will elicit a particular target word in response to it [@Nelson2004]. Cosine (COS) strength was used to measure semantic overlap between concepts [@Buchanan2013; @McRae2005; @Vinson2008]. As with FSG, this value ranges from zero to one, with higher values indicating more shared features between concepts. Finally, thematic overlap was measured with Latent Semantic Analysis (LSA), which is a measure generated based upon the co-occurrences of words within a document [@Landauer1997; @Landauer1998]. Like the measures of associative and semantic overlap, LSA values range from zero to one, with higher values indicating higher co-occurrence between items. The selected stimuli contained a range of values across both the network and neighborhood norms. As with the previous study, stimuli will be arranged into three blocks, with each block consisting of 21 word pairs. The blocks will be structured to have seven words of low COS (0 - .33), medium COS (.34 - .66), and high COS (.67 - 1). COS was chosen due to both limitations with the size of the available dataset across all norm sets, and the desire to recreate the selection process used for the previous study. The result of this selection process is that values for the remaining network norms (FSG and LSA) and information neighborhood norms will be contingent upon the COS strengths of the selected stimuli. To counter this, we selected stimuli at random based on the different COS groupings so as to cover a broad range of FSG, LSA, and information neighborhood values. Stimuli information for word pair norms can be found in Table @\ref:(tab:stim-table-network). All stimuli and their raw values can be found at https://osf.io/j7qtc/.
+  After gathering neighborhood information, network norms measuring associative, semantic, and thematic overlap were generated for each pair. Forward strength (FSG) was used as a measure of associative overlap. FSG is a value ranging from zero to one which measures of the probability that a cue word will elicit a particular target word in response to it [@Nelson2004]. Cosine (COS) strength was used to measure semantic overlap between concepts [@Buchanan2013; @McRae2005; @Vinson2008]. As with FSG, this value ranges from zero to one, with higher values indicating more shared features between concepts. Finally, thematic overlap was measured with Latent Semantic Analysis (LSA), which is a measure generated based upon the co-occurrences of words within a document [@Landauer1997; @Landauer1998]. Like the measures of associative and semantic overlap, LSA values range from zero to one, with higher values indicating higher co-occurrence between items. The selected stimuli contained a range of values across both the network and neighborhood norms. As with the previous study, stimuli will be arranged into three blocks, with each block consisting of 21 word pairs. The blocks will be structured to have seven words of low COS (0 - .33), medium COS (.34 - .66), and high COS (.67 - 1). COS was chosen due to both limitations with the size of the available dataset across all norm sets, and the desire to recreate the selection process used for the previous study. The result of this selection process is that values for the remaining network norms (FSG and LSA) and information neighborhood norms will be contingent upon the COS strengths of the selected stimuli. To counter this, we selected stimuli at random based on the different COS groupings so as to cover a broad range of FSG, LSA, and information neighborhood values. Stimuli information for word pair norms can be found in Table \@ref(tab:stim-table-network). All stimuli and their raw values can be found at https://osf.io/j7qtc/.
 	
 ```{r descriptives, include=FALSE}
 ####setup####
@@ -396,26 +396,6 @@ max54 = round(max(combined$COSC), digits = 2)
 max34;max35;max36;max37;max38;max39;max40;max41;max42;max43;max44;max45;max46;max47;max48;max53;max54
 ```
 
-```{r stim-table-network, echo=FALSE, results='asis'}
-####overall network####
-tableprint1 = matrix(NA, nrow = 3, ncol = 6)
-
-colnames(tableprint1) = c("Variable", "Citation", "Mean", "SD",
-                         "Min", "Max")
-
-tableprint1[1, ] = c("FSG", "Nelson, McEvoy, and Schrieber, 2004", m1, sd1 ,min1, max1)
-tableprint1[2, ] = c("COS", "Maki, McKinley, and Thompson, 2004", m2, sd2, min2, max2)
-tableprint1[3, ] = c("LSA", "Landauer and Dumais, 1997", m3, sd3, min3, max3)
-
-tableprint1[ , 3:6] = printnum(as.numeric(tableprint1[ , 3:6]))
-
-apa_table(tableprint1,
-          align = c(rep("l", 2), rep("c", 4)), 
-          caption = "Summary Statistics for Network Norms",
-          note = "COS: Cosine, FSG: Forward Strength, LSA: Latent Semantic Analysis."
-)
-```
-
 ```{r stim-table-cue, echo=FALSE, results='asis'}
 ####single cue####
 tableprint2 = matrix(NA, nrow = 16, ncol = 6)
@@ -480,6 +460,26 @@ apa_table(tableprint3,
 )
 ```
 
+```{r stim-table-network, echo=FALSE, results='asis'}
+####overall network####
+tableprint1 = matrix(NA, nrow = 3, ncol = 6)
+
+colnames(tableprint1) = c("Variable", "Citation", "Mean", "SD",
+                         "Min", "Max")
+
+tableprint1[1, ] = c("FSG", "Nelson, McEvoy, and Schrieber, 2004", m1, sd1 ,min1, max1)
+tableprint1[2, ] = c("COS", "Maki, McKinley, and Thompson, 2004", m2, sd2, min2, max2)
+tableprint1[3, ] = c("LSA", "Landauer and Dumais, 1997", m3, sd3, min3, max3)
+
+tableprint1[ , 3:6] = printnum(as.numeric(tableprint1[ , 3:6]))
+
+apa_table(tableprint1,
+          align = c(rep("l", 2), rep("c", 4)), 
+          caption = "Summary Statistics for Network Norms",
+          note = "COS: Cosine, FSG: Forward Strength, LSA: Latent Semantic Analysis."
+)
+```
+
 ```{r overall-stim, echo=FALSE, include = FALSE, results='asis'}
 #may include this later
 ####overall single####
@@ -516,7 +516,7 @@ apa_table(tableprint4,
 
   This study will be divided into three sections. First, participants will be presented with word pairs and will be asked to judge how related the items are to one another. This section will comprise three blocks, with each block containing 21 word pairs. Each item block will be preceded by a set of instructions explaining one of the three types of relationships. Participants will also be provided with examples illustrating the type of relationship to be judged. The associative instructions explain associative relationships between concepts, how these relationships can be strong or weak, and the role of free association tasks in determining the magnitude of these relationships. The semantic instructions will provide participants with a brief overview of how words can be related by meaning and will give participants examples of item pairs with low and high levels of semantic overlap. Finally, the thematic instructions will explain how concepts can be connected by overarching themes. These instruction sets are modeled after @Buchanan2010 and @Valentine2013.
   
-  To clarify, the association instruction set includes the following instructional explanation focusing on the co-occurence in langauge: "For example, consider the word (and concept of) DOG.  We often see the word DOG appear in the same context as the word CAT. "It's raining cats and dogs." "I have two dogs, but my neighbor has a cat."  And so on.  By experiencing the words CAT and DOG together many times, we develop an association (a mental connection) between them.  With lots of this kind of associative learning experience during our lives, we develop a very large and very complex associative memory."
+  To clarify, the association instruction set includes the following instructional explanation focusing on the co-occurrence in language: "For example, consider the word (and concept of) DOG.  We often see the word DOG appear in the same context as the word CAT. "It's raining cats and dogs." "I have two dogs, but my neighbor has a cat."  And so on.  By experiencing the words CAT and DOG together many times, we develop an association (a mental connection) between them.  With lots of this kind of associative learning experience during our lives, we develop a very large and very complex associative memory."
   
   While the semantic instructions focus on the definition and feature overlap of a set of concepts: "Consider the following words (and concepts) TORTOISE, TURTLE, SNAIL, and BANNER. We know that a TORTOISE is a reptile with an exoskeleton and a hard shell. If we compare the word TORTOISE with the word TURTLE, we find that they share a majority of the same features. Therefore, their definitions or characteristics overlap greatly."
   
