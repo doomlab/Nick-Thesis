@@ -52,7 +52,7 @@ COSC & Buchanan et al., 2013 & 87.25 & 71.33 & 3.00 & 347.00\\
 \addlinespace
 \end{tabular}
 \begin{tablenotes}[para]
-\textit{Note.} QSS: Cue Set Size, TSS: Target Set Size, Ortho N: Orthographic Neighborhood Size, Phono N: Phonographic Neighborhood Size, AOA: Age of Acquisition, FSS: Feature Set Size, COSC: Cosine Connectedness
+\textit{Note.} QSS: Cue Set Size, Ortho N: Orthographic Neighborhood Size, Phono N: Phonographic Neighborhood Size, AOA: Age of Acquisition, FSS: Feature Set Size, COSC: Cosine Connectedness
 \end{tablenotes}
 \end{threeparttable}
 \end{center}
@@ -89,7 +89,7 @@ COSC & Buchanan et al., 2013 & 91.71 & 79.52 & 3.00 & 322.00\\
 \addlinespace
 \end{tabular}
 \begin{tablenotes}[para]
-\textit{Note.} QSS: Cue Set Size, TSS: Target Set Size, Ortho N: Orthographic Neighborhood Size, Phono N: Phonographic Neighborhood Size, AOA: Age of Acquisition, FSS: Feature Set Size, COSC: Cosine Connectedness
+\textit{Note.} TSS: Target Set Size, Ortho N: Orthographic Neighborhood Size, Phono N: Phonographic Neighborhood Size, AOA: Age of Acquisition, FSS: Feature Set Size, COSC: Cosine Connectedness
 \end{tablenotes}
 \end{threeparttable}
 \end{center}
