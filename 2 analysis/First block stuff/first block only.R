@@ -30,29 +30,31 @@ mahal = mahalanobis(dat[ , c(4,5)],
 cutoff = qchisq(1-.001, ncol(dat[ , c(4,5)]))
 cutoff;ncol(dat[ , c(4,5)])
 summary(mahal < cutoff)
-noout = subset(dat, mahal < cutoff)
+no.out = subset(dat, mahal < cutoff)
+
+no.out$Judged.Value2 = no.out$Judged.Value/100
 
 ##additivity
-cor(noout[ , 4:8], use = "pairwise.complete.obs")
+cor(no.out[ , 4:8], use = "pairwise.complete.obs")
 
 ####descriptive statistics####
-meanJno = tapply(noout$Judged.Value, noout$Judgment, mean, na.rm = T)
-meanRno = tapply(noout$Recall, noout$Judgment, mean, na.rm = T)
-sdJno = tapply(noout$Judged.Value, noout$Judgment, sd, na.rm = T)
-sdRno = tapply(noout$Recall, noout$Judgment, sd, na.rm = T)
+meanJno = tapply(no.out$Judged.Value, no.out$Judgment, mean, na.rm = T)
+meanRno = tapply(no.out$Recall, no.out$Judgment, mean, na.rm = T)
+sdJno = tapply(no.out$Judged.Value, no.out$Judgment, sd, na.rm = T)
+sdRno = tapply(no.out$Recall, no.out$Judgment, sd, na.rm = T)
 
 meanJno;meanRno
 sdJno;sdRno
 
 ####hyp2 -- judgments####
-noout$ZCOS = scale(noout$COS, scale = F)
-noout$ZLSA = scale(noout$LSA, scale = F)
-noout$ZFSG = scale(noout$FSG, scale = F)
+no.out$ZCOS = scale(no.out$COS, scale = F)
+no.out$ZLSA = scale(no.out$LSA, scale = F)
+no.out$ZFSG = scale(no.out$FSG, scale = F)
 
 ##overall model
 overallh2 = lme(Judged.Value2 ~ Judgment + 
                   ZCOS * ZLSA * ZFSG, 
-                data = noout, 
+                data = no.out, 
                 method = "ML", 
                 na.action = "na.omit",
                 random = ~1|Partno)
@@ -61,13 +63,13 @@ summary(overallh2)
 
 ####moderation stuff judgments####
 ##setup
-noout$ZCOS_low = noout$ZCOS + sd(noout$ZCOS, na.rm = TRUE)
-noout$ZCOS_high = noout$ZCOS - sd(noout$ZCOS, na.rm = TRUE)
+no.out$ZCOS_low = no.out$ZCOS + sd(no.out$ZCOS, na.rm = TRUE)
+no.out$ZCOS_high = no.out$ZCOS - sd(no.out$ZCOS, na.rm = TRUE)
 
 ##low cosine
 lowcos = lme(Judged.Value2 ~ Judgment +
                ZCOS_low * ZLSA * ZFSG, 
-             data = noout, 
+             data = no.out, 
              method = "ML", 
              na.action = "na.omit",
              random = ~1|Partno)
@@ -76,7 +78,7 @@ summary(lowcos)
 ##high cosine
 highcos = lme(Judged.Value2 ~ Judgment +
                 ZCOS_high * ZLSA * ZFSG, 
-              data = noout, 
+              data = no.out, 
               method = "ML", 
               na.action = "na.omit",
               random = ~1|Partno)
@@ -84,13 +86,13 @@ summary(highcos)
 
 ####examine the two way interactions by splitting LSA####
 ##setup
-noout$ZLSA_low = noout$ZLSA + sd(noout$ZLSA, na.rm = TRUE)
-noout$ZLSA_high = noout$ZLSA - sd(noout$ZLSA, na.rm = TRUE)
+no.out$ZLSA_low = no.out$ZLSA + sd(no.out$ZLSA, na.rm = TRUE)
+no.out$ZLSA_high = no.out$ZLSA - sd(no.out$ZLSA, na.rm = TRUE)
 
 ##low cosine, low lsa
 lowcoslowlsa = lme(Judged.Value2 ~ Judgment +
                      ZCOS_low * ZLSA_low * ZFSG, 
-                   data = noout, 
+                   data = no.out, 
                    method = "ML", 
                    na.action = "na.omit",
                    random = ~1|Partno)
@@ -99,7 +101,7 @@ summary(lowcoslowlsa)
 ##low cos, high lsa
 lowcoshighlsa = lme(Judged.Value2 ~ Judgment +
                       ZCOS_low  * ZLSA_high * ZFSG, 
-                    data = noout, 
+                    data = no.out, 
                     method = "ML", 
                     na.action = "na.omit",
                     random = ~1|Partno)
@@ -108,7 +110,7 @@ summary(lowcoshighlsa)
 ##average cos, low lsa
 agcoslowlsa = lme(Judged.Value2 ~ Judgment +
                     ZCOS * ZLSA_low * ZFSG, 
-                  data = noout, 
+                  data = no.out, 
                   method = "ML", 
                   na.action = "na.omit",
                   random = ~1|Partno)
@@ -117,7 +119,7 @@ summary(agcoslowlsa)
 ##average cos, high lsa
 avgcoshighlsa = lme(Judged.Value2 ~ Judgment +
                       ZCOS  * ZLSA_high * ZFSG, 
-                    data = noout, 
+                    data = no.out, 
                     method = "ML", 
                     na.action = "na.omit",
                     random = ~1|Partno)
@@ -126,7 +128,7 @@ summary(avgcoshighlsa)
 ##highcos low lsa
 highcoslowlsa = lme(Judged.Value2 ~ Judgment +
                       ZCOS_high * ZLSA_low * ZFSG, 
-                    data = noout, 
+                    data = no.out, 
                     method = "ML", 
                     na.action = "na.omit",
                     random = ~1|Partno)
@@ -135,7 +137,7 @@ summary(highcoslowlsa)
 ##high cos high lsa
 highcoshighlsa = lme(Judged.Value2 ~ Judgment +
                        ZCOS_high  * ZLSA_high * ZFSG, 
-                     data = noout, 
+                     data = no.out, 
                      method = "ML", 
                      na.action = "na.omit",
                      random = ~1|Partno)
@@ -152,10 +154,10 @@ cleanup = theme(panel.grid.major = element_blank(),
                 legend.key = element_rect(fill = "white"),
                 text = element_text(size = 15))
 
-dat = noout
+dat.2 = no.out
 
 ##low cos
-plot1 = ggplot(dat, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot1 = ggplot(dat.2, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Judgments") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = .607, slope = .663, linetype = "-1SD ZLSA")) +
@@ -171,7 +173,7 @@ plot1 = ggplot(dat, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(title="Low ZCOS") 
 
 ##avg cos
-plot2 = ggplot(dat, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot2 = ggplot(dat.2, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Judgments") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = .586, slope = .381, linetype = "-1SD ZLSA")) +
@@ -187,7 +189,7 @@ plot2 = ggplot(dat, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(title="Average ZCOS") 
 
 ##high cos
-plot3 = ggplot(dat, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot3 = ggplot(dat.2, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Judgments") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = .564, slope = .099, linetype = "-1SD ZLSA")) +
@@ -216,7 +218,7 @@ hyp2graphout
 ####hyp 3 -- recall####
 overallh3 = glmer(Recall ~ (1|Partno) + Judgment + 
                     Judged.Value2 + ZCOS * ZLSA * ZFSG,
-                  data = noout,
+                  data = no.out,
                   family = binomial,
                   control = glmerControl(optimizer = "bobyqa"),
                   nAGQ = 1)
@@ -226,7 +228,7 @@ summary(overallh3)
 #low cosine
 lowcos2 = glmer(Recall ~ (1|Partno) +
                   Judgment + Judged.Value2 + ZCOS_low * ZLSA * ZFSG,
-                data = noout,
+                data = no.out,
                 family = binomial,
                 control = glmerControl(optimizer = "bobyqa"),
                 nAGQ = 1)
@@ -235,7 +237,7 @@ summary(lowcos2)
 ##high cosine
 hicos2 = glmer(Recall ~ (1|Partno) + 
                  Judgment + Judged.Value2 + ZCOS_high * ZLSA * ZFSG,
-               data = noout,
+               data = no.out,
                family = binomial,
                control = glmerControl(optimizer = "bobyqa"),
                nAGQ = 1)
@@ -245,7 +247,7 @@ summary(hicos2)
 ##low cosine low lsa
 lowcoslowlsa2 = glmer(Recall ~ (1|Partno) + 
                         Judgment + Judged.Value2 + ZCOS_low * ZLSA_low * ZFSG,
-                      data = noout,
+                      data = no.out,
                       family = binomial,
                       control = glmerControl(optimizer = "bobyqa"),
                       nAGQ = 1)
@@ -254,7 +256,7 @@ summary(lowcoslowlsa2)
 ##low cosine high lsa
 lowcoshighlsa2 = glmer(Recall ~ (1|Partno) + 
                          Judgment + Judged.Value2 + ZCOS_low * ZLSA_high * ZFSG,
-                       data = noout,
+                       data = no.out,
                        family = binomial,
                        control = glmerControl(optimizer = "bobyqa"),
                        nAGQ = 1)
@@ -262,7 +264,7 @@ summary(lowcoshighlsa2)
 
 highcoslowlsa2 = glmer(Recall ~ (1|Partno) + 
                          Judgment + Judged.Value2 + ZCOS_high * ZLSA_low * ZFSG,
-                       data = noout,
+                       data = no.out,
                        family = binomial,
                        control = glmerControl(optimizer = "bobyqa"),
                        nAGQ = 1)
@@ -270,7 +272,7 @@ summary(highcoslowlsa2)
 
 highcoshighlsa2 = glmer(Recall ~ (1|Partno) + 
                           Judgment + Judged.Value2 + ZCOS_high * ZLSA_high * ZFSG,
-                        data = noout,
+                        data = no.out,
                         family = binomial,
                         control = glmerControl(optimizer = "bobyqa"),
                         nAGQ = 1)
@@ -278,7 +280,7 @@ summary(highcoshighlsa2)
 
 ####moderation graphs -- recall####
 ##low cos
-plot4 = ggplot(dat, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot4 = ggplot(dat.2, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = 0.316, slope = 4.116, linetype = "-1SD ZLSA")) +
@@ -294,7 +296,7 @@ plot4 = ggplot(dat, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(title="Low ZCOS") 
 
 ##avg cos
-plot5 = ggplot(dat, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot5 = ggplot(dat.2, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = 0.369, slope = 3.281, linetype = "-1SD ZLSA")) +
@@ -310,7 +312,7 @@ plot5 = ggplot(dat, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(title="Average ZCOS") 
 
 ##high cos
-plot6 = ggplot(dat, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot6 = ggplot(dat.2, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = .421, slope = 2.44, linetype = "-1SD ZLSA")) +
