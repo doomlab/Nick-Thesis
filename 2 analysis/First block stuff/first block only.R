@@ -160,9 +160,9 @@ dat.2 = no.out
 plot1 = ggplot(dat.2, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Judgments") +
   scale_size_continuous(guide = FALSE) +
-  geom_abline(aes(intercept = .607, slope = .663, linetype = "-1SD ZLSA")) +
-  geom_abline(aes(intercept = .632, slope = .375, linetype = "Average ZLSA")) +
-  geom_abline(aes(intercept = .657, slope = .087, linetype = "+1SD ZLSA")) +
+  geom_abline(aes(intercept = .558, slope = .901, linetype = "-1SD ZLSA")) +
+  geom_abline(aes(intercept = .562, slope = .417, linetype = "Average ZLSA")) +
+  geom_abline(aes(intercept = .568, slope = -.066, linetype = "+1SD ZLSA")) +
   scale_linetype_manual(values = c("dotted", "dashed", "solid"),
                         breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
                         name = "Simple Slope") +
@@ -176,9 +176,9 @@ plot1 = ggplot(dat.2, aes(x = ZCOS_low, y = Judged.Value2)) +
 plot2 = ggplot(dat.2, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Judgments") +
   scale_size_continuous(guide = FALSE) +
-  geom_abline(aes(intercept = .586, slope = .381, linetype = "-1SD ZLSA")) +
-  geom_abline(aes(intercept = .603, slope = .271, linetype = "Average ZLSA")) +
-  geom_abline(aes(intercept = .621, slope = .161, linetype = "+1SD ZLSA")) +
+  geom_abline(aes(intercept = .521, slope = .596, linetype = "-1SD ZLSA")) +
+  geom_abline(aes(intercept = .534, slope = .330, linetype = "Average ZLSA")) +
+  geom_abline(aes(intercept = .548, slope = .064, linetype = "+1SD ZLSA")) +
   scale_linetype_manual(values = c("dotted", "dashed", "solid"),
                         breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
                         name = "Simple Slope") +
@@ -192,9 +192,9 @@ plot2 = ggplot(dat.2, aes(x = ZCOS_low, y = Judged.Value2)) +
 plot3 = ggplot(dat.2, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Judgments") +
   scale_size_continuous(guide = FALSE) +
-  geom_abline(aes(intercept = .564, slope = .099, linetype = "-1SD ZLSA")) +
-  geom_abline(aes(intercept = .575, slope = .167, linetype = "Average ZLSA")) +
-  geom_abline(aes(intercept = .586, slope = .236, linetype = "+1SD ZLSA")) +
+  geom_abline(aes(intercept = .484, slope = .290, linetype = "-1SD ZLSA")) +
+  geom_abline(aes(intercept = .506, slope = .243, linetype = "Average ZLSA")) +
+  geom_abline(aes(intercept = .528, slope = .195, linetype = "+1SD ZLSA")) +
   scale_linetype_manual(values = c("dotted", "dashed", "solid"),
                         breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
                         name = "Simple Slope") +
@@ -278,14 +278,32 @@ highcoshighlsa2 = glmer(Recall ~ (1|Partno) +
                         nAGQ = 1)
 summary(highcoshighlsa2)
 
+##average cos, low lsa
+agcoslowlsa2 = glmer(Recall ~ (1|Partno) +
+                    Judgment + Judged.Value2 + ZCOS * ZLSA_low * ZFSG, 
+                  data = no.out, 
+                  family = binomial,
+                  control = glmerControl(optimizer = "bobyqa"),
+                  nAGQ = 1)
+summary(agcoslowlsa2)
+
+##average cos, high lsa
+avgcoshighlsa2 = glmer(Recall ~ (1|Partno) +
+                      Judgment + Judged.Value2 + ZCOS * ZLSA_high * ZFSG, 
+                    data = no.out, 
+                    family = binomial,
+                    control = glmerControl(optimizer = "bobyqa"),
+                    nAGQ = 1)
+summary(avgcoshighlsa2)
+
 ####moderation graphs -- recall####
 ##low cos
 plot4 = ggplot(dat.2, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
-  geom_abline(aes(intercept = 0.316, slope = 4.116, linetype = "-1SD ZLSA")) +
-  geom_abline(aes(intercept = 0.136, slope = 2.601, linetype = "Average ZLSA")) +
-  geom_abline(aes(intercept = -0.044, slope = 1.086, linetype = "+1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.1631, slope = 3.409, linetype = "-1SD ZLSA")) +
+  geom_abline(aes(intercept = -0.015, slope = 2.678, linetype = "Average ZLSA")) +
+  geom_abline(aes(intercept = -0.193, slope = 1.947, linetype = "+1SD ZLSA")) +
   scale_linetype_manual(values = c("dotted", "dashed", "solid"),
                         breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
                         name = "Simple Slope") +
@@ -299,9 +317,9 @@ plot4 = ggplot(dat.2, aes(x = ZCOS_low, y = Judged.Value2)) +
 plot5 = ggplot(dat.2, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
-  geom_abline(aes(intercept = 0.369, slope = 3.281, linetype = "-1SD ZLSA")) +
-  geom_abline(aes(intercept = 0.301, slope = 3.084, linetype = "Average ZLSA")) +
-  geom_abline(aes(intercept = 0.234, slope = 2.889, linetype = "+1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.261, slope = 2.317, linetype = "-1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.216, slope = 2.808, linetype = "Average ZLSA")) +
+  geom_abline(aes(intercept = 0.171, slope = 3.300, linetype = "+1SD ZLSA")) +
   scale_linetype_manual(values = c("dotted", "dashed", "solid"),
                         breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
                         name = "Simple Slope") +
@@ -315,9 +333,9 @@ plot5 = ggplot(dat.2, aes(x = ZCOS_low, y = Judged.Value2)) +
 plot6 = ggplot(dat.2, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
-  geom_abline(aes(intercept = .421, slope = 2.44, linetype = "-1SD ZLSA")) +
-  geom_abline(aes(intercept = .466, slope = 3.569, linetype = "Average ZLSA")) +
-  geom_abline(aes(intercept = .511, slope = 4.692, linetype = "+1SD ZLSA")) +
+  geom_abline(aes(intercept = .359, slope = 1.224, linetype = "-1SD ZLSA")) +
+  geom_abline(aes(intercept = .447, slope = 2.938, linetype = "Average ZLSA")) +
+  geom_abline(aes(intercept = .535, slope = 4.652, linetype = "+1SD ZLSA")) +
   scale_linetype_manual(values = c("dotted", "dashed", "solid"),
                         breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
                         name = "Simple Slope") +
