@@ -26,21 +26,25 @@ noout = subset(dat, mahal < cutoff)
 ##additivity
 cor(noout[ , 4:8], use = "pairwise.complete.obs") ##will need to adjust columns
 
+##subsetting part 2 stuff
+sub.thesis = subset(noout, ##contains only items from part 2, noout contains pilot and thesis
+                    study == "thesis")
+
 ####descriptive statistics will go below####
 
 ####replicating interactions from pilot -- judgments####
 ##mean center variables
-noout$ZCOS = scale(noout$COS, scale = F)
-noout$ZLSA = scale(noout$LSA, scale = F)
-noout$ZFSG = scale(noout$FSG, scale = F)
+sub.thesis$ZCOS = scale(sub.thesis$COS, scale = F)
+sub.thesis$ZLSA = scale(sub.thesis$LSA, scale = F)
+sub.thesis$ZFSG = scale(sub.thesis$FSG, scale = F)
 
 ##create the right scaling 
-noout$Judged.Value2 = noout$Judged.Value/100
+sub.thesis$Judged.Value2 = sub.thesis$Judged.Value/100
 
 ##overall model
 overall.judge = lme(Judged.Value2 ~ Judgment + 
                   ZCOS * ZLSA * ZFSG, 
-                data = noout, 
+                data = sub.thesis, 
                 method = "ML", 
                 na.action = "na.omit",
                 random = ~1|Partno)
@@ -48,13 +52,13 @@ summary(overall.judge)
 
 ####moderations will go below -- judgments####
 ##break down cos
-noout$ZCOS_low = noout$ZCOS + sd(noout$ZCOS, na.rm = TRUE)
-noout$ZCOS_high = noout$ZCOS - sd(noout$ZCOS, na.rm = TRUE)
+sub.thesis$ZCOS_low = sub.thesis$ZCOS + sd(sub.thesis$ZCOS, na.rm = TRUE)
+sub.thesis$ZCOS_high = sub.thesis$ZCOS - sd(sub.thesis$ZCOS, na.rm = TRUE)
 
 ##low cosine
 lowcos = lme(Judged.Value2 ~ Judgment +
                ZCOS_low * ZLSA * ZFSG, 
-             data = noout, 
+             data = sub.thesis, 
              method = "ML", 
              na.action = "na.omit",
              random = ~1|Partno)
@@ -62,7 +66,7 @@ lowcos = lme(Judged.Value2 ~ Judgment +
 ##high cosine
 highcos = lme(Judged.Value2 ~ Judgment +
                 ZCOS_high * ZLSA * ZFSG, 
-              data = noout, 
+              data = sub.thesis, 
               method = "ML", 
               na.action = "na.omit",
               random = ~1|Partno)
@@ -71,48 +75,48 @@ summary(lowcos)
 summary(highcos)
 
 ##now splitting by LSA
-noout$ZLSA_low = noout$ZLSA + sd(noout$ZLSA, na.rm = TRUE)
-noout$ZLSA_high = noout$ZLSA - sd(noout$ZLSA, na.rm = TRUE)
+sub.thesis$ZLSA_low = sub.thesis$ZLSA + sd(sub.thesis$ZLSA, na.rm = TRUE)
+sub.thesis$ZLSA_high = sub.thesis$ZLSA - sd(sub.thesis$ZLSA, na.rm = TRUE)
 
 ##low cosine, low lsa
 lowcoslowlsa = lme(Judged.Value2 ~ Judgment +
                      ZCOS_low * ZLSA_low * ZFSG, 
-                   data = noout, 
+                   data = sub.thesis, 
                    method = "ML", 
                    na.action = "na.omit",
                    random = ~1|Partno)
 ##low high
 lowcoshighlsa = lme(Judged.Value2 ~ Judgment +
                       ZCOS_low  * ZLSA_high * ZFSG, 
-                    data = noout, 
+                    data = sub.thesis, 
                     method = "ML", 
                     na.action = "na.omit",
                     random = ~1|Partno)
 ##avg low
 avgcoslowlsa = lme(Judged.Value2 ~ Judgment +
                      ZCOS * ZLSA_low * ZFSG, 
-                   data = noout, 
+                   data = sub.thesis, 
                    method = "ML", 
                    na.action = "na.omit",
                    random = ~1|Partno)
 ##avg high
 avgcoshighlsa = lme(Judged.Value2 ~ Judgment +
                       ZCOS  * ZLSA_high * ZFSG, 
-                    data = noout, 
+                    data = sub.thesis, 
                     method = "ML", 
                     na.action = "na.omit",
                     random = ~1|Partno)
 
 highcoslowlsa = lme(Judged.Value2 ~ Judgment +
                       ZCOS_high * ZLSA_low * ZFSG, 
-                    data = noout, 
+                    data = sub.thesis, 
                     method = "ML", 
                     na.action = "na.omit",
                     random = ~1|Partno)
 ##high high
 highcoshighlsa = lme(Judged.Value2 ~ Judgment +
                        ZCOS_high  * ZLSA_high * ZFSG, 
-                     data = noout, 
+                     data = sub.thesis, 
                      method = "ML", 
                      na.action = "na.omit",
                      random = ~1|Partno)
@@ -127,7 +131,8 @@ cleanup = theme(panel.grid.major = element_blank(),
                 text = element_text(size = 15))
 
 ##low cos
-plot1 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
+##will need to change slope and intercept numbers
+plot1 = ggplot(sub.thesis, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Judgments") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = .607, slope = .663, linetype = "-1SD ZLSA")) +
@@ -143,7 +148,7 @@ plot1 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(title="Low ZCOS") 
 
 ##avg cos
-plot2 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot2 = ggplot(sub.thesis, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Judgments") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = .586, slope = .381, linetype = "-1SD ZLSA")) +
@@ -159,7 +164,7 @@ plot2 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(title="Average ZCOS") 
 
 ##high cos
-plot3 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot3 = ggplot(sub.thesis, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Judgments") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = .564, slope = .099, linetype = "-1SD ZLSA")) +
@@ -188,7 +193,7 @@ hyp2graphout
 ####replicating interactions from pilot -- Recall####
 overall.recall = glmer(Recall ~ (1|Partno) + Judgment + 
                     Judged.Value2 + ZCOS * ZLSA * ZFSG,
-                  data = noout,
+                  data = sub.thesis,
                   family = binomial,
                   control = glmerControl(optimizer = "bobyqa"),
                   nAGQ = 1)
@@ -198,7 +203,7 @@ summary(overall.recall)
 #low cosine
 lowcos2 = glmer(Recall ~ (1|Partno) +
                   Judgment + Judged.Value2 + ZCOS_low * ZLSA * ZFSG,
-                data = noout,
+                data = sub.thesis,
                 family = binomial,
                 control = glmerControl(optimizer = "bobyqa"),
                 nAGQ = 1)
@@ -206,7 +211,7 @@ lowcos2 = glmer(Recall ~ (1|Partno) +
 ##high cosine
 hicos2 = glmer(Recall ~ (1|Partno) + 
                  Judgment + Judged.Value2 + ZCOS_high * ZLSA * ZFSG,
-               data = noout,
+               data = sub.thesis,
                family = binomial,
                control = glmerControl(optimizer = "bobyqa"),
                nAGQ = 1)
@@ -217,7 +222,7 @@ summary(highcos2)
 ##low cosine low lsa
 lowcoslowlsa2 = glmer(Recall ~ (1|Partno) + 
                         Judgment + Judged.Value2 + ZCOS_low * ZLSA_low * ZFSG,
-                      data = noout,
+                      data = sub.thesis,
                       family = binomial,
                       control = glmerControl(optimizer = "bobyqa"),
                       nAGQ = 1)
@@ -225,7 +230,7 @@ lowcoslowlsa2 = glmer(Recall ~ (1|Partno) +
 ##low cosine high lsa
 lowcoshighlsa2 = glmer(Recall ~ (1|Partno) + 
                          Judgment + Judged.Value2 + ZCOS_low * ZLSA_high * ZFSG,
-                       data = noout,
+                       data = sub.thesis,
                        family = binomial,
                        control = glmerControl(optimizer = "bobyqa"),
                        nAGQ = 1)
@@ -233,7 +238,7 @@ lowcoshighlsa2 = glmer(Recall ~ (1|Partno) +
 ##high low
 highcoslowlsa2 = glmer(Recall ~ (1|Partno) + 
                          Judgment + Judged.Value2 + ZCOS_high * ZLSA_low * ZFSG,
-                       data = noout,
+                       data = sub.thesis,
                        family = binomial,
                        control = glmerControl(optimizer = "bobyqa"),
                        nAGQ = 1)
@@ -241,14 +246,15 @@ highcoslowlsa2 = glmer(Recall ~ (1|Partno) +
 ##high high
 highcoshighlsa2 = glmer(Recall ~ (1|Partno) + 
                           Judgment + Judged.Value2 + ZCOS_high * ZLSA_high * ZFSG,
-                        data = noout,
+                        data = sub.thesis,
                         family = binomial,
                         control = glmerControl(optimizer = "bobyqa"),
                         nAGQ = 1)
 
 ####moderation graphs -- recall####
+##will need to change slope and intercept numbers
 ##low cos
-plot4 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot4 = ggplot(sub.thesis, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = 0.316, slope = 4.116, linetype = "-1SD ZLSA")) +
@@ -264,7 +270,7 @@ plot4 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(title="Low ZCOS") 
 
 ##avg cos
-plot5 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot5 = ggplot(sub.thesis, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = 0.369, slope = 3.281, linetype = "-1SD ZLSA")) +
@@ -280,7 +286,7 @@ plot5 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(title="Average ZCOS") 
 
 ##high cos
-plot6 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot6 = ggplot(sub.thesis, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = .421, slope = 2.44, linetype = "-1SD ZLSA")) +
@@ -308,7 +314,7 @@ hyp3graphout
 ####single word norm models -- judgments####
 overall.judge.sw.1 = lme(Judged.Value2 ~ Judgment +
                            POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2,
-                         data = noout, 
+                         data = sub.thesis, 
                          method = "ML", 
                          na.action = "na.omit",
                          random = ~1|Partno)
@@ -317,7 +323,7 @@ summary(overall.judge.sw.1)
 overall.judge.sw.2 = lme(Judged.Value2 ~ Judgment +
                            POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2 +
                            AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2,
-                         data = noout, 
+                         data = sub.thesis, 
                          method = "ML", 
                          na.action = "na.omit",
                          random = ~1|Partno)
@@ -327,7 +333,7 @@ overall.judge.sw.3 = lme(Judged.Value2 ~ Judgment +
                            POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2 +
                            AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2 +
                            QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2,
-                         data = noout, 
+                         data = sub.thesis, 
                          method = "ML", 
                          na.action = "na.omit",
                          random = ~1|Partno)
@@ -338,7 +344,7 @@ overall.judge.sw.4 = lme(Judged.Value2 ~ Judgment +
                            AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2 +
                            QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                            FSG * LSA * COS,
-                         data = noout, 
+                         data = sub.thesis, 
                          method = "ML", 
                          na.action = "na.omit",
                          random = ~1|Partno)
@@ -347,7 +353,7 @@ summary(overall.judge.sw.4)
 ####single word norm models -- recall####
 overall.recall.sw.1 = lme(Recall ~ Judgment +
                            POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2,
-                         data = noout, 
+                         data = sub.thesis, 
                          method = "ML", 
                          na.action = "na.omit",
                          random = ~1|Partno)
@@ -356,7 +362,7 @@ summary(overall.recall.sw.1)
 overall.recall.sw.2 = lme(Recall ~ Judgment +
                            POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2 +
                            AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2,
-                         data = noout, 
+                         data = sub.thesis, 
                          method = "ML", 
                          na.action = "na.omit",
                          random = ~1|Partno)
@@ -366,7 +372,7 @@ overall.recall.sw.3 = lme(Recall ~ Judgment +
                            POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2 +
                            AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2 +
                            QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2,
-                         data = noout, 
+                         data = sub.thesis, 
                          method = "ML", 
                          na.action = "na.omit",
                          random = ~1|Partno)
@@ -377,8 +383,47 @@ overall.recall.sw.4 = lme(Recall ~ Judgment +
                            AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2 +
                            QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                            FSG * LSA * COS,
-                         data = noout, 
+                         data = sub.thesis, 
                          method = "ML", 
                          na.action = "na.omit",
                          random = ~1|Partno)
+summary(overall.recall.sw.4)
+
+####combined sw####
+overall.recall.sw.1 = lme(Recall ~ Judgment +
+                            POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2,
+                          data = noout, 
+                          method = "ML", 
+                          na.action = "na.omit",
+                          random = ~1|Partno)
+summary(overall.recall.sw.1)
+
+overall.recall.sw.2 = lme(Recall ~ Judgment +
+                            POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2 +
+                            AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2,
+                          data = noout, 
+                          method = "ML", 
+                          na.action = "na.omit",
+                          random = ~1|Partno)
+summary(recall.judge.sw.2)
+
+overall.recall.sw.3 = lme(Recall ~ Judgment +
+                            POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2 +
+                            AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2 +
+                            QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2,
+                          data = noout, 
+                          method = "ML", 
+                          na.action = "na.omit",
+                          random = ~1|Partno)
+summary(overall.recall.sw.3)
+
+overall.recall.sw.4 = lme(Recall ~ Judgment +
+                            POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2 +
+                            AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2 +
+                            QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
+                            FSG * LSA * COS,
+                          data = noout, 
+                          method = "ML", 
+                          na.action = "na.omit",
+                          random = ~1|Partno)
 summary(overall.recall.sw.4)
