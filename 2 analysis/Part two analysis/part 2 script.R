@@ -366,7 +366,7 @@ overall.recall.sw.2 = lme(Recall ~ Judgment +
                          method = "ML", 
                          na.action = "na.omit",
                          random = ~1|Partno)
-summary(recall.judge.sw.2)
+summary(overall.recall.sw.2)
 
 overall.recall.sw.3 = lme(Recall ~ Judgment +
                            POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2 +
@@ -390,24 +390,64 @@ overall.recall.sw.4 = lme(Recall ~ Judgment +
 summary(overall.recall.sw.4)
 
 ####combined sw####
-overall.recall.sw.1 = lme(Recall ~ Judgment +
+##judgment
+overall.judge.combined.1 = lme(Judged.Value2 ~ Judgment +
+                           POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2,
+                         data = sub.thesis, 
+                         method = "ML", 
+                         na.action = "na.omit",
+                         random = ~1|Partno)
+summary(overall.judge.combined.1)
+
+overall.judge.combined.2 = lme(Judged.Value2 ~ Judgment +
+                           POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2 +
+                           AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2,
+                         data = sub.thesis, 
+                         method = "ML", 
+                         na.action = "na.omit",
+                         random = ~1|Partno)
+summary(overall.judge.combined.2)
+
+overall.judge.combined.3 = lme(Judged.Value2 ~ Judgment +
+                           POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2 +
+                           AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2 +
+                           QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2,
+                         data = sub.thesis, 
+                         method = "ML", 
+                         na.action = "na.omit",
+                         random = ~1|Partno)
+summary(overall.judge.combined.3)
+
+overall.judge.combined.4 = lme(Judged.Value2 ~ Judgment +
+                           POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2 +
+                           AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2 +
+                           QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
+                           FSG * LSA * COS,
+                         data = sub.thesis, 
+                         method = "ML", 
+                         na.action = "na.omit",
+                         random = ~1|Partno)
+summary(overall.judge.combined.4)
+
+##recall
+overall.recall.combined.1 = lme(Recall ~ Judgment +
                             POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2,
                           data = noout, 
                           method = "ML", 
                           na.action = "na.omit",
                           random = ~1|Partno)
-summary(overall.recall.sw.1)
+summary(overall.recall.combined.1)
 
-overall.recall.sw.2 = lme(Recall ~ Judgment +
+overall.recall.combined.2 = lme(Recall ~ Judgment +
                             POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2 +
                             AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2,
                           data = noout, 
                           method = "ML", 
                           na.action = "na.omit",
                           random = ~1|Partno)
-summary(recall.judge.sw.2)
+summary(overall.recall.combined.2)
 
-overall.recall.sw.3 = lme(Recall ~ Judgment +
+overall.recall.combined.3 = lme(Recall ~ Judgment +
                             POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2 +
                             AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2 +
                             QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2,
@@ -415,10 +455,10 @@ overall.recall.sw.3 = lme(Recall ~ Judgment +
                           method = "ML", 
                           na.action = "na.omit",
                           random = ~1|Partno)
-summary(overall.recall.sw.3)
+summary(overall.recall.combined.3)
 
-overall.recall.sw.4 = lme(Recall ~ Judgment +
-                            POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2 +
+overall.recall.combined.4 = lme(Recall ~ Judgment +
+                            POS.1 + POS.2 + Subtlex.1 + Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2 +
                             AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2 +
                             QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                             FSG * LSA * COS,
@@ -426,4 +466,4 @@ overall.recall.sw.4 = lme(Recall ~ Judgment +
                           method = "ML", 
                           na.action = "na.omit",
                           random = ~1|Partno)
-summary(overall.recall.sw.4)
+summary(overall.recall.combined.4)
