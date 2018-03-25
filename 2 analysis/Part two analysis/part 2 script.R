@@ -616,10 +616,10 @@ overall.recall.sw.2 = glmer(Recall ~ (1|Partno) +
                            data = noout,
                            family = binomial,
                            control = glmerControl(optimizer = "bobyqa"),
-                           nAGQ = 1)
+                           nAGQ = 0)
 summary(overall.recall.sw.2)
 
-##the two models above run fine when subltex is not included.
+##the two models above run fine when subltex is not included (this fixed the previous warning)
 ##the two below still have problems, and I think its based on the size of the models.
 
 overall.recall.sw.3 = glmer(Recall ~ (1|Partno) +
@@ -636,7 +636,7 @@ overall.recall.sw.3 = glmer(Recall ~ (1|Partno) +
                            data = noout,
                            family = binomial,
                            control = glmerControl(optimizer = "bobyqa"),
-                           nAGQ = 1)
+                           nAGQ = 0)
 summary(overall.recall.sw.3)
 
 overall.recall.sw.4 = glmer(Recall ~ (1|Partno) +
@@ -654,8 +654,10 @@ overall.recall.sw.4 = glmer(Recall ~ (1|Partno) +
                           data = noout,
                           family = binomial,
                           control = glmerControl(optimizer = "bobyqa"),
-                          nAGQ = 1)
-summary(overall.recall.sw.4)
+                          nAGQ = 0)
+summary(overall.recall.sw.4) ##3 way is significant, but still get warnings.
+
+####moderation for sw recall will go here####
 
 ####combined sw####
 ##these analyses will look at the pilot and thesis data combined
