@@ -21,6 +21,8 @@ summary(dat$Judged.Value)
 table("judge" = is.na(dat$Judged.Value), "recall" = is.na(dat$Recall))
 ##12444 data points being used, 1472 excluded
 
+nrow(na.omit(dat))
+
 ##outliers
 mahal = mahalanobis(dat[ , c(4,5)], 
                     colMeans(dat[ , c(4,5)], na.rm = TRUE),
@@ -37,6 +39,15 @@ cor(noout[ , c(4:15, 17:31, 33:46)], use = "pairwise.complete.obs")
 ##for now will just use length and morphemes to cut down on correlations
 
 ####descriptive statistics will go below####
+m.recall = tapply(noout$Recall, noout$Judgment, mean)
+sd.recall = tapply(noout$Recall, noout$Judgment, sd)
+
+m.judge = tapply(noout$Judged.Value, noout$Judgment, mean)
+sd.judge = tapply(noout$Judged.Value, noout$Judgment, sd)
+
+m.recall;sd.recall
+m.judge;sd.judge
+
 
 ####replicating interactions from pilot -- judgments####
 ##mean center variables
