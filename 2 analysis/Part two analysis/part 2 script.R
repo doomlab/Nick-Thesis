@@ -14,6 +14,8 @@ dat = read.csv("master.csv")
 ##accuracy
 summary(dat)
 
+table(dat$Judged.Value)
+
 dat$Judged.Value[ dat$Judged.Value > 100 ] = NA
 summary(dat$Judged.Value)
 
@@ -107,7 +109,7 @@ overall.judge2 = lme(Judged.Value2 ~ Judgment +
                     method = "ML", 
                     na.action = "na.omit",
                     random = ~1|Partno)
-summary(overall.judge2) ##three way is still not significant
+summary(overall.judge2) 
 
 ####moderations will go below -- judgments####
 ##not going to do moderations for judgments because it wasn't signficant
@@ -321,6 +323,7 @@ avgcoslowlsa2 = glmer(Recall ~ (1|Partno) +
                       family = binomial,
                       control = glmerControl(optimizer = "bobyqa"),
                       nAGQ = 1)
+summary(avgcoslowlsa2)
 
 avgcoshighlsa2 = glmer(Recall ~ (1|Partno) + 
                          Judgment + Judged.Value2 + ZCOS * ZLSA_high * ZFSG,
@@ -335,9 +338,9 @@ summary(avgcoshighlsa2)
 plot4 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
-  geom_abline(aes(intercept = 0.149, slope = 0.070, linetype = "-1SD ZLSA")) +
-  geom_abline(aes(intercept = 0.105, slope = 1.213, linetype = "Average ZLSA")) +
-  geom_abline(aes(intercept = 0.061, slope = 0.580, linetype = "+1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.162, slope = 0.087, linetype = "-1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.118, slope = 1.213, linetype = "Average ZLSA")) +
+  geom_abline(aes(intercept = 0.074, slope = 0.564, linetype = "+1SD ZLSA")) +
   scale_linetype_manual(values = c("dotted", "dashed", "solid"),
                         breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
                         name = "Simple Slope") +
@@ -351,9 +354,9 @@ plot4 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
 plot5 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
-  geom_abline(aes(intercept = 0.152, slope = 1.981, linetype = "-1SD ZLSA")) +
-  geom_abline(aes(intercept = 0.289, slope = 1.796, linetype = "Average ZLSA")) +
-  geom_abline(aes(intercept = 0.426, slope = 1.612, linetype = "+1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.167, slope = 1.993, linetype = "-1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.303, slope = 1.800, linetype = "Average ZLSA")) +
+  geom_abline(aes(intercept = 0.440, slope = 1.606, linetype = "+1SD ZLSA")) +
   scale_linetype_manual(values = c("dotted", "dashed", "solid"),
                         breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
                         name = "Simple Slope") +
@@ -367,9 +370,9 @@ plot5 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
 plot6 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
-  geom_abline(aes(intercept = .155, slope = 3.892, linetype = "-1SD ZLSA")) +
-  geom_abline(aes(intercept = .473, slope = 2.380, linetype = "Average ZLSA")) +
-  geom_abline(aes(intercept = .792, slope = 0.868, linetype = "+1SD ZLSA")) +
+  geom_abline(aes(intercept = .169, slope = 3.900, linetype = "-1SD ZLSA")) +
+  geom_abline(aes(intercept = .487, slope = 2.386, linetype = "Average ZLSA")) +
+  geom_abline(aes(intercept = .806, slope = 0.872, linetype = "+1SD ZLSA")) +
   scale_linetype_manual(values = c("dotted", "dashed", "solid"),
                         breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
                         name = "Simple Slope") +
@@ -389,7 +392,7 @@ hyp3graphout <- plot_grid( plot4 + theme(legend.position="none"),
 )
 hyp3graphout
 
-##No see saw effect this go around. Also that first graph is wonk
+##sorta of a seesaw thing going on. The flip isn't as smooth as last time. Also first graph is wonk
 
 ####single word norm models -- judgments####
 ##only using length since, length, syllables, and phonemes are so correlated.
@@ -531,7 +534,7 @@ avgcoshighlsa3 = lme(Judged.Value2 ~ Judgment +
                        POS.2 + 
                        ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
                        ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2 +
-                       ZFSG * ZLSA_low * ZCOS_high,
+                       ZFSG * ZLSA_high * ZCOS,
                      data = noout, 
                      method = "ML", 
                      na.action = "na.omit",
@@ -543,9 +546,9 @@ summary(avgcoshighlsa3)
 plot7 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Judgment Value") +
   scale_size_continuous(guide = FALSE) +
-  geom_abline(aes(intercept = 0.292, slope = 0.803, linetype = "-1SD ZLSA")) +
-  geom_abline(aes(intercept = 0.293, slope = 0.516, linetype = "Average ZLSA")) +
-  geom_abline(aes(intercept = 0.293, slope = 0.228, linetype = "+1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.283, slope = 0.802, linetype = "-1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.287, slope = 0.495, linetype = "Average ZLSA")) +
+  geom_abline(aes(intercept = 0.291, slope = 0.188, linetype = "+1SD ZLSA")) +
   scale_linetype_manual(values = c("dotted", "dashed", "solid"),
                         breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
                         name = "Simple Slope") +
@@ -559,9 +562,9 @@ plot7 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
 plot8 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Judgment Value") +
   scale_size_continuous(guide = FALSE) +
-  geom_abline(aes(intercept = 0.331, slope = 0.432, linetype = "-1SD ZLSA")) +
-  geom_abline(aes(intercept = 0.345, slope = 0.297, linetype = "Average ZLSA")) +
-  geom_abline(aes(intercept = 0.370, slope = 0.061, linetype = "+1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.321, slope = 0.445, linetype = "-1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.339, slope = 0.293, linetype = "Average ZLSA")) +
+  geom_abline(aes(intercept = 0.358, slope = 0.141, linetype = "+1SD ZLSA")) +
   scale_linetype_manual(values = c("dotted", "dashed", "solid"),
                         breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
                         name = "Simple Slope") +
@@ -575,9 +578,9 @@ plot8 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
 plot9 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(x = "ZFSG", y = "Judgment Value") +
   scale_size_continuous(guide = FALSE) +
-  geom_abline(aes(intercept = 0.370, slope = 0.061, linetype = "-1SD ZLSA")) +
-  geom_abline(aes(intercept = 0.397, slope = 0.079, linetype = "Average ZLSA")) +
-  geom_abline(aes(intercept = 0.425, slope = 0.099, linetype = "+1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.359, slope = 0.088, linetype = "-1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.392, slope = 0.091, linetype = "Average ZLSA")) +
+  geom_abline(aes(intercept = 0.424, slope = 0.093, linetype = "+1SD ZLSA")) +
   scale_linetype_manual(values = c("dotted", "dashed", "solid"),
                         breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
                         name = "Simple Slope") +
@@ -627,7 +630,7 @@ overall.recall.sw.2 = glmer(Recall ~ (1|Partno) +
                            data = noout,
                            family = binomial,
                            control = glmerControl(optimizer = "bobyqa"),
-                           nAGQ = 0)
+                           nAGQ = 1)
 summary(overall.recall.sw.2)
 
 ##the two models above run fine when subltex is not included (this fixed the previous warning)
@@ -647,7 +650,7 @@ overall.recall.sw.3 = glmer(Recall ~ (1|Partno) +
                            data = noout,
                            family = binomial,
                            control = glmerControl(optimizer = "bobyqa"),
-                           nAGQ = 0)
+                           nAGQ = 0) ##set to zero to make it run faster
 summary(overall.recall.sw.3)
 
 overall.recall.sw.4 = glmer(Recall ~ (1|Partno) +
@@ -669,6 +672,214 @@ overall.recall.sw.4 = glmer(Recall ~ (1|Partno) +
 summary(overall.recall.sw.4) ##3 way is significant, but still get warnings.
 
 ####moderation for sw recall will go here####
+####sw judgments moderation stuff####
+lowcos4 = glmer(Recall ~ (1|Partno) +
+                  Judgment +
+                  Judged.Value2 +
+                  #ZSubtlex.1 +  ZSubtlex.2 + 
+                  ZLength.1 + 
+                  ZLength.2 + 
+                  ZMorphemes.1 + 
+                  ZMorphemes.2 +
+                  POS.2 + 
+                  ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
+                  ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2 +
+                ZFSG * ZLSA * ZCOS_low,
+              data = noout, 
+              family = binomial,
+              control = glmerControl(optimizer = "bobyqa"),
+              nAGQ = 0)
+summary(lowcos4)
+
+##high cosine
+hicos4 = glmer(Recall ~ (1|Partno) +
+                 Judgment +
+                 Judged.Value2 +
+                 #ZSubtlex.1 +  ZSubtlex.2 + 
+                 ZLength.1 + 
+                 ZLength.2 + 
+                 ZMorphemes.1 + 
+                 ZMorphemes.2 +
+                 POS.2 + 
+                 ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
+                 ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2 +
+               ZFSG * ZLSA * ZCOS_high,
+             data = noout, 
+             family = binomial,
+             control = glmerControl(optimizer = "bobyqa"),
+             nAGQ = 0)
+summary(hicos4)
+
+##low cosine low lsa
+lowcoslowlsa4 = glmer(Recall ~ (1|Partno) +
+                        Judgment +
+                        Judged.Value2 +
+                        #ZSubtlex.1 +  ZSubtlex.2 + 
+                        ZLength.1 + 
+                        ZLength.2 + 
+                        ZMorphemes.1 + 
+                        ZMorphemes.2 +
+                        POS.2 + 
+                        ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
+                        ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2 +
+                      ZFSG * ZLSA_low * ZCOS_low,
+                    data = noout, 
+                    family = binomial,
+                    control = glmerControl(optimizer = "bobyqa"),
+                    nAGQ = 0)
+summary(lowcoslowlsa4)
+
+##low cosine high lsa
+lowcoshighlsa4 = glmer(Recall ~ (1|Partno) +
+                         Judgment +
+                         Judged.Value2 +
+                         #ZSubtlex.1 +  ZSubtlex.2 + 
+                         ZLength.1 + 
+                         ZLength.2 + 
+                         ZMorphemes.1 + 
+                         ZMorphemes.2 +
+                         POS.2 + 
+                         ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
+                         ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2 +
+                       ZFSG * ZLSA_high * ZCOS_low,
+                     data = noout, 
+                     family = binomial,
+                     control = glmerControl(optimizer = "bobyqa"),
+                     nAGQ = 0)
+summary(lowcoshighlsa4)
+
+##high low
+highcoslowlsa4 = glmer(Recall ~ (1|Partno) +
+                         Judgment +
+                         Judged.Value2 +
+                         #ZSubtlex.1 +  ZSubtlex.2 + 
+                         ZLength.1 + 
+                         ZLength.2 + 
+                         ZMorphemes.1 + 
+                         ZMorphemes.2 +
+                         POS.2 + 
+                         ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
+                         ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2 +
+                       ZFSG * ZLSA_low * ZCOS_high,
+                     data = noout, 
+                     family = binomial,
+                     control = glmerControl(optimizer = "bobyqa"),
+                     nAGQ = 0)
+summary(highcoslowlsa4)
+
+##high high
+highcoshighlsa4 = glmer(Recall ~ (1|Partno) +
+                          Judgment +
+                          Judged.Value2 +
+                          #ZSubtlex.1 +  ZSubtlex.2 + 
+                          ZLength.1 + 
+                          ZLength.2 + 
+                          ZMorphemes.1 + 
+                          ZMorphemes.2 +
+                          POS.2 + 
+                          ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
+                          ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2 +
+                        ZFSG * ZLSA_high * ZCOS_high,
+                      data = noout, 
+                      family = binomial,
+                      control = glmerControl(optimizer = "bobyqa"),
+                      nAGQ = 0)
+summary(highcoshighlsa4)
+
+avgcoslowlsa4 = glmer(Recall ~ (1|Partno) +
+                        Judgment +
+                        Judged.Value2 +
+                        #ZSubtlex.1 +  ZSubtlex.2 + 
+                        ZLength.1 + 
+                        ZLength.2 + 
+                        ZMorphemes.1 + 
+                        ZMorphemes.2 +
+                        POS.2 + 
+                        ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
+                        ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2 +
+                      ZFSG * ZLSA_low * ZCOS,
+                    data = noout, 
+                    family = binomial,
+                    control = glmerControl(optimizer = "bobyqa"),
+                    nAGQ = 0)
+summary(avgcoslowlsa4)
+
+avgcoshighlsa4 = glmer(Recall ~ (1|Partno) +
+                         Judgment +
+                         Judged.Value2 +
+                         #ZSubtlex.1 +  ZSubtlex.2 + 
+                         ZLength.1 + 
+                         ZLength.2 + 
+                         ZMorphemes.1 + 
+                         ZMorphemes.2 +
+                         POS.2 + 
+                         ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
+                         ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2 +
+                       ZFSG * ZLSA_high * ZCOS,
+                     data = noout, 
+                     family = binomial,
+                     control = glmerControl(optimizer = "bobyqa"),
+                     nAGQ = 0)
+summary(avgcoshighlsa4)
+
+####moderation graphs -- sw judgments####
+##low cos
+plot13 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
+  labs(x = "ZFSG", y = "Recall") +
+  scale_size_continuous(guide = FALSE) +
+  geom_abline(aes(intercept = 0.659, slope = 1.141, linetype = "-1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.726, slope = 1.349, linetype = "Average ZLSA")) +
+  geom_abline(aes(intercept = 0.793, slope = 1.557, linetype = "+1SD ZLSA")) +
+  scale_linetype_manual(values = c("dotted", "dashed", "solid"),
+                        breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
+                        name = "Simple Slope") +
+  coord_cartesian(xlim = c(-.20, .60), ylim = c(.1, 1)) +
+  geom_vline(xintercept = -.30) +
+  geom_hline(yintercept = 0) +
+  cleanup + 
+  labs(title="Low ZCOS") 
+
+##avg cos
+plot14 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
+  labs(x = "ZFSG", y = "Recall") +
+  scale_size_continuous(guide = FALSE) +
+  geom_abline(aes(intercept = 0.622, slope = 2.657, linetype = "-1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.754, slope = 1.956, linetype = "Average ZLSA")) +
+  geom_abline(aes(intercept = 0.886, slope = 1.254, linetype = "+1SD ZLSA")) +
+  scale_linetype_manual(values = c("dotted", "dashed", "solid"),
+                        breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
+                        name = "Simple Slope") +
+  coord_cartesian(xlim = c(-.20, .60), ylim = c(.1, 1)) +
+  geom_vline(xintercept = -.30) +
+  geom_hline(yintercept = 0) +
+  cleanup + 
+  labs(title="Average ZCOS") 
+
+##high cos
+plot15 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
+  labs(x = "ZFSG", y = "Recall") +
+  scale_size_continuous(guide = FALSE) +
+  geom_abline(aes(intercept = 0.585, slope = 4.173, linetype = "-1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.782, slope = 2.563, linetype = "Average ZLSA")) +
+  geom_abline(aes(intercept = 0.980, slope = 0.952, linetype = "+1SD ZLSA")) +
+  scale_linetype_manual(values = c("dotted", "dashed", "solid"),
+                        breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
+                        name = "Simple Slope") +
+  coord_cartesian(xlim = c(-.20, .60), ylim = c(.1, 1)) +
+  geom_vline(xintercept = -.30) +
+  geom_hline(yintercept = 0) +
+  cleanup + 
+  labs(title="High ZCOS") 
+
+legend = get_legend(plot13)
+sw.recall.plot <- plot_grid(plot13 + theme(legend.position="none"),
+                           plot14 + theme(legend.position="none"),
+                           plot15 + theme(legend.position="none"),
+                           legend,
+                           hjust = -1,
+                           nrow = 2
+)
+sw.recall.plot ##FSG is best at high lsa and high cos, but no flip
 
 ####combined sw####
 ##these analyses will look at the pilot and thesis data combined
@@ -791,7 +1002,7 @@ combined.judge.sw.4 = lme(Judged.Value2 ~ Judgment +
 summary(combined.judge.sw.4) ##three way interaction is still significant
 
 ####combined judgments moderations####
-lowcos4 = lme(Judged.Value2 ~ Judgment +
+lowcos5 = lme(Judged.Value2 ~ Judgment +
                 ZSubtlex.1 + ZSubtlex.2 + ZLength.1 + ZLength.2 + ZMorphemes.1 + ZMorphemes.2 +
                 POS.2 + 
                 ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
@@ -801,10 +1012,10 @@ lowcos4 = lme(Judged.Value2 ~ Judgment +
               method = "ML", 
               na.action = "na.omit",
               random = ~1|Partno)
-summary(lowcos4)
+summary(lowcos5)
 
 ##high cosine
-hicos4 = lme(Judged.Value2 ~ Judgment +
+hicos5 = lme(Judged.Value2 ~ Judgment +
                ZSubtlex.1 + ZSubtlex.2 + ZLength.1 + ZLength.2 + ZMorphemes.1 + ZMorphemes.2 +
                POS.2 + 
                ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
@@ -814,7 +1025,7 @@ hicos4 = lme(Judged.Value2 ~ Judgment +
              method = "ML", 
              na.action = "na.omit",
              random = ~1|Partno)
-summary(hicos4)
+summary(hicos5)
 
 ##low cosine low lsa
 lowcoslowlsa4 = lme(Judged.Value2 ~ Judgment +
@@ -827,10 +1038,10 @@ lowcoslowlsa4 = lme(Judged.Value2 ~ Judgment +
                     method = "ML", 
                     na.action = "na.omit",
                     random = ~1|Partno)
-summary(lowcoslowlsa4)
+summary(lowcoslowlsa5)
 
 ##low cosine high lsa
-lowcoshighlsa4 = lme(Judged.Value2 ~ Judgment +
+lowcoshighlsa5 = lme(Judged.Value2 ~ Judgment +
                        ZSubtlex.1 + ZSubtlex.2 + ZLength.1 + ZLength.2 + ZMorphemes.1 + ZMorphemes.2 +
                        POS.2 + 
                        ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
@@ -840,10 +1051,10 @@ lowcoshighlsa4 = lme(Judged.Value2 ~ Judgment +
                      method = "ML", 
                      na.action = "na.omit",
                      random = ~1|Partno)
-summary(lowcoshighlsa4)
+summary(lowcoshighlsa5)
 
 ##high low
-highcoslowlsa4 = lme(Judged.Value2 ~ Judgment +
+highcoslowlsa5 = lme(Judged.Value2 ~ Judgment +
                        ZSubtlex.1 + ZSubtlex.2 + ZLength.1 + ZLength.2 + ZMorphemes.1 + ZMorphemes.2 +
                        POS.2 + 
                        ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
@@ -853,10 +1064,10 @@ highcoslowlsa4 = lme(Judged.Value2 ~ Judgment +
                      method = "ML", 
                      na.action = "na.omit",
                      random = ~1|Partno)
-summary(highcoslowlsa4)
+summary(highcoslowlsa5)
 
 ##high high
-highcoshighlsa4 = lme(Judged.Value2 ~ Judgment +
+highcoshighlsa5 = lme(Judged.Value2 ~ Judgment +
                         ZSubtlex.1 + ZSubtlex.2 + ZLength.1 + ZLength.2 + ZMorphemes.1 + ZMorphemes.2 +
                         POS.2 + 
                         ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
@@ -866,10 +1077,10 @@ highcoshighlsa4 = lme(Judged.Value2 ~ Judgment +
                       method = "ML", 
                       na.action = "na.omit",
                       random = ~1|Partno)
-summary(highcoshighlsa4)
+summary(highcoshighlsa5)
 
 ##avg low
-avgcoslowlsa4 = lme(Judged.Value2 ~ Judgment +
+avgcoslowlsa5 = lme(Judged.Value2 ~ Judgment +
                       ZSubtlex.1 + ZSubtlex.2 + ZLength.1 + ZLength.2 + ZMorphemes.1 + ZMorphemes.2 +
                       POS.2 + 
                       ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
@@ -879,20 +1090,20 @@ avgcoslowlsa4 = lme(Judged.Value2 ~ Judgment +
                     method = "ML", 
                     na.action = "na.omit",
                     random = ~1|Partno)
-summary(avgcoslowlsa4)
+summary(avgcoslowlsa5)
 
 ##avg high
-avgcoshighlsa4 = lme(Judged.Value2 ~ Judgment +
+avgcoshighlsa5 = lme(Judged.Value2 ~ Judgment +
                        ZSubtlex.1 + ZSubtlex.2 + ZLength.1 + ZLength.2 + ZMorphemes.1 + ZMorphemes.2 +
                        POS.2 + 
                        ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
                        ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2 +
-                       ZFSG * ZLSA_low * ZCOS_high,
+                       ZFSG * ZLSA * ZCOS_high,
                      data = combined, 
                      method = "ML", 
                      na.action = "na.omit",
                      random = ~1|Partno)
-summary(avgcoshighlsa4)
+summary(avgcoshighlsa5)
 
 ####moderation graphs -- sw judgments####
 ##low cos
@@ -957,42 +1168,64 @@ combined.judge.plot
 ##basically when cos is high, high lsa hurts fsg less than it does at low cosine
 
 ####recall -- sw combined data set####
-overall.recall.combined.1 = lme(Recall ~ Judgment +
+overall.recall.combined.1 = glmer(Recall ~ (1|Partno) + 
+                                    Judgment +
                             POS.1 + POS.2 + Subtlex.1 +Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2,
                           data = noout, 
-                          method = "ML", 
-                          na.action = "na.omit",
-                          random = ~1|Partno)
+                          family = binomial,
+                          control = glmerControl(optimizer = "bobyqa"),
+                          nAGQ = 0)
 summary(overall.recall.combined.1)
 
-overall.recall.combined.2 = lme(Recall ~ Judgment +
+overall.recall.combined.2 = glmer(Recall ~ (1|Partno) + 
+                                    Judgment +
                                   ZSubtlex.1 + ZSubtlex.2 + ZLength.1 + ZLength.2 + ZMorphemes.1 + ZMorphemes.2 +
                                   POS.2 +
                                   ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2,
                                 data = noout,
-                          method = "ML", 
-                          na.action = "na.omit",
-                          random = ~1|Partno)
+                                family = binomial,
+                                control = glmerControl(optimizer = "bobyqa"),
+                                nAGQ = 0)
 summary(overall.recall.combined.2)
 
-overall.recall.combined.3 = lme(Recall ~ Judgment +
+overall.recall.combined.3 = glmer(Recall ~ (1|Partno) + 
+                                    Judgment +
                                   ZSubtlex.1 + ZSubtlex.2 + ZLength.1 + ZLength.2 + ZMorphemes.1 + ZMorphemes.2 +
                                   POS.2 +
                                   ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
                                   ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2,
                           data = noout, 
-                          method = "ML", 
-                          na.action = "na.omit",
-                          random = ~1|Partno)
+                          family = binomial,
+                          control = glmerControl(optimizer = "bobyqa"),
+                          nAGQ = 0)
 summary(overall.recall.combined.3)
 
-overall.recall.combined.4 = lme(Recall ~ Judgment +
+overall.recall.combined.4 = glmer(Recall ~ (1|Partno) + 
+                            Judgment +
                             POS.1 + POS.2 + Subtlex.1 + Subtlex.2 + Length.1 + Length.2 + Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2 +
                             AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2 +
                             QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                             FSG * LSA * COS,
                           data = noout, 
-                          method = "ML", 
-                          na.action = "na.omit",
-                          random = ~1|Partno)
+                          family = binomial,
+                          control = glmerControl(optimizer = "bobyqa"),
+                          nAGQ = 0)
 summary(overall.recall.combined.4)
+
+glmer(Recall ~ (1|Partno) +
+        Judgment +
+        Judged.Value2 +
+        #ZSubtlex.1 +  ZSubtlex.2 + 
+        ZLength.1 + 
+        ZLength.2 + 
+        ZMorphemes.1 + 
+        ZMorphemes.2 +
+        POS.2 + 
+        ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
+        ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2 +
+        ZFSG * ZLSA_high * ZCOS,
+      data = noout, 
+      family = binomial,
+      control = glmerControl(optimizer = "bobyqa"),
+      nAGQ = 0)
+summary(avgcoshighlsa4)
