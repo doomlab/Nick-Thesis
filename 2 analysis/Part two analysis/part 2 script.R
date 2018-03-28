@@ -62,7 +62,6 @@ noout$ZFSG = scale(noout$FSG, scale = F)
 noout$ZQCON.1 = scale(noout$QCON.1, scale = F)
 noout$ZQCON.2 = scale(noout$QCON.2, scale = F)
 noout$ZQSS.1 = scale(noout$QSS.1, scale = F)
-noout$ZFSS.2 = scale(noout$FSS.2, scale = F)
 noout$ZOrtho.1 = scale(noout$Ortho.1, scale = F)
 noout$ZOrtho.2 = scale(noout$Ortho.2, scale = F)
 noout$ZPhono.1 = scale(noout$Phono.1, scale = F)
@@ -89,6 +88,7 @@ noout$ZFSS.1 = scale(noout$FSS.1, scale = F)
 noout$ZFSS.2 = scale(noout$FSS.2, scale = F)
 noout$ZCOSC.1 = scale(noout$COSC.1, scale = F)
 noout$ZCOSC.2 = scale(noout$COSC.2, scale = F)
+noout$ZTSS.2 = scale(noout$TSS.2, scale = F)
 
 ##create the right scaling 
 noout$Judged.Value2 = noout$Judged.Value/100
@@ -392,7 +392,8 @@ hyp3graphout <- plot_grid( plot4 + theme(legend.position="none"),
 )
 hyp3graphout
 
-##sorta of a seesaw thing going on. The flip isn't as smooth as last time. Also first graph is wonk
+##sorta of a seesaw thing going on. The flip isn't as smooth as last time. 
+##Also first graph is wonk
 ##also flip is in the wrong direction. 
 ##found out why that graph was wonk. I put in the SE for the slope instead of the estimate.
 ##its not wonk anymore.
@@ -873,7 +874,7 @@ summary(avgcoshighlsa4)
 
 ####moderation graphs -- sw judgments####
 ##low cos
-plot13 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot13 = ggplot(noout, aes(x = ZCOS_low, y = Recall)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = 0.659, slope = 1.141, linetype = "-1SD ZLSA")) +
@@ -889,7 +890,7 @@ plot13 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(title="Low ZCOS") 
 
 ##avg cos
-plot14 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot14 = ggplot(noout, aes(x = ZCOS_low, y = Recall)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = 0.622, slope = 2.657, linetype = "-1SD ZLSA")) +
@@ -905,7 +906,7 @@ plot14 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(title="Average ZCOS") 
 
 ##high cos
-plot15 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot15 = ggplot(noout, aes(x = ZCOS_low, y = Recall)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = 0.585, slope = 4.173, linetype = "-1SD ZLSA")) +
@@ -928,7 +929,8 @@ sw.recall.plot <- plot_grid(plot13 + theme(legend.position="none"),
                            hjust = -1,
                            nrow = 2
 )
-sw.recall.plot ##FSG is best at high lsa and high cos, but no flip
+sw.recall.plot ##FSG is best at low lsa and high cos
+##complimentary at low cos, competitive at high
 
 ####combined sw####
 ##these analyses will look at the pilot and thesis data combined
@@ -953,7 +955,7 @@ mahal = mahalanobis(pilot.dat[ , c(4,5)],
 cutoff = qchisq(1-.001, ncol(pilot.dat[ , c(4,5)]))
 cutoff;ncol(pilot.dat[ , c(4,5)])
 summary(mahal < cutoff) 
-combined = subset(pilot.dat, mahal < cutoff)
+noout2 = subset(pilot.dat, mahal < cutoff)
 
 ##get all the noout2 stuff on the right scaling
 ##network norms
