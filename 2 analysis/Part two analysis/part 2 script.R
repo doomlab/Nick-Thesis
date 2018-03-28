@@ -60,9 +60,9 @@ noout$ZFSG = scale(noout$FSG, scale = F)
 
 ##single word norms
 noout$ZQCON.1 = scale(noout$QCON.1, scale = F)
-noout$ZQCON.2 = scale(noout$QCON.2, scale = F )
+noout$ZQCON.2 = scale(noout$QCON.2, scale = F)
 noout$ZQSS.1 = scale(noout$QSS.1, scale = F)
-noout$ZTSS.2 = scale(noout$TSS.2, scale = F)
+noout$ZFSS.2 = scale(noout$FSS.2, scale = F)
 noout$ZOrtho.1 = scale(noout$Ortho.1, scale = F)
 noout$ZOrtho.2 = scale(noout$Ortho.2, scale = F)
 noout$ZPhono.1 = scale(noout$Phono.1, scale = F)
@@ -335,12 +335,12 @@ summary(avgcoshighlsa2)
 
 ####moderation graphs -- recall####
 ##low cos
-plot4 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot4 = ggplot(noout, aes(x = ZCOS_low, y = Recall)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = 0.162, slope = 0.087, linetype = "-1SD ZLSA")) +
   geom_abline(aes(intercept = 0.118, slope = 1.213, linetype = "Average ZLSA")) +
-  geom_abline(aes(intercept = 0.074, slope = 0.564, linetype = "+1SD ZLSA")) +
+  geom_abline(aes(intercept = 0.074, slope = 2.339, linetype = "+1SD ZLSA")) +
   scale_linetype_manual(values = c("dotted", "dashed", "solid"),
                         breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
                         name = "Simple Slope") +
@@ -351,7 +351,7 @@ plot4 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
   labs(title="Low ZCOS") 
 
 ##avg cos
-plot5 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot5 = ggplot(noout, aes(x = ZCOS_low, y = Recall)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = 0.167, slope = 1.993, linetype = "-1SD ZLSA")) +
@@ -364,10 +364,10 @@ plot5 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
   geom_vline(xintercept = -.30) +
   geom_hline(yintercept = 0) +
   cleanup + 
-  labs(title="Average ZCOS") 
+  labs(title="Average ZCOS")
 
 ##high cos
-plot6 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
+plot6 = ggplot(noout, aes(x = ZCOS_low, y = Recall)) +
   labs(x = "ZFSG", y = "Recall") +
   scale_size_continuous(guide = FALSE) +
   geom_abline(aes(intercept = .169, slope = 3.900, linetype = "-1SD ZLSA")) +
@@ -393,6 +393,12 @@ hyp3graphout <- plot_grid( plot4 + theme(legend.position="none"),
 hyp3graphout
 
 ##sorta of a seesaw thing going on. The flip isn't as smooth as last time. Also first graph is wonk
+##also flip is in the wrong direction. 
+##found out why that graph was wonk. I put in the SE for the slope instead of the estimate.
+##its not wonk anymore.
+##Now that the slope is corrected, FSG and LSA are complimentary at low cos and competitive at high
+##FSG slopes get stronger as LSA increases at low COS
+##FSG gets weaker as LSA increases at higher cosines.
 
 ####single word norm models -- judgments####
 ##only using length since, length, syllables, and phonemes are so correlated.
@@ -438,6 +444,32 @@ overall.judge.sw.4 = lme(Judged.Value2 ~ Judgment +
                          na.action = "na.omit",
                          random = ~1|Partno)
 summary(overall.judge.sw.4) ##three way interaction is now significant after controlling for everything.
+
+####looking just at info for target words####
+overall.judge.sw.5 = lme(Judged.Value2 ~ Judgment +
+                          ZSubtlex.2 + ZLength.2 + ZMorphemes.2 +
+                           POS.2 + 
+                           ZAOA.2 + ZFamiliarity.2 + ZValence.2 + ZImageability.2 + ZQCON.2 +
+                           ZTSS.2 + ZFSS.2 + ZCOSC.2 + ZOrtho.2 + ZPhono.2 +
+                           ZFSG * ZLSA * ZCOS,
+                         data = noout, 
+                         method = "ML", 
+                         na.action = "na.omit",
+                         random = ~1|Partno)
+summary(overall.judge.sw.5) ##interaction is no longer signficant
+
+##now looking just at cues
+overall.judge.sw.6 = lme(Judged.Value2 ~ Judgment +
+                           ZSubtlex.1 + ZLength.1 + ZMorphemes.1 +
+                           POS.1 + 
+                           ZAOA.1 + ZFamiliarity.1 + ZValence.1 + ZImageability.1 + ZQCON.1 +
+                           ZQSS.1 + ZFSS.1 + ZCOSC.1 + ZOrtho.1 + ZPhono.1 +
+                           ZFSG * ZLSA * ZCOS,
+                         data = noout, 
+                         method = "ML", 
+                         na.action = "na.omit",
+                         random = ~1|Partno)
+summary(overall.judge.sw.6) ##interaction is still significant, sign has flipped to negative
 
 ####sw judgments moderation stuff####
 lowcos3 = lme(Judged.Value2 ~ Judgment +
@@ -670,6 +702,23 @@ overall.recall.sw.4 = glmer(Recall ~ (1|Partno) +
                           control = glmerControl(optimizer = "bobyqa"),
                           nAGQ = 0)
 summary(overall.recall.sw.4) ##3 way is significant, but still get warnings.
+
+####looking just at target word properties####
+overall.recall.sw.5 = glmer(Recall ~ (1|Partno) +
+                              Judgment +
+                              Judged.Value2 +
+                              ZSubtlex.2 + 
+                              ZLength.2 + 
+                              ZMorphemes.2 +
+                              POS.2 + 
+                              ZAOA.2 +  ZFamiliarity.2 + ZValence.2 + ZImageability.2 + ZQCON.2 +
+                              ZTSS.2 + ZFSS.2 + ZCOSC.2 + ZOrtho.2 + ZPhono.2 +
+                              ZFSG * ZLSA * ZCOS,
+                            data = noout,
+                            family = binomial,
+                            control = glmerControl(optimizer = "bobyqa"),
+                            nAGQ = 0)
+summary(overall.recall.sw.5)
 
 ####moderation for sw recall will go here####
 ####sw judgments moderation stuff####
