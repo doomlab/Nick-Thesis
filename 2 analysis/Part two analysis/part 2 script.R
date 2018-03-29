@@ -36,8 +36,8 @@ noout = subset(dat, mahal < cutoff)
 
 
 ##additivity
-cor(noout[ , c(4:15, 17:31, 33:46)], use = "pairwise.complete.obs")
-
+correlations = cor(noout[ , c(4:15, 17:31, 33:46)], use = "pairwise.complete.obs")
+symnum(correlations)
 ##for now will just use length and morphemes to cut down on correlations
 
 ####descriptive statistics will go below####
@@ -118,70 +118,70 @@ noout$ZCOS_low = noout$ZCOS + sd(noout$ZCOS, na.rm = TRUE)
 noout$ZCOS_high = noout$ZCOS - sd(noout$ZCOS, na.rm = TRUE)
 
 ##low cosine
-#lowcos = lme(Judged.Value2 ~ Judgment +
-             #  ZCOS_low * ZLSA * ZFSG, 
-             #data = noout, 
-             #method = "ML", 
-             #na.action = "na.omit",
-             #random = ~1|Partno)
+lowcos = lme(Judged.Value2 ~ Judgment +
+ ZCOS_low * ZLSA * ZFSG,
+data = noout,
+method = "ML",
+na.action = "na.omit",
+random = ~1|Partno)
 
 ##high cosine
-#highcos = lme(Judged.Value2 ~ Judgment +
-               # ZCOS_high * ZLSA * ZFSG, 
-              #data = noout, 
-              #method = "ML", 
-              #na.action = "na.omit",
-              #random = ~1|Partno)
+highcos = lme(Judged.Value2 ~ Judgment +
+ZCOS_high * ZLSA * ZFSG,
+data = noout,
+method = "ML",
+na.action = "na.omit",
+random = ~1|Partno)
 
-#summary(lowcos)
-#summary(highcos)
+summary(lowcos)
+summary(highcos)
 
 ##now splitting by LSA
 noout$ZLSA_low = noout$ZLSA + sd(noout$ZLSA, na.rm = TRUE)
 noout$ZLSA_high = noout$ZLSA - sd(noout$ZLSA, na.rm = TRUE)
 
 ##low cosine, low lsa
-#lowcoslowlsa = lme(Judged.Value2 ~ Judgment +
-                  #   ZCOS_low * ZLSA_low * ZFSG, 
-                  # data = noout, 
-                  # method = "ML", 
-                  # na.action = "na.omit",
-                  # random = ~1|Partno)
+lowcoslowlsa = lme(Judged.Value2 ~ Judgment +
+  ZCOS_low * ZLSA_low * ZFSG,
+data = noout,
+method = "ML",
+na.action = "na.omit",
+random = ~1|Partno)
 ##low high
-#lowcoshighlsa = lme(Judged.Value2 ~ Judgment +
-                      #ZCOS_low  * ZLSA_high * ZFSG, 
-                    #data = noout, 
-                    #method = "ML", 
-                   # na.action = "na.omit",
-                   # random = ~1|Partno)
+lowcoshighlsa = lme(Judged.Value2 ~ Judgment +
+ZCOS_low  * ZLSA_high * ZFSG,
+data = noout,
+method = "ML",
+na.action = "na.omit",
+random = ~1|Partno)
 ##avg low
-#avgcoslowlsa = lme(Judged.Value2 ~ Judgment +
-                #     ZCOS * ZLSA_low * ZFSG, 
-                 #  data = noout, 
-                 #  method = "ML", 
-                 #  na.action = "na.omit",
-                 #  random = ~1|Partno)
+avgcoslowlsa = lme(Judged.Value2 ~ Judgment +
+    ZCOS * ZLSA_low * ZFSG,
+ data = noout,
+ method = "ML",
+ na.action = "na.omit",
+ random = ~1|Partno)
 ##avg high
-#avgcoshighlsa = lme(Judged.Value2 ~ Judgment +
-          #            ZCOS  * ZLSA_high * ZFSG, 
-         #           data = noout, 
-         #           method = "ML", 
-         #           na.action = "na.omit",
-        #            random = ~1|Partno)
+avgcoshighlsa = lme(Judged.Value2 ~ Judgment +
+           ZCOS  * ZLSA_high * ZFSG,
+          data = noout,
+          method = "ML",
+          na.action = "na.omit",
+           random = ~1|Partno)
 
-#highcoslowlsa = lme(Judged.Value2 ~ Judgment +
-     #                 ZCOS_high * ZLSA_low * ZFSG, 
-  #                  data = noout, 
-  #                  method = "ML", 
-       #             na.action = "na.omit",
-       #             random = ~1|Partno)
+highcoslowlsa = lme(Judged.Value2 ~ Judgment +
+                ZCOS_high * ZLSA_low * ZFSG,
+                 data = noout,
+                 method = "ML",
+            na.action = "na.omit",
+            random = ~1|Partno)
 ##high high
-#highcoshighlsa = lme(Judged.Value2 ~ Judgment +
-     #                 ZCOS_high  * ZLSA_high * ZFSG, 
-      #               data = noout, 
-      #               method = "ML", 
-      #               na.action = "na.omit",
-      #               random = ~1|Partno)
+highcoshighlsa = lme(Judged.Value2 ~ Judgment +
+                ZCOS_high  * ZLSA_high * ZFSG,
+              data = noout,
+              method = "ML",
+              na.action = "na.omit",
+              random = ~1|Partno)
 
 ####judgment graphs####
 cleanup = theme(panel.grid.major = element_blank(), 
@@ -406,7 +406,7 @@ hyp3graphout
 ##only using length since, length, syllables, and phonemes are so correlated.
 
 overall.judge.sw.1 = lme(Judged.Value2 ~ Judgment +
-                           ZSubtlex.1 + ZSubtlex.2 + ZLength.1 + ZLength.2 + ZMorphemes.1 + ZMorphemes.2 +
+                           Subtlex.1 + Subtlex.2 + Length.1 + Length.2 + Morphemes.1 + Morphemes.2 +
                            POS.2,                                                                         ##POS variables are fine individually
                          data = noout,                                                                    ##but the model freaks out when they are included together
                          method = "ML",                                                                   ##for now, I'm just going to focus on the target POS
@@ -415,9 +415,9 @@ overall.judge.sw.1 = lme(Judged.Value2 ~ Judgment +
 summary(overall.judge.sw.1)
 
 overall.judge.sw.2 = lme(Judged.Value2 ~ Judgment +
-                           ZSubtlex.1 + ZSubtlex.2 + ZLength.1 + ZLength.2 + ZMorphemes.1 + ZMorphemes.2 +
+                           Subtlex.1 + Subtlex.2 + Length.1 + Length.2 + Morphemes.1 + Morphemes.2 +
                            POS.2 +
-                           ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2,
+                           AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2,
                          data = noout, 
                          method = "ML", 
                          na.action = "na.omit",
@@ -425,10 +425,10 @@ overall.judge.sw.2 = lme(Judged.Value2 ~ Judgment +
 summary(overall.judge.sw.2)
 
 overall.judge.sw.3 = lme(Judged.Value2 ~ Judgment +
-                           ZSubtlex.1 + ZSubtlex.2 + ZLength.1 + ZLength.2 + ZMorphemes.1 + ZMorphemes.2 +
+                           Subtlex.1 + Subtlex.2 + Length.1 + Length.2 + Morphemes.1 + Morphemes.2 +
                            POS.2 +
-                           ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
-                           ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2,
+                           AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2 +
+                           QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2,
                          data = noout, 
                          method = "ML", 
                          na.action = "na.omit",
@@ -436,10 +436,10 @@ overall.judge.sw.3 = lme(Judged.Value2 ~ Judgment +
 summary(overall.judge.sw.3)
 
 overall.judge.sw.4 = lme(Judged.Value2 ~ Judgment +
-                           ZSubtlex.1 + ZSubtlex.2 + ZLength.1 + ZLength.2 + ZMorphemes.1 + ZMorphemes.2 +
+                           Subtlex.1 + Subtlex.2 + Length.1 + Length.2 + Morphemes.1 + Morphemes.2 +
                            POS.2 + 
-                           ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
-                           ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2 +
+                           AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2 +
+                           QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                            ZFSG * ZLSA * ZCOS,
                          data = noout, 
                          method = "ML", 
@@ -639,32 +639,32 @@ sw.judge.plot
 ####single word norm models -- recall####
 overall.recall.sw.1 = glmer(Recall ~ (1|Partno) +
                             Judgment + Judged.Value2 +
-                            #ZSubtlex.1 + + ZSubtlex.2 + 
-                              ZLength.1 + 
-                              ZLength.2 + 
-                              ZMorphemes.1 + 
-                              ZMorphemes.2 +
+                              LogSub.1 + + LogSub.2 + 
+                              Length.1 + 
+                              Length.2 + 
+                              Morphemes.1 + 
+                              Morphemes.2 +
                             POS.2,
                             data = noout,
                             family = binomial,
                             control = glmerControl(optimizer = "bobyqa"),
-                            nAGQ = 1)
+                            nAGQ = 0)
 summary(overall.recall.sw.1)
 
 overall.recall.sw.2 = glmer(Recall ~ (1|Partno) +
                            Judgment +
                              Judged.Value2 +
-                             #ZSubtlex.1 +  ZSubtlex.2 + 
-                             ZLength.1 + 
-                             ZLength.2 + 
-                             ZMorphemes.1 + 
-                             ZMorphemes.2 +
+                             LogSub.1 + + LogSub.2 + 
+                             Length.1 + 
+                             Length.2 + 
+                             Morphemes.1 + 
+                             Morphemes.2 +
                              POS.2 +
-                           ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2,
+                           AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2,
                            data = noout,
                            family = binomial,
                            control = glmerControl(optimizer = "bobyqa"),
-                           nAGQ = 1)
+                           nAGQ = 0)
 summary(overall.recall.sw.2)
 
 ##the two models above run fine when subltex is not included (this fixed the previous warning)
@@ -673,31 +673,31 @@ summary(overall.recall.sw.2)
 overall.recall.sw.3 = glmer(Recall ~ (1|Partno) +
                               Judgment +
                               Judged.Value2 +
-                              #ZSubtlex.1 +  ZSubtlex.2 + 
-                              ZLength.1 + 
-                              ZLength.2 + 
-                              ZMorphemes.1 + 
-                              ZMorphemes.2 +
+                              LogSub.1 + + LogSub.2 +
+                              Length.1 + 
+                              Length.2 + 
+                              Morphemes.1 + 
+                              Morphemes.2 +
                               POS.2 +
-                           ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + Valence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
-                           ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2,
+                           AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2 +
+                           QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2,
                            data = noout,
                            family = binomial,
                            control = glmerControl(optimizer = "bobyqa"),
-                           nAGQ = 0) ##set to zero to make it run faster
+                           nAGQ = 0) ##set to ero to make it run faster
 summary(overall.recall.sw.3)
 
 overall.recall.sw.4 = glmer(Recall ~ (1|Partno) +
                               Judgment +
                               Judged.Value2 +
-                              #ZSubtlex.1 +  ZSubtlex.2 + 
-                              ZLength.1 + 
-                              ZLength.2 + 
-                              ZMorphemes.1 + 
-                              ZMorphemes.2 +
+                              LogSub.1 + + LogSub.2 +
+                              Length.1 + 
+                              Length.2 + 
+                              Morphemes.1 + 
+                              Morphemes.2 +
                               POS.2 + 
-                            ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
-                            ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2 +
+                            AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageability.2 + QCON.1 + QCON.2 +
+                            QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                             ZFSG * ZLSA * ZCOS,
                           data = noout,
                           family = binomial,
