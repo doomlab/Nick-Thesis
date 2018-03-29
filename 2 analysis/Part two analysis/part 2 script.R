@@ -400,6 +400,7 @@ hyp3graphout
 ##Now that the slope is corrected, FSG and LSA are complimentary at low cos and competitive at high
 ##FSG slopes get stronger as LSA increases at low COS
 ##FSG gets weaker as LSA increases at higher cosines.
+##this is the opposite of the pilot...
 
 ####single word norm models -- judgments####
 ##only using length since, length, syllables, and phonemes are so correlated.
@@ -703,6 +704,7 @@ overall.recall.sw.4 = glmer(Recall ~ (1|Partno) +
                           control = glmerControl(optimizer = "bobyqa"),
                           nAGQ = 0)
 summary(overall.recall.sw.4) ##3 way is significant, but still get warnings.
+##fit warning is related to the network norms, since they only appear in model 4
 
 ####looking just at target word properties####
 overall.recall.sw.5 = glmer(Recall ~ (1|Partno) +
@@ -931,6 +933,7 @@ sw.recall.plot <- plot_grid(plot13 + theme(legend.position="none"),
 )
 sw.recall.plot ##FSG is best at low lsa and high cos
 ##complimentary at low cos, competitive at high
+##same results as when not controlling for sw norms
 
 ####combined sw####
 ##these analyses will look at the pilot and thesis data combined
@@ -1225,7 +1228,7 @@ overall.recall.combined.1 = glmer(Recall ~ (1|Partno) +
                           data = noout, 
                           family = binomial,
                           control = glmerControl(optimizer = "bobyqa"),
-                          nAGQ = 0)
+                          nAGQ = 0) ##currently set to zero, otherwise these models run forever.
 summary(overall.recall.combined.1)
 
 overall.recall.combined.2 = glmer(Recall ~ (1|Partno) + 
@@ -1261,22 +1264,7 @@ overall.recall.combined.4 = glmer(Recall ~ (1|Partno) +
                           family = binomial,
                           control = glmerControl(optimizer = "bobyqa"),
                           nAGQ = 0)
-summary(overall.recall.combined.4)
+summary(overall.recall.combined.4) ##three-way is significant
 
-glmer(Recall ~ (1|Partno) +
-        Judgment +
-        Judged.Value2 +
-        #ZSubtlex.1 +  ZSubtlex.2 + 
-        ZLength.1 + 
-        ZLength.2 + 
-        ZMorphemes.1 + 
-        ZMorphemes.2 +
-        POS.2 + 
-        ZAOA.1 + ZAOA.2 + ZFamiliarity.1 + ZFamiliarity.2 + ZValence.1 + ZValence.2 + ZImageability.1 + ZImageability.2 + ZQCON.1 + ZQCON.2 +
-        ZQSS.1 + ZTSS.2 + ZFSS.1 + ZFSS.2 + ZCOSC.1 + ZCOSC.2 + ZOrtho.1 + ZOrtho.2 + ZPhono.1 + ZPhono.2 +
-        ZFSG * ZLSA_high * ZCOS,
-      data = noout, 
-      family = binomial,
-      control = glmerControl(optimizer = "bobyqa"),
-      nAGQ = 0)
-summary(avgcoshighlsa4)
+####moderations for combined recall####
+
