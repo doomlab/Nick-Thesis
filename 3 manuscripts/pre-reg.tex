@@ -118,21 +118,22 @@ Single Word Norms when Predicting Relatedness Judgments and Retrieval}
 
   \author{Nicholas P. Maxwell\textsuperscript{1}~\& Erin M. Buchanan\textsuperscript{1}}
 
-  \def\affdep{{"", ""}}%
-  \def\affcity{{"", ""}}%
+  % \def\affdep{{"", ""}}%
+  % \def\affcity{{"", ""}}%
 
   \affiliation{
     \vspace{0.5cm}
           \textsuperscript{1} Missouri State University  }
 
   \authornote{
-    \newcounter{author}
     Nicholas P. Maxwell is a graduate student at Missouri State University.
     Erin M. Buchanan is an Associate Professor of Psychology at Missouri
     State University.
-
-                      Correspondence concerning this article should be addressed to Nicholas P. Maxwell, 901 S. National Ave, Springfield, MO, 65897. E-mail: \href{mailto:maxwell270@live.missouristate.edu}{\nolinkurl{maxwell270@live.missouristate.edu}}
-                          }
+    
+    Correspondence concerning this article should be addressed to Nicholas
+    P. Maxwell, 901 S. National Ave, Springfield, MO, 65897. E-mail:
+    \href{mailto:maxwell270@live.missouristate.edu}{\nolinkurl{maxwell270@live.missouristate.edu}}
+  }
 
 
   \abstract{This study examined the interactive relationship between semantic,
@@ -161,16 +162,16 @@ processes.}
 
 
 \usepackage{amsthm}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}
-\newtheorem{corollary}{Corollary}
-\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
 \theoremstyle{definition}
-\newtheorem{example}{Example}
+\newtheorem{example}{Example}[section]
 \theoremstyle{definition}
-\newtheorem{exercise}{Exercise}
+\newtheorem{exercise}{Exercise}[section]
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 \newtheorem*{solution}{Solution}
@@ -712,6 +713,32 @@ markdown using the \emph{papaja} package by Aust and Barth (2017).
 \section{References}\label{references}
 
 \setlength{\parindent}{-0.5in} \setlength{\leftskip}{0.5in}
+
+\begin{table}[tbp]
+\begin{center}
+\begin{threeparttable}
+\caption{\label{tab:unnamed-chunk-1}Summary Statistics for Stimuli}
+\begin{tabular}{lccccccccc}
+\toprule
+Variable &   & COS Low &   &   & COS Average &   &   & COS High &  \\
+\midrule
+ & $N$ & $M$ & $SD$ & $N$ & $M$ & $SD$ & $N$ & $M$ & $SD$\\
+COS & 21 & .058 & .070 & 21 & .445 & .081 & 21 & .752 & .047\\
+FSG Low & 21 & .050 & .044 & 19 & .069 & .073 & 16 & .098 & .088\\
+FSG Average & NA & NA & NA & 2 & .623 & .033 & 4 & .542 & .066\\
+FSG High & NA & NA & NA & NA & NA & NA & 1 & .828 & NA\\
+LSA Low & 17 & .182 & .074 & 9 & .215 & .070 & 4 & .192 & .053\\
+LSA Average & 3 & .466 & .140 & 10 & .489 & .087 & 14 & .515 & .079\\
+LSA High & 1 & .717 & NA & 2 & .685 & .025 & 3 & .772 & .106\\
+\bottomrule
+\addlinespace
+\end{tabular}
+\begin{tablenotes}[para]
+\textit{Note.} COS: Cosine, FSG: Forward Strength, LSA: Latent Semantic Analysis.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
 
 \hypertarget{refs}{}
 \hypertarget{ref-Adelman2007}{}

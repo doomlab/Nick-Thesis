@@ -542,3 +542,76 @@ This analysis plan was pre-registered as part of the Pre-Registration Challenge 
 
 \setlength{\parindent}{-0.5in}
 \setlength{\leftskip}{0.5in}
+
+```{r, echo=FALSE, results='asis'}
+####table###
+tableprint = matrix(NA, nrow = 8, ncol = 10)
+colnames(tableprint) = c("Variable", " ", "COS Low", " ",
+                         " ", "COS Average", " ", 
+                         " ", "COS High", " ")
+library(MOTE)
+
+stimuli = read.csv("stimuli jan 18.csv")
+
+##calculate means and sds
+##apa function is apa(numbers, decimals, leading zero T or F)
+cosmean = apa(tapply(stimuli$COS, stimuli$cosg, mean), 3, F)
+fsgmean = matrix(apa(
+  tapply(stimuli$FSG, list("cos" = stimuli$cosg, "fsg" = stimuli$fsgg), mean), 3, F), 
+  3, 3)
+lsamean = matrix(apa(
+  tapply(stimuli$LSA, list("cos" = stimuli$cosg, "lsa" = stimuli$lsag), mean), 3, F),
+  3,3)
+
+cossd = apa(tapply(stimuli$COS, stimuli$cosg, sd), 3, F)
+fsgsd = matrix(apa(
+  tapply(stimuli$FSG, list("cos" = stimuli$cosg, "fsg" = stimuli$fsgg), sd), 3, F),
+  3,3)
+lsasd = matrix(apa(
+  tapply(stimuli$LSA, list("cos" = stimuli$cosg, "lsa" = stimuli$lsag), sd), 3, F),
+  3,3)
+
+cosN = tapply(stimuli$COS, stimuli$cosg, length)
+fsgN = tapply(stimuli$FSG, list("cos" = stimuli$cosg, "fsg" = stimuli$fsgg), length)
+lsaN = tapply(stimuli$LSA, list("cos" = stimuli$cosg, "lsa" = stimuli$lsag), length)
+
+tableprint[1, ] = c(" ", "$N$", "$M$", "$SD$", "$N$", "$M$", "$SD$", "$N$", "$M$", "$SD$")
+tableprint[2, ] = c("COS", cosN[2], cosmean[2], cossd[2],
+                    cosN[3], cosmean[3], cossd[3],
+                    cosN[1], cosmean[1], cossd[1])
+
+
+
+##apply creates rows cos h l m
+##apply creates columns fsg h l m
+
+tableprint[3, ] = c("FSG Low", fsgN[2,2], fsgmean[2,2], fsgsd[2,2],
+                    fsgN[3,2], fsgmean[3,2], fsgsd[3,2],
+                    fsgN[1,2], fsgmean[1,2], fsgsd[1,2])
+tableprint[4, ] = c("FSG Average", fsgN[2,3], fsgmean[2,3], fsgsd[2,3],
+                    fsgN[3,3], fsgmean[3,3], fsgsd[3,3],
+                    fsgN[1,3], fsgmean[1,3], fsgsd[1,3])
+tableprint[5, ] = c("FSG High", fsgN[2,1], fsgmean[2,1], fsgsd[2,1],
+                    fsgN[3,1], fsgmean[3,1], fsgsd[3,1],
+                    fsgN[1,1], fsgmean[1,1], fsgsd[1,1])
+tableprint[6, ] = c("LSA Low", lsaN[2,2], lsamean[2,2], lsasd[2,2],
+                    lsaN[3,2], lsamean[3,2], lsasd[3,2],
+                    lsaN[1,2], lsamean[1,2], lsasd[1,2])
+tableprint[7, ] = c("LSA Average", lsaN[2,3], lsamean[2,3], lsasd[2,3],
+                    lsaN[3,3], lsamean[3,3], lsasd[3,3],
+                    lsaN[1,3], lsamean[1,3], lsasd[1,3])
+tableprint[8, ] = c("LSA High", lsaN[2,1], lsamean[2,1], lsasd[2,1],
+                    lsaN[3,1], lsamean[3,1], lsasd[3,1],
+                    lsaN[1,1], lsamean[1,1], lsasd[1,1])
+
+apa_table.latex(as.data.frame(tableprint),
+                align = c("l", rep("c", 9)), 
+                caption = "Summary Statistics for Stimuli",
+                note = "COS: Cosine, FSG: Forward Strength, LSA: Latent Semantic Analysis.",
+                escape = FALSE,
+                col.names = c("Variable", " ", "COS Low", " ", " ", "COS Average", " ", " ", "COS High", " ")
+)
+
+
+```
+

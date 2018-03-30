@@ -96,3 +96,32 @@ LSA & Landauer and Dumais, 1997 & 0.38 & 0.20 & 0.05 & 0.88\\
 \end{table*}
 \efloatseparator
  
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[tbp]
+\begin{center}
+\begin{threeparttable}
+\caption{\label{tab:unnamed-chunk-1}Summary Statistics for Stimuli}
+\begin{tabular}{lccccccccc}
+\toprule
+Variable &   & COS Low &   &   & COS Average &   &   & COS High &  \\
+\midrule
+ & $N$ & $M$ & $SD$ & $N$ & $M$ & $SD$ & $N$ & $M$ & $SD$\\
+COS & 21 & .058 & .070 & 21 & .445 & .081 & 21 & .752 & .047\\
+FSG Low & 21 & .050 & .044 & 19 & .069 & .073 & 16 & .098 & .088\\
+FSG Average & NA & NA & NA & 2 & .623 & .033 & 4 & .542 & .066\\
+FSG High & NA & NA & NA & NA & NA & NA & 1 & .828 & NA\\
+LSA Low & 17 & .182 & .074 & 9 & .215 & .070 & 4 & .192 & .053\\
+LSA Average & 3 & .466 & .140 & 10 & .489 & .087 & 14 & .515 & .079\\
+LSA High & 1 & .717 & NA & 2 & .685 & .025 & 3 & .772 & .106\\
+\bottomrule
+\addlinespace
+\end{tabular}
+\begin{tablenotes}[para]
+\textit{Note.} COS: Cosine, FSG: Forward Strength, LSA: Latent Semantic Analysis.
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table*}
+\efloatseparator
+ 
