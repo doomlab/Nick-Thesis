@@ -412,6 +412,8 @@ combined = rbind(noout, noout2)
 
 summary(combined)
 
+table("judge" = is.na(combined$Judged.Value), "recall" = is.na(combined$Recall))
+
 ##fix POS
 combined$POS.2 = gsub("JJ", "ADJ", combined$POS.2)
 combined$POS.2 = as.factor(combined$POS.2)
@@ -911,7 +913,7 @@ plot10 = ggplot(noout, aes(x = ZCOS_low, y = Recall)) +
   scale_linetype_manual(values = c("dotted", "dashed", "solid"),
                         breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
                         name = "Simple Slope") +
-  coord_cartesian(xlim = c(-.20, .60), ylim = c(.1, 1)) +
+  coord_cartesian(xlim = c(-.20, .60), ylim = c(6.1, 7)) +
   geom_vline(xintercept = -.30) +
   geom_hline(yintercept = 0) +
   cleanup + 
@@ -927,7 +929,7 @@ plot11 = ggplot(noout, aes(x = ZCOS_low, y = Recall)) +
   scale_linetype_manual(values = c("dotted", "dashed", "solid"),
                         breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
                         name = "Simple Slope") +
-  coord_cartesian(xlim = c(-.20, .60), ylim = c(.1, 1)) +
+  coord_cartesian(xlim = c(-.20, .60), ylim = c(6.1, 7)) +
   geom_vline(xintercept = -.30) +
   geom_hline(yintercept = 0) +
   cleanup + 
@@ -943,7 +945,7 @@ plot12 = ggplot(noout, aes(x = ZCOS_low, y = Recall)) +
   scale_linetype_manual(values = c("dotted", "dashed", "solid"),
                         breaks = c("-1SD ZLSA", "Average ZLSA", "+1SD ZLSA"),
                         name = "Simple Slope") +
-  coord_cartesian(xlim = c(-.20, .60), ylim = c(.1, 1)) +
+  coord_cartesian(xlim = c(-.20, .60), ylim = c(6.1, 7)) +
   geom_vline(xintercept = -.30) +
   geom_hline(yintercept = 0) +
   cleanup + 
@@ -958,7 +960,6 @@ recall.graph.sw =  plot_grid( plot10 + theme(legend.position="none"),
                            nrow = 2
 )
 recall.graph.sw 
-##oh my god the intercepts are so fucking high the slopes aren't even on the damn graph
 ##looking at the numbers though, these are competitive at low, complimentary at high
 ##Just like the pilot
 
