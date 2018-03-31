@@ -62,7 +62,7 @@ bar.plot
 ##updated graph
 bar.plot2 = ggplot(long.dat, aes(Judgment.Type, Score, fill = Task)) +
   cleanup +
-  theme(legend.position="bottom") +
+  theme(legend.position=c(.9,.9)) +
   stat_summary(fun.y = mean,
                geom = "bar",
                position = "dodge",
@@ -75,10 +75,11 @@ bar.plot2 = ggplot(long.dat, aes(Judgment.Type, Score, fill = Task)) +
   scale_fill_manual("Task", 
                     values = c("Judgment" = "indianred4", 
                                "Recall" = "dimgray")) +
-  ylim(0, 1)
+  coord_cartesian(ylim = c(0,1)) +
+  xlab("Judgment Type")
 bar.plot2
 
-tiff(filename = "mpagraph.tiff", res = 300, width = 6, 
+tiff(filename = "mpagraph.tiff", res = 300, width = 8, 
      height = 6, units = 'in', compression = "lzw")
 plot(bar.plot2)
 dev.off()
