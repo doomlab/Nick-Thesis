@@ -516,7 +516,7 @@ judgeoverall.4 = lme(Judged.Value2 ~ Judgment +
                        Familiarity.2 +  Valence.1 +  Valence.2 + 
                        Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
                        QSS.1 +  TSS.2 +  FSS.1 +
-                       QSS.1 + TSS.2 + FSS.2 + FSS.1 + COSC.2 + Ortho.2 + Phono.1 +
+                       FSS.2 + FSS.1 + COSC.2 + Ortho.2 + Phono.1 +
                        ZFSG * ZLSA * ZCOS,
                      data = combined,
                      method = "ML", 
