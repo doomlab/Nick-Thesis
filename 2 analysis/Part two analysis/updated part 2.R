@@ -526,10 +526,25 @@ summary(judgeoverall.4, correlation = T)
 ##three way is not sig, two of the two ways are, FSG is still strongest predictor.
 ##these results replicate judgment results from just network norms
 
+##playing w/ mumin package
+library(MuMIn)
+
+model.sel(judgeoverall.1, judgeoverall.2, judgeoverall.3, judgeoverall.4)
+##got a warning about models being fitted to different datasets
+##think this is due to having missing data in pilot sw norms
+
+r.squaredGLMM(judgeoverall.1)
+r.squaredGLMM(judgeoverall.2)
+r.squaredGLMM(judgeoverall.3)
+r.squaredGLMM(judgeoverall.4) ##r-squared increaeses with each model
+
+##marginal (r2m) = variance expalined by fixed factors
+##conditional (r2c) = variance expalined by the entire model
+
 ####moderation -- sw judgments####
 ##low cosine
 lowcos3 = lme(Judged.Value2 ~ Judgment + 
-                LogSub.1 + LogSub.2 + Length.1 +Length.2 + # POS.1 + POS.2,
+                LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
                 AOA.1 +  AOA.2 +  Familiarity.1 +
                 Familiarity.2 +  Valence.1 +  Valence.2 + 
                 Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
@@ -544,7 +559,7 @@ summary(lowcos3)
 
 ##high cosine
 highcos3 = lme(Judged.Value2 ~ Judgment + 
-                 LogSub.1 + LogSub.2 + Length.1 +Length.2 + # POS.1 + POS.2,
+                 LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
                  AOA.1 +  AOA.2 +  Familiarity.1 +
                  Familiarity.2 +  Valence.1 +  Valence.2 + 
                  Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
@@ -559,7 +574,7 @@ summary(highcos3)
 
 ##low cosine, low lsa
 lowcoslowlsa3 = lme(Judged.Value2 ~ Judgment + 
-                      LogSub.1 + LogSub.2 + Length.1 +Length.2 + # POS.1 + POS.2,
+                      LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
                       AOA.1 +  AOA.2 +  Familiarity.1 +
                       Familiarity.2 +  Valence.1 +  Valence.2 + 
                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
@@ -574,7 +589,7 @@ summary(lowcoslowlsa3)
 
 ##low high
 lowcoshighlsa3 = lme(Judged.Value2 ~ Judgment + 
-                       LogSub.1 + LogSub.2 + Length.1 +Length.2 + # POS.1 + POS.2,
+                       LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
                        AOA.1 +  AOA.2 +  Familiarity.1 +
                        Familiarity.2 +  Valence.1 +  Valence.2 + 
                        Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
@@ -589,7 +604,7 @@ summary(lowcoshighlsa3)
 
 #avg low
 avgcoslowlsa3 = lme(Judged.Value2 ~ Judgment + 
-                      LogSub.1 + LogSub.2 + Length.1 +Length.2 + # POS.1 + POS.2,
+                      LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
                       AOA.1 +  AOA.2 +  Familiarity.1 +
                       Familiarity.2 +  Valence.1 +  Valence.2 + 
                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
@@ -604,7 +619,7 @@ summary(avgcoslowlsa3)
 
 ##avg high
 avgcoshighlsa3 = lme(Judged.Value2 ~ Judgment + 
-                       LogSub.1 + LogSub.2 + Length.1 +Length.2 + # POS.1 + POS.2,
+                       LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
                        AOA.1 +  AOA.2 +  Familiarity.1 +
                        Familiarity.2 +  Valence.1 +  Valence.2 + 
                        Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
@@ -619,7 +634,7 @@ summary(avgcoshighlsa3)
 
 ##high low
 highcoslowlsa3 = lme(Judged.Value2 ~ Judgment + 
-                       LogSub.1 + LogSub.2 + Length.1 +Length.2 + # POS.1 + POS.2,
+                       LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
                        AOA.1 +  AOA.2 +  Familiarity.1 +
                        Familiarity.2 +  Valence.1 +  Valence.2 + 
                        Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
@@ -634,7 +649,7 @@ summary(highcoslowlsa3)
 
 ##high high
 highcoshighlsa3 = lme(Judged.Value2 ~ Judgment + 
-                        LogSub.1 + LogSub.2 + Length.1 +Length.2 + # POS.1 + POS.2,
+                        LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
                         AOA.1 +  AOA.2 +  Familiarity.1 +
                         Familiarity.2 +  Valence.1 +  Valence.2 + 
                         Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
@@ -788,6 +803,11 @@ recalloverall.4 = glmer(Recall ~ (1|Partno) +  Judgment +Judged.Value2 + LogSub.
                        control = glmerControl(optimizer = "bobyqa"),
                        nAGQ = 0)
 summary(recalloverall.4) ##three way interaction is significant
+
+##mumin stuff
+model.sel(recalloverall.1, recalloverall.2, recalloverall.3, recalloverall.4)
+
+##not sure how to get rsquared function to work with glmer
 
 ####moderation -- sw recall####
 #low cosine
