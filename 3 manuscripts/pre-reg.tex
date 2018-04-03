@@ -162,16 +162,16 @@ processes.}
 
 
 \usepackage{amsthm}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}
-\newtheorem{corollary}{Corollary}
-\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
 \theoremstyle{definition}
-\newtheorem{example}{Example}
+\newtheorem{example}{Example}[section]
 \theoremstyle{definition}
-\newtheorem{exercise}{Exercise}
+\newtheorem{exercise}{Exercise}[section]
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 \newtheorem*{solution}{Solution}
@@ -209,8 +209,9 @@ shallow slope (sensitivity), meaning that participants are biased
 towards overestimating the associative relatedness between word pairs,
 and show difficulties differentiating between different amounts of item
 relatedness (Maki, 2007a). These results are often found in JOL research
-(Koriat \& Bjork, 2005), and they are highly stable across contexts and
-instructional manipulation (Valentine \& Buchanan, 2013).
+(Koriat \& Bjork, 2005), and they are highly stable across various
+contexts and instructional manipulations in JAM tasks (Valentine \&
+Buchanan, 2013).
 
 Building upon this research, we initially explored recall accuracy
 within the context of word pair judgments, while also expanding the JAM
@@ -223,23 +224,30 @@ with cosine (COS; Buchanan, Holmes, Teasley, \& Hutchison, 2013; McRae,
 Cree, Seidenberg, \& McNorgan, 2005; Vinson \& Vigliocco, 2008), and
 thematic relatedness between pairs was measured with latent semantic
 analysis (LSA; Landauer \& Dumais, 1997; Landauer, Foltz, Laham, Folt,
-\& Laham, 1998). Participants then judged the word-pairs in three blocks
-based on instructions explaining either an associative, semantic, or
-thematic relationship between words. After completing the judgment
-phase, participants then completed a cued recall task in which they were
-presented with the cue word from each of the previously presented word
-pairs and were asked to complete each pair with the missing target
-(Maxwell \& Buchanan, 2018). Significant three-way interactions were
-found between database norms when predicting judgments and recall. When
-semantic overlap was low, thematic and associative strength were
-competitive, with increases in thematic overlap decreasing the strength
-of associative overlap as a predictor. However, this trend saw a
-reversal when semantic overlap was high, with thematic and associative
-strength complimenting one another. Overall, our findings from this
-study indicated the degree to which the processing of associative,
-semantic, and thematic information impacts retrieval and judgment
-making, while also displaying the interactive relationship that exists
-between these three types of information.
+\& Laham, 1998). These word pairs were then judged by 112 participants
+who were recruited from Amazon's Mechanical Turk. Stimuli were arranged
+into three blocks based, each preceeded by a set of instructions
+explaining either an associative, semantic, or thematic relationship
+between words. Three versions of the study were created,
+counterbalancing the order in which judgment instructions and stimuli
+blocks appeared. Thus, each participant made one set of judgments
+corresponding to each type of memory, and each word pair recieved each
+type of judgment.
+
+After completing the judgment phase, participants then completed a cued
+recall task in which they were presented with the cue word from each of
+the previously presented word pairs and were asked to complete each pair
+with the missing target (Maxwell \& Buchanan, 2018). Significant
+three-way interactions were found between database norms when predicting
+judgments and recall. When semantic overlap was low, thematic and
+associative strength were competitive, with increases in thematic
+overlap decreasing the strength of associative overlap as a predictor.
+However, this trend saw a reversal when semantic overlap was high, with
+thematic and associative strength complimenting one another. Overall,
+our findings from this study indicated the degree to which the
+processing of associative, semantic, and thematic information impacts
+retrieval and judgment making, while also displaying the interactive
+relationship that exists between these three types of information.
 
 The proposed study seeks to expand upon this work by extending the
 original analysis to include multiple single word norms. These norms
@@ -253,7 +261,9 @@ valence, and familiarity. Finally, we seek to examine norms that provide
 information about the connections a word shares with others based on
 context. These norms include orthographic neighborhood, phonographic
 neighborhood, cue and target set sizes, and feature set size. These
-values and their importance are explained below.
+values were selected on the basis of previous research suggesting their
+impact on retrieval accurarcy; their importance is elaborated upon
+below.
 
 First, we are interested in assessing the impact of base word norms.
 Chief amongst these is word frequency. Several sets of norms currently
@@ -312,7 +322,9 @@ time. In general, longer words require longer processing time (Kuperman,
 Stadthagen-Gonzalez, \& Brysbaert, 2012), and shorter words tend to be
 more easily remembered (Cowan, Baddeley, Elliott, \& Norris, 2003).
 Finally, we are interested in the part of speech of each word, as nouns
-are often easier to remember (Paivio, 1971).
+are often easier to remember (Paivio, 1971). Formall defined, part of
+speech refers to a word's categorization in language based on its
+syntactic functions.
 
 Third, we will examine the effects of norms measuring word properties
 that are rated by participants. The first of these is age of
@@ -343,8 +355,8 @@ These norms measure the frequency of exposure to a particular word
 
 The final group of norms that will be investigated are those which
 provide information based on connections with neighboring words.
-Phonographic neighborhood refers to refers to the number of words that
-can be created by changing one sound in a word (i.e., \emph{cat} to
+Phonographic neighborhood refers to the number of words that can be
+created by changing one sound in a word (i.e., \emph{cat} to
 \emph{kite}). Similarly, orthographic neighborhood refers to the number
 of words created by changing a single letter in word (i.e., \emph{cat}
 to \emph{bat}, Adelman \& Brown, 2007; Peereman \& Content, 1997).
@@ -405,11 +417,12 @@ A power analysis was conducted using the \emph{simr} package in \emph{R}
 mixed linear models created from the \emph{lme4} and \emph{nlme}
 packages (Bates, Mächler, Bolker, \& Walker, 2015; Pinheiro, Bates,
 Debroy, Sarkar, \& Team, 2017). The results of this analyses suggested a
-minimum of 35 participants was required to find an effect at 80\% power.
-However, because power often is underestimated (Bakker, Hartgerink,
-Wicherts, \& Maas, 2016; Brysbaert \& Stevens, 2018), we plan to extend
-the analysis to include approximately 200 participants, a number
-determined by the amount of available funding. Participants will be
+minimum of 35 participants was required to find an effect at 80\% power
+(\(\alpha\) = .05). However, because power is often underestimated
+(Bakker, Hartgerink, Wicherts, \& Maas, 2016; Brysbaert \& Stevens,
+2018), we plan to extend the analysis to include approximately 200
+participants, a number determined by the amount of available funding.
+Consistent with the design of the pilot study, participants will be
 recruited from Amazon's Mechanical Turk, which is a website where
 individuals can host projects and be connected with a large respondent
 pool who complete tasks for small amounts of money (Buhrmester, Kwang,
@@ -421,17 +434,17 @@ understanding of study instructions and automated survey responses.
 
 First, mimicking the design of the original pilot study, sixty-three
 word pairs of varying associative, semantic, and thematic overlap were
-created to use as stimuli. These word pairs were created using the
-Buchanan et al. (2013) word norm database. Next, neighborhood
-information for all cue and target items was collected. Word frequency
-was collected from the SUBTLEX project (Brysbaert \& New, 2009) and the
-HAL corpus (Burgess \& Lund, 1997). Part of speech, word length, and the
-number of morphemes, phonemes, and syllables of each item was derived
-from the Buchanan et al. (2013) word norms (originally contained in The
-English Lexicon Project, Balota et al., 2007). For items with multiple
-parts of speech (for example, \emph{drink} can refer to both a beverage
-and the act of drinking a beverage), the most commonly used form was
-used. Following the design of Buchanan et al. (2013), this part of
+created to use as stimuli. As with the pilot study, these word pairs
+were created using the Buchanan et al. (2013) word norm database. Next,
+neighborhood information for all cue and target items was collected.
+Word frequency was collected from the SUBTLEX project (Brysbaert \& New,
+2009). Part of speech, word length, and the number of morphemes,
+phonemes, and syllables of each item was derived from the Buchanan et
+al. (2013) word norms (originally contained in The English Lexicon
+Project, Balota et al., 2007). For items with multiple parts of speech
+(for example, \emph{drink} can refer to both a beverage and the act of
+drinking a beverage), part of speech was coded as the most commonly used
+form. Following the design of Buchanan et al. (2013), this part of
 speech was determined using Google's define feature. Concreteness, cue
 set size, and target set size were taken from the South Florida Free
 Association Norms (D. L. Nelson et al., 2004). Feature set size (i.e.,
@@ -466,7 +479,7 @@ norms. As with the previous study, stimuli will be arranged into three
 blocks, with each block consisting of 21 word pairs. The blocks will be
 structured to have seven words of low COS (0 - .33), medium COS (.34 -
 .66), and high COS (.67 - 1). COS was chosen due to both limitations
-with the size of the available dataset across all norm sets, and the
+with the size of the available data set across all norm sets, and the
 desire to recreate the selection process used for the previous study.
 The result of this selection process is that values for the remaining
 network norms (FSG and LSA) and information neighborhood norms will be
