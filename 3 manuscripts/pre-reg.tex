@@ -417,18 +417,22 @@ A power analysis was conducted using the \emph{simr} package in \emph{R}
 mixed linear models created from the \emph{lme4} and \emph{nlme}
 packages (Bates, Mächler, Bolker, \& Walker, 2015; Pinheiro, Bates,
 Debroy, Sarkar, \& Team, 2017). The results of this analyses suggested a
-minimum of 35 participants was required to find an effect at 80\% power
-(\(\alpha\) = .05). However, because power is often underestimated
-(Bakker, Hartgerink, Wicherts, \& Maas, 2016; Brysbaert \& Stevens,
-2018), we plan to extend the analysis to include approximately 200
-participants, a number determined by the amount of available funding.
-Consistent with the design of the pilot study, participants will be
-recruited from Amazon's Mechanical Turk, which is a website where
-individuals can host projects and be connected with a large respondent
-pool who complete tasks for small amounts of money (Buhrmester, Kwang,
-\& Gosling, 2011). Participants will be paid \$2.00 for their
-participation. Participant responses will be screened for a basic
-understanding of study instructions and automated survey responses.
+minimum of 35 participants was required to detect the interaction at
+80\% power (\(\alpha\) = .05). However, because power is often
+underestimated (Bakker, Hartgerink, Wicherts, \& Maas, 2016; Brysbaert
+\& Stevens, 2018), we plan to extend the analysis to include
+approximately 200 participants, a number determined by the amount of
+available funding. Consistent with the design of the pilot study,
+participants will be recruited from Amazon's Mechanical Turk, which is a
+website where individuals can host projects and be connected with a
+large respondent pool who complete tasks for small amounts of money
+(Buhrmester, Kwang, \& Gosling, 2011). Participants will be paid \$2.00
+for their participation. Participant responses will be screened for a
+basic understanding of study instructions and for automated survey
+responses. Data will be excluded for participants who respond with words
+when asked to make numerical judgements, respond with numerical ratings
+during the recall task, or fail to complete either the judgment or
+recall tasks.
 
 \subsection{Materials}\label{materials}
 
@@ -675,11 +679,16 @@ judgment phase will be deleted and treated as missing data. Data will
 then be screened for out of range judgment responses (i.e., responses
 greater than 100). Recall and judgment scores will be screened for
 outliers using Mahalanobis distance at \emph{p} \textless{} .001
-(Tabachnick \& Fidell, 2012), and multicollinearity between predictor
-variables will be measured with Pearson correlations. Data will then be
-screened for assumptions of normality, linearity, homogeneity, and
-homoscedasticity. Descriptive statistics of mean judgment and recall
-scores will be reported for each judgment condition.
+(Tabachnick \& Fidell, 2012); all outliers will be removed. Next,
+multicollinearity between predictor variables will be measured with
+Pearson correlations. It is expected that the meausres word length will
+correlate highly, as words with a higher number of characters are
+natuarlly more likely to contain more syllables, morphemes, or phonemes.
+Predictor variables will be excluded from the analysis if correlations
+exceed \emph{r} \textgreater{} .60. Finally, data will be screened for
+assumptions of normality, linearity, homogeneity, and homoscedasticity.
+Descriptive statistics of mean judgment and recall scores will be
+reported for each judgment condition.
 
 Multilevel modeling will then be used to analyze the data (Gelman, 2006)
 to control for the nested structure of the data using the \emph{nlme}
@@ -688,25 +697,26 @@ as a data point, using participants as a nested random intercept factor.
 As part of our replication, we will reanalyze these new stimuli using
 COS, FSG, LSA, and their interaction to predict judgments and recall
 separately as the dependent variables. Just as in Maxwell and Buchanan
-(2018), judgment condition was used as a control variable. Variables
+(2018), judgment condition will be used as a control variable. Variables
 will be mean centered prior to analysis to control for
 multicollinearity. If a significant three-way interaction occurs, simple
 slopes analyses will be used to explore that interaction. We will
 examine low (-1SD), average (mean), and high (+1SD) COS values for
 two-way interactions of FSG and LSA. If these values are significant,
 LSA will be further broken into low, average, and high simple slopes to
-examine FSG. \(\alpha\) is set to .05 for analyses. We predict that the
-interaction found previously will replicate on a new set of stimuli.
+examine FSG. \(\alpha\) is set to .05 for all analyses. We predict that
+the interactions found previously will replicate with the new set of
+stimuli.
 
 A second set of analyses will be performed using the Maxwell and
 Buchanan (2018) stimuli set and this new stimuli set combined, examining
 the hypothesis of interactive networks after controlling for base word
 norm information. Stimuli sets from both studies will be combined to
 create a larger range of stimuli and values across normed information.
-These neighborhood norms will be added introduced into each model in
-steps, after controlling for judgment condition. Initially, base word
-norms will be added, followed by lexical information, rated properties,
-and norms measuring neighborhood connections, as described in the
+These neighborhood norms will be introduced into each model in steps,
+after controlling for judgment condition. Initially, base word norms
+will be added, followed by lexical information, rated properties, and
+norms measuring neighborhood connections, as described in the
 introduction and methods. Each set of variables will be used to predict
 the dependent variables of judgment and recall, again as a multilevel
 model. Each variable will be discussed in the step of the analysis it
