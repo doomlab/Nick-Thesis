@@ -763,7 +763,7 @@ recalloverall.1 = glmer(Recall ~ (1|Partno) + Judgment +
                        data = combined,
                        family = binomial,
                        control = glmerControl(optimizer = "bobyqa"),
-                       nAGQ = 1)
+                       nAGQ = 0)
 summary(recalloverall.1)
 
 ##rated properties
