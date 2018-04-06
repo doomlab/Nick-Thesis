@@ -50,6 +50,8 @@ noout = subset(dat, mahal < cutoff)
 ##additivity
 cor(noout[ , c(4:15, 17:31, 33:46)], use = "pairwise.complete.obs")
 
+
+
 ##cutting out morphemes, syllables, and phonemes
 
 ####descriptives####
@@ -496,7 +498,7 @@ judgeoverall.2 = lme(Judged.Value2 ~ Judgment +
                      random = ~1|Partno)
 summary(judgeoverall.2, correlation = T)
 
-##network connections
+##neighborhood connections
 judgeoverall.3 = lme(Judged.Value2 ~ Judgment + 
                        LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
                        AOA.1 +  AOA.2 +  Familiarity.1 +
@@ -804,10 +806,63 @@ recalloverall.4 = glmer(Recall ~ (1|Partno) +  Judgment +Judged.Value2 + LogSub.
                        nAGQ = 0)
 summary(recalloverall.4) ##three way interaction is significant
 
-##mumin stuff
+####getting r squared for recall####
+
 model.sel(recalloverall.1, recalloverall.2, recalloverall.3, recalloverall.4)
 
-##not sure how to get rsquared function to work with glmer
+##new models
+recall.r2.1 = lme(Recall ~ Judgment + 
+                    Judged.Value2 + LogSub.1 + LogSub.2 +
+                    Length.1 + Length.2 , #POS.1 + POS.2,
+                     data = combined,
+                     method = "ML", 
+                     na.action = "na.omit",
+                     random = ~1|Partno)
+summary(recall.r2.1, correlation = T)
+
+##rated properties
+recall.r2.2 = lme(Recall ~ Judgment + Judged.Value2 + LogSub.1 + LogSub.2 +
+                    Length.1 + Length.2 + AOA.1 + 
+                    AOA.2 + Familiarity.1 + Familiarity.2 + 
+                    Valence.1 + Valence.2 + Imageability.1 + QCON.2,
+                     data = combined,
+                     method = "ML", 
+                     na.action = "na.omit",
+                     random = ~1|Partno)
+summary(recall.r2.2, correlation = T)
+
+##network connections
+recall.r2.3 = lme(Recall ~ Judgment + Judged.Value2 + LogSub.1 + LogSub.2 +
+                    Length.1 + Length.2 + AOA.1 + 
+                    AOA.2 + Familiarity.1 + Familiarity.2 + 
+                    Valence.1 + Valence.2 + Imageability.1 + QCON.2 +
+                    QSS.1 + TSS.2 + FSS.1 + FSS.2 + Ortho.1 + 
+                    Ortho.2 + Phono.1 + Phono.2,
+                     data = combined,
+                     method = "ML", 
+                     na.action = "na.omit",
+                     random = ~1|Partno)
+summary(recall.r2.3, correlation = T)
+
+##network norms
+recall.r2.4 = lme(Recall ~  Judgment +Judged.Value2 + LogSub.1 + LogSub.2 +
+                    Length.1 + Length.2 + AOA.1 + 
+                    AOA.2 + Familiarity.1 + Familiarity.2 + 
+                    Valence.1 + Valence.2 + Imageability.1 + QCON.2 +
+                    QSS.1 + TSS.2 + FSS.1 + FSS.2 + Ortho.1 + 
+                    Ortho.2 + Phono.1 + Phono.2 +
+                    ZFSG * ZLSA * ZCOS,
+                     data = combined,
+                     method = "ML", 
+                     na.action = "na.omit",
+                     random = ~1|Partno)
+summary(recall.r2.4, correlation = T)
+
+##gettting  rsquared
+r.squaredGLMM(recall.r2.1)
+r.squaredGLMM(recall.r2.2)
+r.squaredGLMM(recall.r2.3)
+r.squaredGLMM(recall.r2.4) 
 
 ####moderation -- sw recall####
 #low cosine
