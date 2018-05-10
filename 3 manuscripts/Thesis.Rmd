@@ -85,12 +85,14 @@ PARAGRAPH HERE ABOUT MAKING THE COMBINED DATASET
 	
 ```{r descriptives, include=FALSE}
 ####setup####
-dat = read.csv("stimuli jan 18.csv")
+dat2 = read.csv("stimuli jan 18.csv")
 
 library(papaja)
 
 ##network norms
 ##descriptives
+##apply()
+
 m1 = round(mean(dat$FSG), digits = 2)
 m2 = round(mean(dat$COS), digits = 2)
 m3 = round(mean(dat$LSA), digits = 2)
@@ -536,6 +538,11 @@ apa_table(tableprint4,
 
 ## Data Processing
 
+```{r, include=FALSE}
+####data screening here####
+```
+
+
 Recall was coded as zero for incorrect responses, one for correct responses, and NA for participants who left either all or the majority of recall responses incomplete. All word responses to judgment items were deleted and set to missing data, as well as numerical rating responses on the cued-recall task. The final dataset was created by splitting the initial data file into six sections (corresponding to each of three experimental blocks and their respective recall sections) and individually melting each section using the reshape package in R (Wickham, 2007). Melted files were then written as csv files and combined to create the final dataset.
 
 In long format, the dataset for contained 13,923 rows of data (221 participants * 63 judgments). Data screening followed the same process used in Experiment One. Nine judgment data points were set to NA as they fell outside the range of the scale (> 100). Missing data points for judgments and recall were then excluded. As before, this also included word responses to judgments and numerical responses to recall. Participants whose data was excluded because they failed to follow instructions did not receive payment on Amazon's Mechanical Turk. 1,472 data points were excluded from the final analysis (833 from judgment only, 393 from recall only, and 246 across both), leading to a total of 12,451 observations from 211 participants in the final dataset. Recall and judgment scores were then screened for outliers using Mahalanobis distance at p < .001, and five outliers were detected. Thus, after removing outliers, 12,446 data points remained in the final data set. Finally, multicollinearity was screened for by checking the correlations between network norms and single word norms. Because of high correlations between the various lexical measures representing word length (number of characters, syllables, morphemes, and phonemes, r >.75), only number of individual characters was included in the analysis to represent word length.
@@ -556,7 +563,26 @@ SENTENCE HERE EXPLAINING MLM DESIGN
 
 All database norms were mean centered.
 
-JUDGMENT FINDINGS FIRST, RECALL FINDINGS NEXT
+JUDGMENT FINDINGS FIRSt
+
+```{r, include=FALSE}
+####Judgment Models here####
+```
+
+```{r, include=FALSE}
+####Judgment Simple Slopes Graph####
+```
+
+
+RECALL FINDINGS HERE
+
+```{r, include=FALSE}
+####recall models here####
+```
+
+```{r, include=FALSE}
+####recall simple slopes graph here####
+```
 
 THIS SECTION NEEDS TWO TABLES AND TWO SIMPLE SLOPES GRAPHS
 
