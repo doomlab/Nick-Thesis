@@ -540,8 +540,11 @@ summary(highcoshighlsa)
 
 ```
 
+First, analyses were conducted to test whether interactions between database norms would replicate with the new stimuli set. These analyses mimicked the design from Hypotheses Two and Three from the pilot study. All database norms were mean centered. 
 
-JUDGMENT FINDINGS HERE
+EDIT THE SECTION BELOW
+
+The nlme package in R was used to create a maximum likelihood multilevel model to test for an interaction between FSG, COS, and LSA when predicting judgment scores (Pinheiro et al., 2017). Although the interaction was not significant, the main effects of FSG and LSA were still significant. Table 9 displays main effects and interactions. Consistent with previous findings, FSG was the strongest predictor of judgments (b = .422, p < .001). Although the interaction was not significant, simple slopes were still calculated to assess the underlying relationship between FSG and LSA at each level of COS to see if it displayed a pattern similar to that found in Experiment One. Figure 6 displays this relationship. FSG became weaker with each increase of LSA strength at each of the three levels of semantic overlap; thus, only the competitive relationship between the two database norms replicated for this analysis.
 
 ```{r judgment graphs, include=FALSE}
 ####judgment graphs####
@@ -696,7 +699,9 @@ summary(avgcoshighlsa2)
 ```
 
 
-RECALL FINDINGS HERE
+EDIT THE SECTION BELOW
+
+The lme4 package was then used to create a multilevel logistic regression (Pinheiro et al., 2017), which tested whether the interaction found between the database norms when predicting recall would replicate with the new stimuli set. Participants were used as a random intercept factor, and judgment scores and type of judgment being made were controlled for. Overall, a signi???cant three-way interaction was detected between FSG, COS, and LSA (b = -22.572, p < .001). This was a partial replication, as this interaction was in the opposite direction as the one found in Experiment One. Table 10 reports main effects, two-way, and three-way interaction values. As with the previous Experiment, simple slopes were then calculated for low, average, and high levels of LSA at the low and high levels of COS, so as to assess how FSG affected recall at varying levels of both COS and LSA. In line with findings from the previous experiment, these analyses yielded signi???cant two-way interactions between LSA and FSG at low COS (b = 5.590, p = .013) and high COS (b = -7.514, p < .001), with no signi???cant two-way interaction being found at average COS (b = -.962, p = .489). Staying consistent with the process used in Experiment One, a second set of simple slopes were then calculated for low, average, and high levels of LSA at the low and high levels of COS, so as to assess how FSG affected recall at varying levels of both COS and LSA. In contrast to previous findings, when both COS and LSA were low, FSG did not predict recall (b = .087, p = .881). At low COS and average LSA, FSG increased in strength, and became a signi???cant predictor (b = 1.213, p < .001). Finally, at low COS and high LSA, FSG increased further as a predictor (b = 2.339, p < .001). The observed interaction followed a trend opposite of that in Experiment One. Instead of the competitive relationship observed previously for low COS, LSA and FSG were complimentary and increased together. As COS increased FSG and LSA became competitive, which was the opposite of Experiment One. As such, at high COS and low LSA, FSG was a signi???cant predictor (b = 3.900, p < .001). FSG weakened when LSA increased to average levels, (b = 1.606, p < .001), and continued to weaken further when both COS and LSA were high, with FSG decreasing further as a predictor of recall (b = .872, p < .001). Figure 7 displays simple slopes graphs for the three-way interaction when predicting recall. The bottom left ???gure indicates the counterbalancing e???ect of high COS levels of LSA and FSG, while the top left ???gure displays the complementary e???ects where LSA and FSG increased together as predictors of recall at low COS levels. 
 
 ```{r, include=FALSE}
 ####Recall graphs####
@@ -766,7 +771,10 @@ recall.graph
 
 ##Single Word Norms
 
-SOMETHING ABOUT USING THE COMBINED DATASET HERE
+The final group of analyses examined the effects of single word norms on recall and judgments and whether interaction findings from Experiment One would replicate after controlling for single word norms. These analyses were conducted using an expanded dataset which combined data collected across both experiments.
+
+Single word norms were placed into one of three categories. Frequency (measured with SUBTLEX) and word length were used as measures of lexical information. Age of acquisition, valence, familiarity, concreteness, and imageability were classified as rated properties. Orthographic and phonographic neighborhoods, cue and target set sizes, feature set size, and cosine connectedness were grouped together as neighborhood connections.
+
 
 ```{r sw judgments, include=FALSE}
 
@@ -1000,9 +1008,13 @@ summary(highcoshighlsa3)
 ```{r sw.judge.effects.table, include=FALSE}
 ####main effects table for sw judgments####
 ```
+EDIT THE SECTION BELOW
 
+Next, multilevel modeling was used to investigate whether interaction findings from Experiment One would replicate after controlling for each of the single word norms selected via stepwise analyses. This analysis was conducted hierarchically, with single word norms entered in to the model through a series of steps. Each step corresponded to one of the categories of single word norms, with each model using judgment scores as the dependent variable of interest and controlling for the type of judgment being made. Marginal and Conditional R2 values (R2m and R2c respectively) were calculated at each step of the judgement model using the MuMIn package (Barton, 2018). Marginal R2 describes the proportion of variance that is explained solely by the fixed factors in the model, while the conditional R2 value is used to describe the proportion of the variance that can be explained by both fixed and random factors (Lefcheck, 2013).
+Model one examined the lexical properties of words (R2m = .027, R2c = .194). The second model added rated word properties words (R2m = .054, R2c = .220), and the third model added in neighborhood connections (R2m = .068, R2c = .232). Network norms and the three-way interaction between them were entered into the analysis in the fourth and final model (R2m = .118, R2c = .283). 
 
-JUDGMENT RESULTS HERE
+Table 12 displays main effects and interaction findings for all variables in the step they were entered to control for table size. The main investigation focused on the fourth and final step of the model with the network interaction. The main effects of each individual single word norm are not discussed, however, of notable interest is the way in which several single word predictors tended to balance out across cue and target items. This finding occurred when either the cue or target version of a particular single word norm predictor showed a positive relationship, while the other displayed a negative relationship. Several cue-target predictor pairs displaying this trend were found at each step of the model. Pairs following this trend included frequency (cue b = .014, p < .001; target b = -.032, p < .001), age of acquisition (cue b = .015, p < .001; target b = -.014, p < .001), and feature set size (cue b = .001, p < .001, target b = -.001, p < .001). Therefore, even though it appeared that many features related to single words were significant predictors of judgments, the related cue and target information often canceled each other out in strength.  Consistent with previous judgment models, FSG was found in the final step to be the strongest overall predictor of judgments (b = .391, p < .001). The three-way interaction between network norms was not significant (b = .558, p = .099). To explore potential differences in effects, simple slopes were calculated using the same process as before. Figure 8 displays these findings.  FSG and LSA strength were competitive at all levels of COS, with increases in thematic strength decreasing the overall predictiveness of association strength. These results matched the replication portion of this experiment, indicating that FSG and LSA competition findings still hold, even after controlling for other concept information that is activated when reading in the lexical network. 
+
 
 ```{r sw judgment graphs, include=FALSE}
 ####judgment graphs####
@@ -1272,10 +1284,15 @@ summary(avgcoshighlsa4)
 
 ```{r sw.recall.effects.table, include=FALSE}
 ####main effects for sw recall####
+
 ```
 
+EDIT THIS SECTION
 
-RECALL RESULTS HERE
+Finally, the previous set of analyses was repeated using recall as the dependent variable. A multilevel logistic regression was used, and the hierarchical design used to investigate judgments was mimicked. In addition to controlling for the type of judgments being elicited, these models also controlled for participant judgment ratings. Model steps corresponded to those used for investigating judgments. Marginal and conditional R2 values were calculated using the piecewiseSEM package in R (Lefcheck, 2016).  Lexical properties were entered into the first step (R2m = .026, R2c = .282), step two added rated word properties words (R2m = .052, R2c = .331), step three added in neighborhood connections (R2m = .062, R2c = .340), and the step four added network norms and the three-way interaction between (R2m = .082, R2c = .363) 
+As with the judgment analysis, several single word norms appeared to balance out one another across cue and target items. For example, frequency (cue b = -.258, p < .001; target b = .082, p = .006), length (cue b = .138; p < .001, target b = -.047. p < .001), and feature set size. (cue b = -.012, p < .001; target b = .015, p < .001) all displayed relationships of this nature. When examining the fourth step, FSG was the strongest overall predictor of recall (b = 1.866, p < .001), and a significant three-way interaction was detected between FSG, COS, and LSA. See Table 13 for a complete list of main effects and interaction findings.
+
+Finally, simple slopes were calculated using the same process utilized in the previous analyses to examine the three-way interaction between network norms when predicting recall. Replicating findings from the first section of Experiment Two, FSG and LSA were competitive at high COS and complimentary at low COS. Once again, this stands as a partial replication of findings from Experiment One. As with the initial replication model that did not include single word norms, the interaction present in this model is in the opposite direction as the one found in Experiment One. However, as seen with judgments, the interactive effects continued to be found even when controlling for other lexical variables. In the final section of Experiment Two, FSG and LSA were competitive at high COS and complimentary at low COS. Once again, this stands as a partial replication of findings from Experiment One.  Figure 9 illustrates these findings. 
 
 ```{r sw recall graphs}
 ####Recall graphs####
@@ -1343,15 +1360,21 @@ recall.graph.sw
 
 #Discussion
 
-SUMMARY, BALANCING BETWEEN CUE AND TARGET, TRIANGLE MODEL, ETC
-
 This study aimed to replicate interaction findings from the first experiment, first when using a novel set of stimuli and then when controlling for single word norms. First, when attempting to replicate the original interactions using the new set of stimuli, the three-way interaction was not significant when predicting participant judgments. Although the three-way interaction was not significant, a simple slopes analysis showed that FSG and LSA strengths were competitive with another at each level of semantic overlap. When extending this initial replication to predict recall, a significant three-way interaction was detected between the network norms. However, this interaction was in the opposite direction as the original findings from the first experiment, as FSG and LSA strength were found to be complimentary at low levels of semantics and became increasingly competitive at higher levels.
 
 Similar trends were then found when attempting to replicate these interactions while controlling for the single word norms. No significant three-way interaction was detected when predicting judgment scores. Simple slopes analyses showed that increasing thematic overlap between pairs decreased the predictiveness of FSG at all levels of semantic overlap (i.e., competition at all levels). When recall was examined as the dependent variable of interest, the three-way interaction between network norms was significant. Again, the direction of this interaction was opposite to that found in Experiment One, which was consistent with the previous interaction. Simple slopes analyses revealed associative and thematic overlap were complimentary to one another at low levels of semantic overlap and became increasingly competitive as semantic overlap increased. Overall, this set of replication analyses were only partially successful, which result may be due to several limitations with the available normed databases used to select the stimuli. This is discussed in further detail at the end of this section. [EDIT THIS]
 
-BALANCING BETWEEN CUES AND TARGETS HERE
+THREE TIERED HYPOTHESIS HERE
 
-TRIANGLE MODEL STUFF HERE
+How then does this hypothesis lend itself towards the broader context of psycholinguistic research? One application of this hypothesis may be models of word recognition. One popular model is Seidenberg and McClelland (1989) "triangle model", and several variations of this model have been proposed and tested (see Harley, 2008 for a review). This model recognizes speech and reading based upon the orthography, phonology, and meaning of words. Each of these three word properties are linked in such a way that orthography is linked to phonology, phonology is linked with meaning, and meaning is linked to orthography (forming a triangle). The pathways between word properties are bidirectional, allowing for feedback between connections. Clearly, these facets are important to consider, as this study indicated that many of the phonological and orthographic variables were significantly related to judgments and recall. The bidirectional pathways may explain why cue and targets have balanced contributions to judgments and recall, as each contributes a small component to the final output from the participant. As both cue and target are activated in memory, the networks for these concepts are also activated, and each appears to be correspondingly weighted, potentially indicating that the focus of attention was spread across cue and target and these were weighted evenly.
+
+Whereas the original version of this model focused almost exclusively on the link between orthography and phonology, Harm and Seidenberg (2004) developed a version which included a focus on semantics, with word meaning being based on input from the orthography and phonology components of the model. The results from this study indicated that associations and thematics should also be defined more clearly, rather than all incorporated into a semantic network (Maki & Buchanan, 2008). Future studies could examine how these networks and connections separate, to further distinguish how they are structured in memory. This set of experiments indicated that the relation between these values, when activated by judgment and memory processes, was often competitive.
+
+EXPAND ON THIS
+
+This finding may indicate separate networks that compete for attention when completing cognitive tasks. However, these findings may also support a race style model, as often described when studying reading. Each separate connection may be activated in parallel, but the weight given to each component will depend on the strength of activation of competing information. Ultimately, further studies will be needed to explore the interconnections between the semantic, thematic, and associative networks.
+
+FIX CITATIONS
 
 \newpage
 
