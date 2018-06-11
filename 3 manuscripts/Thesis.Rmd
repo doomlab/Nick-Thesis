@@ -51,47 +51,61 @@ library(ggplot2)
 library(MASS)
 library(relaimpo)
 
+##cleanup code for graphs
+cleanup = theme(panel.grid.major = element_blank(), 
+                panel.grid.minor = element_blank(), 
+                panel.background = element_blank(), 
+                axis.line.x = element_line(color = "black"),
+                axis.line.y = element_line(color = "black"),
+                legend.key = element_rect(fill = "white"),
+                text = element_text(size = 15))
+
+p.value = function(x){
+  if (x < .001) { return("< .001")}
+  else { return(apa(x, 3, F))}
+}
+
 ```
   
-  Previous research conducted on Judgments of Associative Memory (JAM) has found that these judgments tend to be stable and highly generalizable across varying contexts [@Maki2007a; @Maki2007; @Valentine2013]. The JAM task can be viewed as a manipulation of the traditional Judgment of Learning task (JOL). In a JOL task, participants are presented with cue-target word pairs and are asked to make a judgment (typically, on a scale of zero to 100) of how accurately they would be able to respond with the proper target word based on the presentation of a particular cue word [@Nelson1991; @Dunlosky1994a]. JAM tasks expand upon this concept by changing the focus of the judgments performed by participants. When presented with the item pair, such as *cheese-mouse*, participants are asked to judge the number of people out of 100 who would respond with the pair's target word if they were only shown the cue word [@Maki2007a].
+  Previous research conducted on Judgments of Associative Memory (JAM) has found that these judgments tend to be stable and highly generalizable across varying contexts [@Maki2007a; @Maki2007; @Valentine2013]. The JAM task can be viewed as a manipulation of the traditional Judgment of Learning task (JOL). In a JOL task, participants are presented with cue-target word pairs and are asked to make a judgment (typically, on a scale of zero to one hundred) of how accurately they would be able to respond with the proper target word based on the presentation of a particular cue word [@Nelson1991; @Dunlosky1994a]. JAM tasks expand upon this concept by changing the focus of the judgments performed by participants. When presented with the item pair, such as *cheese-mouse*, participants are asked to judge the number of people out of 100 who would respond with the pair's target word (*mouse*) if they were only shown the cue word [*cheese*; @Maki2007a].
 
   This process mimics the creation of associative words norms [i.e., forward strength; @Nelson2004]. As such, these judgments can be viewed as the participants' approximations of how associatively related they perceive the paired items to be. The JAM function can then be created by plotting participants' judgments against the word's normed associative strength and calculating a line of best fit. This fit line typically displays a high intercept (bias) and a shallow slope (sensitivity), meaning that participants are biased towards overestimating the associative relatedness between word pairs, and show difficulties differentiating between different amounts of item relatedness [@Maki2007a]. These results are often found in JOL research [@Koriat2005], and they are highly stable across various contexts and instructional manipulations in JAM tasks [@Valentine2013].
   
-  Building upon this research, we initially explored recall accuracy within the context of word pair judgments, while also expanding the JAM task to incorporate judgments of semantic and thematic memory. In the pilot study, 63 word-pairs of varying associative, semantic, and thematic overlap were created and arranged into three blocks, consisting of 21 word-pairs each. Associative overlap was measured with forward strength [FSG; @Nelson2004], semantic overlap was measured with cosine [COS; @Buchanan2013; @McRae2005; @Vinson2008], and thematic relatedness between pairs was measured with latent semantic analysis [LSA; @Landauer1997; @Landauer1998]. These word pairs were then judged by 112 participants who were recruited from Amazon's Mechanical Turk. Stimuli were arranged into three blocks based, each preceeded by a set of instructions explaining either an associative, semantic, or thematic relationship between words. Three versions of the study were created, counterbalancing the order in which judgment instructions and stimuli blocks appeared. Thus, each participant made one set of judgments corresponding to each type of memory, and each word pair recieved each type of judgment. 
+  Building upon this research, we initially explored recall accuracy within the context of word pair judgments, while also expanding the JAM task to incorporate judgments of semantic and thematic memory. In the pilot study, 63 word-pairs of varying associative, semantic, and thematic overlap were created and arranged into three blocks, consisting of 21 word-pairs each [@Maxwell2018]. Associative overlap was measured with forward strength [FSG; @Nelson2004], semantic overlap was measured with cosine [COS; @Buchanan2013; @McRae2005; @Vinson2008], and thematic relatedness between pairs was measured with latent semantic analysis [LSA; @Landauer1997; @Landauer1998]. These word pairs were then judged by participants who were recruited from Amazon's Mechanical Turk. Stimuli were arranged into three blocks based, each preceeded by a set of instructions explaining either an associative, semantic, or thematic relationship between words. Three versions of the study were created, counterbalancing the order in which judgment instructions and stimuli blocks appeared. Thus, each participant made one set of judgments corresponding to each type of memory, and each word pair recieved each type of judgment. 
   
-  After completing the judgment phase, participants then completed a cued recall task in which they were presented with the cue word from each of the previously presented word pairs and were asked to complete each pair with the missing target [@Maxwell2018]. Significant three-way interactions were found between database norms when predicting judgments and recall. When semantic overlap was low, thematic and associative strength were competitive, with increases in thematic overlap decreasing the strength of associative overlap as a predictor. However, this trend saw a reversal when semantic overlap was high, with thematic and associative strength complimenting one another. Overall, our findings from this study indicated the degree to which the processing of associative, semantic, and thematic information impacts retrieval and judgment making, while also displaying the interactive relationship that exists between these three types of information.
+  After completing the judgment phase, participants then completed a cued recall task in which they were presented with the cue word from each of the previously presented word pairs and were asked to complete each pair with the missing target. Significant three-way interactions were found between database norms when predicting judgments and recall. When semantic overlap was low, thematic and associative strength were competitive, with increases in thematic overlap decreasing the strength of associative overlap as a predictor. However, this trend saw a reversal when semantic overlap was high, with thematic and associative strength complimenting one another. Overall, our findings from this study indicated the degree to which the processing of associative, semantic, and thematic information impacts retrieval and judgment making, while also displaying the interactive relationship that exists between these three types of information.
   
-  The proposed study seeks to expand upon this work by extending the original analysis to include multiple single word norms. These norms provide information about different "neighborhoods" of concept information. Broadly speaking, they can be separated into one of three categories. Base values refer to norms which capture information based on a word's structure. These include part of speech, word frequency, and the number of syllables, morphemes, and phonemes that comprise a word. Rated values refer to age of acquisition, concreteness, imageability, valence, and familiarity. Finally, we seek to examine norms that provide information about the connections a word shares with others based on context. These norms include orthographic neighborhood, phonographic neighborhood, cue and target set sizes, and feature set size. These values were selected on the basis of previous research suggesting their impact on retrieval accurarcy; their importance is elaborated upon below. 
+  This study seeks to expand upon this work by extending the original analysis to include multiple single word norms. These norms provide information about different "neighborhoods" of concept information. Broadly speaking, they can be separated into one of three categories. Base values refer to norms which capture information based on a word's structure. These include part of speech, word frequency, and the number of syllables, morphemes, and phonemes that comprise a word. Rated values refer to age of acquisition, concreteness, imageability, valence, and familiarity. Finally, we seek to examine norms that provide information about the connections or neighborhood a concept shares with others based on context. These norms include orthographic neighborhood, phonographic neighborhood, cue and target set sizes, and feature set size. These values were selected on the basis of previous research suggesting their impact on retrieval accurarcy; their importance is elaborated upon below. 
 
   First, we are interested in assessing the impact of base word norms. Chief amongst these is word frequency. Several sets of norms currently exist for measuring the frequency with which words occur in everyday language, and it is important to determine which of these offers the best representation of everyday language. One of the most commonly used collections of these norms is the @Kucera1967 frequency norms. This set consists of frequency values for words, which were generated by analyzing books, magazines, and newspapers. However, the validity of using these norms has been questioned on factors such as the properties of the sources analyzed, the size of the corpus analyzed, and the overall age of these norms. First, these norms were created from an analysis of written text. It is important to keep in mind that stylistically, writing tends to be more formal than everyday language and as a result, it may not be the best approximation of it [@Brysbaert2009]. Additionally, these norms were generated fifty years ago, meaning that these norms may not accurately reflect the current state of the English language. As such, the @Kucera1967 norms, while popular, may not be the best choice for researchers interested in gauging the effects of word frequency.
 
   Several viable alternatives to the @Kucera1967 frequency norms now exist. One popular method is to use frequency norms obtained from the HAL corpus, which consists of 131 million words [@Burgess1997; @Lund1996]. Other collections of frequency norms include CELEX [@Baayen1995] based on written text, the Zeno frequency norms [@Zeno1995] created from American children's textbooks, and Google Book's collection of word frequencies derived from 131 billion words taken from books published in the United States (see @Brysbaert2011 for an overview and comparison of these norms). For the present study, we plan to use data taken from the both the SUBTLEX project [@Brysbaert2009], which is a collection of frequency norms derived from a corpus of approximately 51 million words, which were generated from movie and television subtitles and the HAL corpus. SUBTLEX norms are thought to better approximate everyday language, as lines from movies and television tend to be more reflective of everyday speech than writing samples. Additionally, the larger corpus size of both SUBTLEX and HAL contributes to the validity of these norms compared to @Kucera1967 frequency norms.
   
-  Next, we are interested in testing the effects of several measures of lexical information related to the physical make-up of words. These measures include the numbers of phonemes, morphemes, and syllables that comprise each word as well as its part of speech. The number of phonemes refers to the number of individual sounds that comprise a word (i.e., the word *cat* has three phonemes, each of which correspond to the sounds its letters make), while the term morpheme refers to the number of sound units that contain meaning. *Drive* contains one morpheme, while *driver* contains two. Morphemes typically consist of root words and their affixes. Additionally, word length (measured as the number of individual characters a word consists of) and the number of syllables a word contains will be investigated, as previous research has suggested that the number of syllables may play a role in processing time. In general, longer words require longer processing time [@Kuperman2012], and shorter words tend to be more easily remembered [@Cowan2003]. Finally, we are interested in the part of speech of each word, as nouns are often easier to remember [@Paivio1971]. Formall defined, part of speech refers to a word's categorization in language based on its syntactic functions.
+  Next, we are interested in testing the effects of several measures of lexical information related to the physical make-up of words. These measures include the numbers of phonemes, morphemes, and syllables that comprise each word as well as its part of speech. The number of phonemes refers to the number of individual sounds that comprise a word (i.e., the word *cat* has three phonemes, each of which correspond to the sounds its letters make), while the term morpheme refers to the number of sound units that contain meaning. *Drive* contains one morpheme, while *driver* contains two. Morphemes typically consist of root words and their affixes. Additionally, word length (measured as the number of individual characters a word consists of) and the number of syllables a word contains will be investigated, as previous research has suggested that the number of syllables may play a role in processing time. In general, longer words require longer processing time [@Kuperman2012], and shorter words tend to be more easily remembered [@Cowan2003]. Finally, we are interested in the part of speech of each word, as nouns are often easier to remember [@Paivio1971]. Formally defined, part of speech refers to a word's categorization in language based on its syntactic functions.
 
   Third, we will examine the effects of norms measuring word properties that are rated by participants. The first of these is age of acquisition, which is a measure of the age at which a word is learned. This norm is measured by presenting participants with a word and having them enter the age (in years) in which they believe that they would have learned the word [@Kuperman2012]. Age of acquisition ratings have been found to be predictive of recall; for example, @Dewhurst1998 found recall to be higher for late acquired words. Also of interest are measures of a word's valence, which refers to its intrinsic pleasantness or perceived positiveness [@Bradley1999]. Valence ratings are important across multiple psycholinguistic research settings. These include research on emotion, the impact of emotion of lexical processing and memory, estimating the sentiments of larger passages of text, and estimating the emotional value of new words based on valence ratings of semantically similar words (see @Warriner2013 for a review). The next of these rated measures is concreteness, which refers to the degree that a word relates to a perceptible object [@Brysbaert2013]. Similar to concreteness, imageability is described as being a measure of a word's ability to generate a mental image [@Stadthagen-Gonzalez2006]. Both imageability and concreteness have been linked to recall, as items rated higher in these areas tend to be more easily recalled [@Nelson1992]. Finally, familiarity norms can be described as an application of word frequency. These norms measure the frequency of exposure to a particular word [@Stadthagen-Gonzalez2006].
 
-  The final group of norms that will be investigated are those which provide information based on connections with neighboring words. Phonographic neighborhood refers to the number of words that can be created by changing one sound in a word (i.e., *cat* to *kite*). Similarly, orthographic neighborhood refers to the number of words created by changing a single letter in word [i.e., *cat* to *bat*, @Adelman2007; @Peereman1997]. Previous findings have suggested that the frequency of a target word relative to that of its orthographic neighbors has an effect on recall, increasing the likelihood of recall for that word [@Carreiras1997]. Additionally, both of measures have been found to effect processing speed for items [@Buchanan2013; @Adelman2007; @Coltheart1977]. Next, we are interested in examining two single word norms that are directly related to item associations. These norms measure the number of associates a word shares connections with. Cue set size refers to the number of cue words that a target word is connected to, while target set size is a count of the number of target words a cue word is connected to [@Schreiber1998]. Previous research has shown evidence for a cue set size effect in which cue words that are linked to a larger number of associates (target words) are less likely to be recalled than cue words linked to fewer target words [@Nelson1999]. As such, feature list sizes will be calculated for each word overlap norm from the @Buchanan2013 semantic feature norm set.
+  The final group of norms that will be investigated are those which provide information based on connections with neighboring words. Phonographic neighborhood refers to the number of words that can be created by changing one sound in a word (i.e., *cat* to *kite*). Similarly, orthographic neighborhood refers to the number of words created by changing a single letter in word [i.e., *cat* to *bat*, @Adelman2007; @Peereman1997]. Previous findings have suggested that the frequency of a target word relative to that of its orthographic neighbors has an effect on recall, increasing the likelihood of recall for that word [@Carreiras1997]. Additionally, both of measures have been found to effect processing speed for items [@Adelman2007; @Coltheart1977]. Next, we are interested in examining two single word norms that are directly related to item associations. These norms measure the number of associates a word shares connections with. Cue set size refers to the number of cue words that a target word is connected to, while target set size is a count of the number of target words a cue word is connected to [@Schreiber1998]. Previous research has shown evidence for a cue set size effect in which cue words that are linked to a larger number of associates (target words) are less likely to be recalled than cue words linked to fewer target words [@Nelson1999]. As such, feature list and cosine set sizes will be calculated for each word overlap norm from the @Buchanan2013 semantic feature norm set.
 
   In summary, this study seeks to expand upon previous work by examining how single word norms belonging to these three neighborhoods of item information impact the accuracy of item judgments and recall. These findings will be assessed within the context of associative, semantic, and thematic memory systems. Specifically, we utilize a three-tiered view of the interconnections between these systems as it relates to processing concept information. First, semantic information is processed, which provides a means for categorizing concepts based on feature similarity. Next, processing moves into the associative memory network, where contextual information pertaining to the items is added. Finally, the thematic network incorporates information from both the associative and semantic networks to generate a mental representation of the concept containing both the items meaning and its place in the world.
 
   Therefore, the present study has two aims. First, we seek to replicate the interaction results from the previous study on a conceptual level using a new set of stimuli. Second, we wish to expand upon these findings by extending the analysis to include single word information for the item pairs. This analysis was conducted by introducing the different types single word norms through a series of steps based on the type of neighborhood they belong to. First, base word norms were analyzed. Next, measures of word ratings were analyzed. Third, single word norms measuring connections between concepts were analyzed. Finally, network norms and their interactions were reanalyzed. The end goal was to determine both which neighborhood of norms have the greatest overall impact on recall and judgment ability, and to further assess the impact of network connections after controlling for the various neighborhoods of single word information.
 
-# Methods
+# Method
 
 ## Participants
 
-  First, a power analysis was conducted using the simr package in *R* [@Green2016]. This package uses simulations to calculate power for mixed linear models created from the lme4 and nlme packages in R [@Bates2015; @Pinheiro2017]. The results of this analysis suggested a minimum of 35 participants would be required to detect an effect at 80% power. However, because power often tends to be underestimated, participant recruitment was extended within the confines of available funding [@Brysbaert2018]. Thus, 221 participents were recruited from Amazon's Mechanical Turk, which is a website that allows individuals to host projects and connects them with a large pool of respondents who complete them for small amounts of money [@Buhrmester2011]. Participants who completed the study correctly were compensated $2.00 for their participation. Participant responses were then screened for a basic understanding of the study's instructions. Common reasons for rejecting responses included participants entering related words when numerical judgment responses were required, responding with numerical ratings during the cued recall task, or participants responding to the cue words during recall with phrases or sentences instead of individual words.
+  First, a power analysis was conducted using the simr package in *R* [@Green2016]. This package uses simulations to calculate power for mixed linear models created from the lme4 and nlme packages in *R* [@Bates2015; @Pinheiro2017]. The results of this analysis suggested a minimum of 35 participants would be required to detect an effect at 80% power. However, because power often tends to be underestimated, participant recruitment was extended within the confines of available funding [@Brysbaert2018]. Thus, 221 participents were recruited from Amazon's Mechanical Turk, which is a website that allows individuals to host projects and connects them with a large pool of respondents who complete them for small amounts of money [@Buhrmester2011]. Participants who completed the study correctly were compensated $2.00 for their participation (*n* = 200). Participant responses were screened for a basic understanding of the study's instructions to justify payment and use in the study. Common reasons for rejecting responses included participants entering related words when numerical judgment responses were required, responding with numerical ratings during the cued recall task, or participants responding to the cue words during recall with phrases or sentences instead of individual words.
 
 PARAGRAPH HERE ABOUT MAKING THE COMBINED DATASET
 
 ## Materials
 
-  First, keeping consistent with the design of the original pilot study, sixty-three word pairs of varying associative, semantic, and thematic overlap were created to be used as stimuli. As with the pilot study, these word pairs were created using the @Buchanan2013 word norm database. Next, neighborhood information for all cue and target items was collected. Word frequency was collected from the SUBTLEX project [@Brysbaert2009]. Part of speech, word length, and the number of morphemes, phonemes, and syllables of each item was derived from the @Buchanan2013 word norms [originally contained in The English Lexicon Project, @Balota2007]. For items with multiple parts of speech (for example, *drink* can refer to both a beverage and the act of drinking a beverage), part of speech was coded as the most commonly used form. Following the design of @Buchanan2013, this part of speech was determined using Google's define feature. Concreteness, cue set size, and target set size were taken from the South Florida Free Association Norms [@Nelson2004]. Feature set size (i.e., the number of features listed as part of the definition of a concept) and cosine set size (i.e., number of semantically related words above a cosine of zero) were calculated from @Buchanan2013. Imageability and familiarity norms were taken from the Toglia and colleagues set of semantic word norms [@Toglia2009; @Toglia1978]. Age of acquisition ratings were pulled from the @Kuperman2012 database. Finally, valence ratings for all items were obtained from the @Warriner2013 norms. Stimuli information for cue and target words can be found in Tables \@ref(tab:stim-table-cue) and \@ref(tab:stim-table-target).
+  First, keeping consistent with the design of the original pilot study, sixty-three word pairs of varying associative, semantic, and thematic overlap were created to be used as stimuli. As with the pilot study, these word pairs were created using the @Buchanan2018a word norm database, which is an extension of the original @Buchanan2013 dataset. Next, neighborhood information for all cue and target items was collected. Word frequency was collected from the SUBTLEX project [@Brysbaert2009]. Part of speech, word length, and the number of morphemes, phonemes, and syllables of each item was derived from the @Buchanan2013 word norms [originally contained in The English Lexicon Project, @Balota2007]. For items with multiple parts of speech (for example, *drink* can refer to both a beverage and the act of drinking a beverage), part of speech was coded as the most commonly used form. Following the design of @Buchanan2013, this part of speech was determined using Google's define feature. Concreteness, cue set size, and target set size were taken from the South Florida Free Association Norms [@Nelson2004]. Feature set size (i.e., the number of features listed as part of the definition of a concept) and cosine set size (i.e., number of semantically related words above a cosine of zero) were calculated from @Buchanan2018a. Imageability and familiarity norms were taken from the Toglia and colleagues set of semantic word norms [@Toglia2009; @Toglia1978]. Age of acquisition ratings were pulled from the @Kuperman2012 database. Finally, valence ratings for all items were obtained from the @Warriner2013 norms. Stimuli information for cue and target words can be found in Tables \@ref(tab:stim-table-cue) and \@ref(tab:stim-table-target).
   
-  After gathering neighborhood information, network norms measuring associative, semantic, and thematic overlap were generated for each pair. Forward strength (FSG) was used as a measure of associative overlap. FSG is a value ranging from zero to one which measures of the probability that a cue word will elicit a particular target word in response to it [@Nelson2004]. Cosine (COS) strength was used to measure semantic overlap between concepts [@Buchanan2013; @McRae2005; @Vinson2008]. As with FSG, this value ranges from zero to one, with higher values indicating more shared features between concepts. Finally, thematic overlap was measured with Latent Semantic Analysis (LSA), which is a measure generated based upon the co-occurrences of words within a document [@Landauer1997; @Landauer1998]. Like the measures of associative and semantic overlap, LSA values range from zero to one, with higher values indicating higher co-occurrence between items. The selected stimuli contained a range of values across both the network and neighborhood norms. As with the previous study, stimuli will be arranged into three blocks, with each block consisting of 21 word pairs. The blocks will be structured to have seven words of low COS (0 - .33), medium COS (.34 - .66), and high COS (.67 - 1). COS was chosen due to both limitations with the size of the available data set across all norm sets, and the desire to recreate the selection process used for the previous study. The result of this selection process is that values for the remaining network norms (FSG and LSA) and information neighborhood norms will be contingent upon the COS strengths of the selected stimuli. To counter this, we selected stimuli at random based on the different COS groupings so as to cover a broad range of FSG, LSA, and information neighborhood values. Stimuli information for word pair norms can be found in Table \@ref(tab:Stimuli-Table) and Table \@ref(tab:stim-table-network). Table \@ref(tab:cue-table) displays stimuli averages, SD, and ranges of single word norms across cue items, while Table \@ref(tab:target-table) diplays this information for target items.  All stimuli and their raw values can be found at https://osf.io/j7qtc/.
+  After gathering neighborhood information, network norms measuring associative, semantic, and thematic overlap were generated for each pair. Forward strength (FSG) was used as a measure of associative overlap. FSG is a value ranging from zero to one which measures of the probability that a cue word will elicit a particular target word in response to it [@Nelson2004]. Cosine (COS) strength was used to measure semantic overlap between concepts [@Buchanan2018a; @McRae2005; @Vinson2008]. As with FSG, this value ranges from zero to one, with higher values indicating more shared features between concepts. Finally, thematic overlap was measured with Latent Semantic Analysis (LSA), which is a measure generated based upon the co-occurrences of words within a document [@Landauer1997; @Landauer1998]. Like the measures of associative and semantic overlap, LSA values range from zero to one, with higher values indicating higher co-occurrence between items. The selected stimuli contained a range of values across both the network and neighborhood norms. As with the previous study, stimuli will be arranged into three blocks, with each block consisting of 21 word pairs. The blocks will be structured to have seven words of low COS (0 - .33), medium COS (.34 - .66), and high COS (.67 - 1). COS was chosen due to both limitations with the size of the available data set across all norm sets, and the desire to recreate the selection process used for the previous study. The result of this selection process is that values for the remaining network norms (FSG and LSA) and information neighborhood norms will be contingent upon the COS strengths of the selected stimuli. To counter this, we selected stimuli at random based on the different COS groupings so as to cover a broad range of FSG, LSA, and information neighborhood values. Stimuli information for word pair norms can be found in Table \@ref(tab:Stimuli-Table). Table \@ref(tab:cue-table) displays stimuli averages, SD, and ranges of single word norms across cue items, while Table \@ref(tab:target-table) diplays this information for target items.  All stimuli and their raw values can be found at https://osf.io/j7qtc/.
 
-```{r Stimuli-Table, include=FALSE}
+```{r Stimuli-Table, results = 'asis', echo=FALSE}
 ####stimuli table####
 tableprint = matrix(NA, nrow = 8, ncol = 10)
 colnames(tableprint) = c("Variable", " ", "COS Low", " ",
@@ -157,14 +171,15 @@ apa_table.latex(as.data.frame(tableprint),
                 caption = "Summary Statistics for Stimuli",
                 note = "COS: Cosine, FSG: Forward Strength, LSA: Latent Semantic Analysis.",
                 escape = FALSE,
-                col.names = c("Variable", " ", "COS Low", " ", " ", "COS Average", " ", " ", "COS High", " ")
-)
+                col.names = c("Variable", " ", "COS Low", " ", " ", 
+                              "COS Average", " ", " ", "COS High", " ")
+                )
 ```
 
 ```{r descriptives, include=FALSE}
 ####setup####
 dat1 = read.csv("stimuli jan 18.csv") ##original dataset
-dat2 = read.csv(file.choose()) ##select the everything dataset, r was being a bitch and wouldn't open it normally...
+dat2 = read.csv("everything_data.csv") ##select the everything dataset, r was being a bitch and wouldn't open it normally...
 
 ####descriptives####
 ##network norms (part 2 data only)
@@ -186,8 +201,9 @@ round(apply(dat2[ , c(24:29, 31:40, 42, 44)], 2, min, na.rm = T), digits = 2)
 round(apply(dat2[ , c(24:29, 31:40, 42, 44)], 2, max, na.rm = T), digits = 2)
 ```
 
-```{r stim-tables, echo=FALSE, results='asis'}
+```{r stim-tables, eval=FALSE, include=FALSE, results='asis'}
 ####network norms table####
+#this table shows the overall norms but we didn't include it because it's better to have them separated out in the Stimuli-Table section
 tableprint1 = matrix(NA, nrow = 3, ncol = 6)
 colnames(tableprint1) = c("Variable", "Citation", "Mean", 
                          "SD", "Min", "Max")
@@ -205,8 +221,7 @@ apa_table(tableprint1,
 )
 ```
 
-
-```{r cue-table, include=FALSE}
+```{r cue-table, echo=FALSE, results='asis'}
 ####sw cue items####
 tableprint2 = matrix(NA, nrow = 16, ncol = 6)
 colnames(tableprint2) = c("Variable", "Citation", "Mean", 
@@ -226,8 +241,8 @@ tableprint2[11, ] = c("AOA", "Kuperman et al., 2012", 5.50, 1.75, 2.47, 11.05)
 tableprint2[12, ] = c("Valence", "Warriner et al., 2013", 5.69, 1.17, 1.91, 7.89)
 tableprint2[13, ] = c("Imageability", "Toglia and Battig, 1978", 5.41, 0.76, 3.02, 6.61)
 tableprint2[14, ] = c("Familiarity", "Toglia and Battig, 1978", 6.18, 0.29, 5.30, 6.79)
-tableprint2[15, ] = c("FSS", "Buchanan et al., 2013", 15.04, 10.47, 5.00, 48.00)
-tableprint2[16, ] = c("COSC", "Buchanan et al., 2013", 81.94, 73.59, 1.00, 347.00)
+tableprint2[15, ] = c("FSS", "Buchanan et al., 2018", 15.04, 10.47, 5.00, 48.00)
+tableprint2[16, ] = c("COSC", "Buchanan et al., 2018", 81.94, 73.59, 1.00, 347.00)
 
 tableprint2[ , 3:6] = printnum(as.numeric(tableprint2[ , 3:6]))
 
@@ -237,7 +252,6 @@ apa_table(tableprint2,
           note = "QSS: Cue Set Size, Ortho N: Orthographic Neighborhood Size, Phono N: Phonographic Neighborhood Size, AOA: Age of Acquisition, FSS: Feature Set Size, COSC: Cosine Connectedness"
 )
 ```
-
 
 ```{r target-table, echo=FALSE, results='asis'}
 ####sw target items####
@@ -259,8 +273,8 @@ tableprint3[11, ] = c("AOA", "Kuperman et al., 2012", 4.92, 1.66, 2.47, 11.63)
 tableprint3[12, ] = c("Valence", "Warriner et al., 2013", 5.81, 1.13, 1.95, 7.89)
 tableprint3[13, ] = c("Imageability", "Toglia and Battig, 1978", 5.46, 0.75, 2.95, 6.45)
 tableprint3[14, ] = c("Familiarity", "Toglia and Battig, 1978", 6.28, 0.29, 5.19, 6.85)
-tableprint3[15, ] = c("FSS", "Buchanan et al., 2013", 16.58, 12.95, 5.00, 57.00)
-tableprint3[16, ] = c("COSC", "Buchanan et al., 2013", 91.28, 89.90, 2.00, 462.00)
+tableprint3[15, ] = c("FSS", "Buchanan et al., 2018", 16.58, 12.95, 5.00, 57.00)
+tableprint3[16, ] = c("COSC", "Buchanan et al., 2018", 91.28, 89.90, 2.00, 462.00)
 
 tableprint3[ , 3:6] = printnum(as.numeric(tableprint3[ , 3:6]))
 
@@ -273,7 +287,7 @@ apa_table(tableprint3,
 
 ## Procedure
 
-  The present study was divided into three phases. In the first section, participants were presented with word pairs and were asked to make judgments of how related they believed the words in each pair to be. This judgment phase consisted of three blocks of 21 word-pairs which corresponded to one of three types of word pair relationships: associative, semantic, or thematic. Each block was preceded by a set of instructions explaining one of the three types of relationships, and participants were provided with examples which illustrated the type of relationship to be judged. Judgment instructions for each block were contingent on the type of judgment being elicited. For example, instructions in the associative block asked participants to estimate how many college students out of 100 would respond to the cue word with the given target, while instructions for the semantic judgments asked participants to indicate the percent of features shared between two concepts. All judgment instructions were modeled after [@Buchanan2010] and [@Valentine2013].
+  The present study was divided into three phases. In the first section, participants were presented with word pairs and were asked to make judgments of how related they believed the words in each pair to be. This judgment phase consisted of three blocks of 21 word-pairs which corresponded to one of three types of word pair relationships: associative, semantic, or thematic. Each block was preceded by a set of instructions explaining one of the three types of relationships, and participants were provided with examples which illustrated the type of relationship to be judged. Judgment instructions for each block were contingent on the type of judgment being elicited. For example, instructions in the associative block asked participants to estimate how many college students out of 100 would respond to the cue word with the given target, while instructions for the semantic judgments asked participants to indicate the percent of features shared between two concepts. All judgment instructions were modeled after @Buchanan2010 and @Valentine2013.
   
   The association instruction set included the following instructional explanation focusing on the co-occurrence in language: "For example, consider the word (and concept of) DOG.  We often see the word DOG appear in the same context as the word CAT. "It's raining cats and dogs." "I have two dogs, but my neighbor has a cat."  And so on.  By experiencing the words CAT and DOG together many times, we develop an association (a mental connection) between them.  With lots of this kind of associative learning experience during our lives, we develop a very large and very complex associative memory."
   
@@ -281,29 +295,20 @@ apa_table(tableprint3,
   
   The thematic instructions contained a blend of the two instruction sets to focus on both semantic and associative relation: "Words that are thematically related are connected by a related concept and may often occur near each other in language.  For example, the word TREE is thematically related to LEAF, FRUIT, BRANCH, and FOREST because they all appear in text together due to related meaning. TREE and COMPUTER would not be thematically related because they would not be in the same writing together."
 
-  After reviewing the intructions, participants rated the relatedness of the word pairs based on the set of instructions they received. Consistent with previous work investingatin JOLs and JAM tasks, item relatedness was rated using a scale of zero to 100, in which zero indicated a lack of relationship between items, and 100 indicated a perfect relationship. Participants typed their responses into the survey. After completing the first judgment block, participants then progressed through the remaining judgment blocks in the same manner. Each subsequent judgment block changed the type of judgment being mad, and three versions of the study were created.  This allowed for the order in which judgment blocks appeared to be counter-balanced. Participants were randomly assigned to one of the three survey versions. Thus,  each word-pair received judgments for each of the three types of relationships.
+  After reviewing the intructions, participants rated the relatedness of the word pairs based on the set of instructions they received. Consistent with previous work investingatin JOLs and JAM tasks, item relatedness was rated using a scale of zero to 100, in which zero indicated a lack of relationship between items, and 100 indicated a perfect relationship. Participants typed their responses into the survey. After completing the first judgment block, participants then progressed through the remaining judgment blocks in the same manner. Each subsequent judgment block changed the type of judgment, and three versions of the study were created to counter-balance judgment order. Participants were randomly assigned to one of the three survey versions. Thus, each word-pair received judgments for each of the three types of relationships across participants.
   
-  After progressing through the three judgment blocks, participants then completed a short distractor task to account for recency effects. This task required participants to place a randmized list of the 50 U.S. states in alphabetical order. This was a timed task, deisgned to last two minutes. Participants automatically progressed to the final section of the study once time had elapsed. The final section of the study consisted of a cued-recall task in which participants were presented with each of the 63 cue words from the judgment phase. Participents were asked to complete each word-pair by responding with the correct target word. This was an untimed task timed, and participants were informed that they would not be penalized for guessing. All stimuli pairs were were presented in a randomized order.
+  After progressing through the three judgment blocks, participants then completed a short distractor task to account for recency effects. This task required participants to place a randmized list of the 50 U.S. states in alphabetical order. This distractor was a timed task, designed to last two minutes. Participants automatically progressed to the final section of the study once time had elapsed. The final section of the study consisted of a cued-recall task in which participants were presented with each of the 63 cue words from the judgment phase. Participents were asked to complete each word-pair by responding with the correct target word. This section was an untimed task, and participants were informed that they would not be penalized for guessing. All stimuli pairs were were presented in a randomized order.
 
 # Results
 
 ## Data Processing
 
-```{r Data Screeing, include=FALSE}
+```{r Data_Screeing, include=FALSE}
 ##Import data and setup
 dat = read.csv("master.csv")
 
 options(scipen = 999)
 options(max.print = 9999)
-
-##cleanup code for graphs
-cleanup = theme(panel.grid.major = element_blank(), 
-                panel.grid.minor = element_blank(), 
-                panel.background = element_blank(), 
-                axis.line.x = element_line(color = "black"),
-                axis.line.y = element_line(color = "black"),
-                legend.key = element_rect(fill = "white"),
-                text = element_text(size = 15))
 
 ####data screening#####
 ####part 2 data####
@@ -377,6 +382,12 @@ noout$ZFSG = scale(noout$FSG, scale = F)
 ##create the right scaling 
 noout$Judged.Value2 = noout$Judged.Value/100
 
+##add in variables for moderations
+noout$ZCOS_low = noout$ZCOS + sd(noout$ZCOS, na.rm = TRUE)
+noout$ZCOS_high = noout$ZCOS - sd(noout$ZCOS, na.rm = TRUE)
+noout$ZLSA_low = noout$ZLSA + sd(noout$ZLSA, na.rm = TRUE)
+noout$ZLSA_high = noout$ZLSA - sd(noout$ZLSA, na.rm = TRUE)
+
 ####pilot data####
 ##mean centering network norms
 noout2$ZCOS = scale(noout2$COS, scale = F)
@@ -427,19 +438,21 @@ summary(combined$Judgment)
 ##for sw models, only using length, using log subtlex
 ```
 
-Recall was coded as zero for incorrect responses, one for correct responses, and NA for participants who left either all or the majority of recall responses incomplete. All word responses to judgment items were deleted and set to missing data, as well as numerical rating responses on the cued-recall task. The final dataset was created by splitting the initial data file into six sections (corresponding to each of three experimental blocks and their respective recall sections) and individually melting each section using the reshape package in R (Wickham, 2007). Melted files were then written as csv files and combined to create the final dataset.
+Recall was coded as zero for incorrect responses, one for correct responses, and NA for participants who left either all or the majority of recall responses incomplete. All word responses to judgment items were deleted and set to missing data, as well as numerical rating responses on the cued-recall task. The final dataset was created by splitting the initial data file into six sections (corresponding to each of three experimental blocks and their respective recall sections) and individually melting each section using the reshape package in *R* [@Wickham2007]. Melted files were then written as *.csv* files and combined to create the final dataset.
 
-In long format, the dataset for contained 13,923 rows of data (221 participants * 63 judgments). Data screening followed the same process used in Experiment One. Nine judgment data points were set to NA as they fell outside the range of the scale (> 100). Missing data points for judgments and recall were then excluded. As before, this also included word responses to judgments and numerical responses to recall. Participants whose data was excluded because they failed to follow instructions did not receive payment on Amazon's Mechanical Turk. 1,472 data points were excluded from the final analysis (833 from judgment only, 393 from recall only, and 246 across both), leading to a total of 12,451 observations from 211 participants in the final dataset. Recall and judgment scores were then screened for outliers using Mahalanobis distance at p < .001, and five outliers were detected. Thus, after removing outliers, 12,446 data points remained in the final data set. Finally, multicollinearity was screened for by checking the correlations between network norms and single word norms. Because of high correlations between the various lexical measures representing word length (number of characters, syllables, morphemes, and phonemes, r >.75), only number of individual characters was included in the analysis to represent word length.
+In long format, the dataset for contained 13,923 rows of data (221 participants \* 63 judgments). Nine judgment data points were set to NA as they fell outside the range of the scale (> 100). Missing data points for judgments and recall were then excluded. 1,479 data points were excluded from the final analysis (831 from judgment only, 400 from recall only, and 248 across both), leading to a total of 12,444 observations from 211 participants in the final dataset. Recall and judgment scores were then screened for outliers using Mahalanobis distance at *p* < .001, and no outliers were detected. 12,444 data points remained in the final data set. Finally, multicollinearity was screened for by checking the correlations between network norms and single word norms. Because of high correlations between the various lexical measures representing word length (number of characters, syllables, morphemes, and phonemes, *r*s >.75), only number of individual characters was included in the analysis to represent word length.
 
-Consistent with previous findings, the mean judgment of memory in the associative condition (M = 59.67, SD = 30.28) was lower than in the semantic (M = 63.33, SD = 30.63) and thematic (M = 68.97, SD = 28.25) judgment conditions. Additionally, recall averaged lower than Experiment One, being at or slightly below 60% for all three conditions: associative M = 58.05, SD = 49.35; semantic M = 60.52, SD = 48.85; thematic M = 58.51, SD = 49.28.
+Consistent with previous findings, the mean judgment of memory in the associative condition (*M* = `r printnum(m.judge["Associative"])`, *SD* = `r printnum(sd.judge["Associative"])`) was lower than in the semantic (*M* = `r printnum(m.judge["Semantic"])`, *SD* = `r printnum(sd.judge["Semantic"])`) and thematic (*M* = `r printnum(m.judge["Thematic"])`, *SD* = `r printnum(sd.judge["Thematic"])`) judgment conditions. Additionally, recall was at or slightly below 60% for all three conditions: associative *M* = `r printnum(m.recall["Associative"]*100)`, *SD* = `r printnum(sd.recall["Associative"]*100)`; semantic *M* = `r printnum(m.recall["Semantic"]*100)`, *SD* = `r printnum(sd.recall["Semantic"]*100)`; thematic *M* = `r printnum(m.recall["Thematic"]*100)`, *SD* = `r printnum(sd.recall["Thematic"]*100)`.
 
-When examining the effects of single word norms, the dataset was combined with the dataset used collected in our pilot study, which had been updated to contain information corresponding to each of the single word norms being investigated. This additional step was taken because stimuli selected for use in this study also had to be included across several unconnected databases of single word norms, which severely limited which words could be selected. For example, of the 63 pairs originally selected, 56 word pairs contained weak associative relationships, six with moderate associative overlap, and only one pair with high associative overlap. To help control for this, the single word norm analyses used a combined data set where single word norms were gathered for the stimuli used in the pilot study. The combined dataset contained a total of 18,713 data points collected across 316 participants (after excluding participants in data screening). This dataset was used for the analyses investigating the effects of single word norms.
+When examining the effects of single word norms, the dataset was combined with the dataset used collected in the pilot study, which had been updated to contain information corresponding to each of the single word norms being investigated. This additional step was taken because stimuli selected for use in this study also had to be included across several unconnected databases of single word norms, which severely limited which words could be selected. For example, of the 63 pairs originally selected, 56 word pairs contained weak associative relationships, six with moderate associative overlap, and only one pair with high associative overlap. To help control for this limitation, the single word norm analyses used a combined data set where single word norms were gathered for the stimuli used in the pilot study. The combined dataset contained a total of 18,713 data points collected across 317 participants (after excluding participants in data screening). This dataset was used for the analyses investigating the effects of single word norms, and data screening for the original data is described in @Maxwell2018.
 
-##Three-Way Interactions
+## Replication of Interactions
 
-First, a set of analyses was conducted to test whether interactions between database norms would replicate with the new stimuli set. In the first analysis, multilevel modeling was used to test for these interactions when predicting participant judgements, while the second analysis used a multilevel logistic regression to test for interactions when predicting participant recll. Multilevel techniques were chosen due to their ability to retain all data points, rather than averaging across items and conditions. Additionally, such models control for correlated error due to participants, and are advantageous for multiway repeated measures designs [@Gelman2006]. All database norms were mean centered, and each analysis followed the design of [@Maxwell2018]. 
+### Judgments 
 
-```{r Judgment models, include=FALSE}
+First, a set of analyses was conducted to test whether interactions between database norms would replicate with the new stimuli set. In the first analysis, multilevel modeling was used to test for these interactions when predicting participant judgements, while the second analysis used a multilevel logistic regression to test for interactions when predicting participant recall. Multilevel techniques were chosen due to their ability to retain all data points, rather than averaging across items and conditions. Additionally, such models control for correlated error due to participants, and are advantageous for multiway repeated measures designs [@Gelman2006]. All database norms were mean centered, and each analysis followed the design of @Maxwell2018. 
+
+```{r judgment-models, include=FALSE}
 ####Judgment Models here####
 overall.judge = lme(Judged.Value2 ~ Judgment + 
                       ZCOS * ZLSA * ZFSG, 
@@ -450,9 +463,9 @@ overall.judge = lme(Judged.Value2 ~ Judgment +
 summary(overall.judge) #partial replication, may be due to sampling error, etc
 
 ####simple slopes - judgments####
-##break down cos
-noout$ZCOS_low = noout$ZCOS + sd(noout$ZCOS, na.rm = TRUE)
-noout$ZCOS_high = noout$ZCOS - sd(noout$ZCOS, na.rm = TRUE)
+#break down cos (moved this section up)
+#noout$ZCOS_low = noout$ZCOS + sd(noout$ZCOS, na.rm = TRUE)
+#noout$ZCOS_high = noout$ZCOS - sd(noout$ZCOS, na.rm = TRUE)
 
 ##low cosine
 lowcos = lme(Judged.Value2 ~ Judgment +
@@ -472,9 +485,9 @@ highcos = lme(Judged.Value2 ~ Judgment +
               random = ~1|Partno)
 summary(highcos)
 
-##now splitting by LSA
-noout$ZLSA_low = noout$ZLSA + sd(noout$ZLSA, na.rm = TRUE)
-noout$ZLSA_high = noout$ZLSA - sd(noout$ZLSA, na.rm = TRUE)
+##now splitting by LSA (moved this section up)
+#noout$ZLSA_low = noout$ZLSA + sd(noout$ZLSA, na.rm = TRUE)
+#noout$ZLSA_high = noout$ZLSA - sd(noout$ZLSA, na.rm = TRUE)
 
 ##low cosine, low lsa
 lowcoslowlsa = lme(Judged.Value2 ~ Judgment +
@@ -531,22 +544,52 @@ highcoshighlsa = lme(Judged.Value2 ~ Judgment +
                      na.action = "na.omit",
                      random = ~1|Partno)
 summary(highcoshighlsa)
-
 ```
 
-```{r Judge.Effects.table, include=FALSE}
+```{r judge-effects-table, results='asis', echo=FALSE}
 ####main effects table for judgments####
+tableprint = matrix(NA, nrow = 22, ncol = 5)
+colnames(tableprint) = c("Variable", "$beta$", "$SE$", "$t$", "$p$")
 
+tableprint[1:10 , 2:5] = summary(overall.judge)$tTable[ , -3]
+tableprint[1:10, 1] = c("Intercept", "Semantic Judgments", "Thematic Judgments", dimnames(summary(overall.judge)$tTable[ , -3])[[1]][4:10] )
+tableprint[11:13 , 2:5] = summary(lowcos)$tTable[ c(5,6,9), -3]
+tableprint[11:13, 1] = c("Low COS ZLSA", 
+                         "Low COS ZFSG", 
+                         "Low COS ZLSA:ZFSG")
+tableprint[14:16 , 2:5] = summary(highcos)$tTable[ c(5,6,9), -3]
+tableprint[14:16, 1] = c("High COS ZLSA", 
+                         "High COS ZFSG", 
+                         "High COS ZLSA:ZFSG")
+tableprint[17, ] = c("Low COS Low LSA ZFSG",
+                     summary(lowcoslowlsa)$tTable[6, -3])
+tableprint[18, ] = c("Low COS High LSA ZFSG",
+                     summary(lowcoshighlsa)$tTable[6, -3])
+tableprint[19, ] = c("Avg COS Low LSA ZFSG",
+                     summary(avgcoslowlsa)$tTable[6, -3])
+tableprint[20, ] = c("Avg COS High LSA ZFSG",
+                     summary(avgcoshighlsa)$tTable[6, -3])
+tableprint[21, ] = c("High COS Low LSA ZFSG",
+                     summary(highcoslowlsa)$tTable[6, -3])
+tableprint[22, ] = c("High COS High LSA ZFSG",
+                     summary(highcoshighlsa)$tTable[6, -3])
+tableprint[ , 2] = apa(as.numeric(tableprint[ , 2]),3,T) 
+tableprint[ , 3] = apa(as.numeric(tableprint[ , 3]),3,T)
+tableprint[ , 4] = apa(as.numeric(tableprint[ , 4]),3,T)
+tableprint[ , 5] =  apply(as.data.frame(as.numeric(tableprint[ , 5])), 1, p.value)
+
+apa_table.latex(as.data.frame(tableprint),
+          align = c("l", rep("c", 4)), 
+          small = T,
+          caption = "MLM Statistics for Replication of Judgment Interaction",
+          note = "Database norms were mean centered. The table shows main effects and interactions for database norms at low, average, and high levels of COS and LSA when predicting participant judgments.",
+          escape = FALSE)
 
 ```
 
-First, analyses were conducted to test whether interactions between database norms would replicate with the new stimuli set. These analyses mimicked the design from Hypotheses Two and Three from the pilot study. All database norms were mean centered. 
+First, analyses were conducted to test whether interactions between database norms would replicate with the new stimuli set. All database norms were mean centered to control for multicollinearity. The nlme package was used to analyze the MLM with maximimum likelihood estimation [@Pinheiro2017]. The analysis included the main effects and interaction of FSG, COS, and LSA predicting judgment scores with the participant as a random intercept factor. Type of judgment was used as a control variable to account for judgment instructions. The three-way interaction between these variables did not replicate; however, the two-way interactions of each of the variables did replicate. Table \@ref(tab:judgment-effects-table) displays statistics from the main effects and interactions. Consistent with previous findings, FSG was the strongest predictor of judgments (*b* = `r printnum(summary(overall.judge)$tTable[6,1],digits=2,gt1 =F)`, *p* < .001). Although the interaction was not significant, simple slopes were calculated to assess the underlying relationship between FSG and LSA at each level of COS to see if it displayed a pattern similar to that found in the previous study. Figure \@ref(fig:judgment-graphs) displays this relationship. FSG became weaker with each increase of LSA strength at each of the three levels of semantic overlap; thus, only the competitive relationship between the two database norms replicated for this analysis.
 
-EDIT THE SECTION BELOW
-
-The nlme package in R was used to create a maximum likelihood multilevel model to test for an interaction between FSG, COS, and LSA when predicting judgment scores (Pinheiro et al., 2017). Although the interaction was not significant, the main effects of FSG and LSA were still significant. Table 9 displays main effects and interactions. Consistent with previous findings, FSG was the strongest predictor of judgments (b = .422, p < .001). Although the interaction was not significant, simple slopes were still calculated to assess the underlying relationship between FSG and LSA at each level of COS to see if it displayed a pattern similar to that found in Experiment One. Figure 6 displays this relationship. FSG became weaker with each increase of LSA strength at each of the three levels of semantic overlap; thus, only the competitive relationship between the two database norms replicated for this analysis.
-
-```{r judgment graphs, include=FALSE}
+```{r judgment-graphs, echo=FALSE, fig.cap = "Simple slopes graph displaying the slope of FSG when predicting participant judgments at low, average, and high LSA split by low, average, and high COS. All variables were mean centered.", fig.height=6, fig.width=6}
 ####judgment graphs####
 ##low cos
 plot1 = ggplot(noout, aes(x = ZCOS_low, y = Judged.Value2)) +
@@ -611,7 +654,9 @@ judge.graph
 
 ```
 
-```{r, include=FALSE}
+### Recall
+
+```{r recall-models, include=FALSE}
 ####recall models here####
 overall.recall = glmer(Recall ~ (1|Partno) + Judgment + 
                          Judged.Value2 + ZCOS * ZLSA * ZFSG,
@@ -694,16 +739,50 @@ avgcoshighlsa2 = glmer(Recall ~ (1|Partno) +
 summary(avgcoshighlsa2)
 ```
 
-```{r recall.effects.table, include=FALSE}
+```{r recall-effects-table, results='asis', echo=FALSE}
 ####main effects table for recall####
+tableprint = matrix(NA, nrow = 21, ncol = 5)
+colnames(tableprint) = c("Variable", "$beta$", "$SE$", "$z$", "$p$")
+
+tableprint[1:11 , 2:5] = coef(summary(overall.recall))
+tableprint[1:11, 1] = c("Intercept", "Semantic Judgments", "Thematic Judgments", "Judged Values", dimnames(coef(summary(overall.recall)))[[1]][5:11])
+tableprint[12:14 , 2:5] = coef(summary(lowcos2))[c(6,7,10), ]
+tableprint[12:14, 1] = c("Low COS ZLSA", 
+                         "Low COS ZFSG", 
+                         "Low COS ZLSA:ZFSG")
+tableprint[15:17, 2:5] = coef(summary(hicos2))[c(6,7,10), ]
+tableprint[15:17, 1] = c("High COS ZLSA", 
+                         "High COS ZFSG", 
+                         "High COS ZLSA:ZFSG")
+tableprint[18, ] = c("Low COS Low LSA ZFSG", coef(summary(lowcoslowlsa2))[7,])
+tableprint[19, ] = c("Low COS High LSA ZFSG", coef(summary(lowcoshighlsa2))[7,])
+tableprint[20, ] = c("High COS Low LSA ZFSG", coef(summary(highcoslowlsa2))[7,])
+tableprint[21, ] = c("High COS High LSA ZFSG", coef(summary(highcoshighlsa2))[7,])
+
+tableprint[ , 2] = apa(as.numeric(tableprint[ , 2]),3,T) 
+tableprint[ , 3] = apa(as.numeric(tableprint[ , 3]),3,T)
+tableprint[ , 4] = apa(as.numeric(tableprint[ , 4]),3,T)
+tableprint[ , 5] = apply(as.data.frame(as.numeric(tableprint[ , 5])), 1, p.value)
+
+
+apa_table.latex(as.data.frame(tableprint),
+          align = c("l", rep("c", 4)), 
+          small = T,
+          caption = "MLM Statistics for Replication of Recall Interaction",
+          note = "Database norms were mean centered. The table shows main effects and interactions for database norms at low, average, and high levels of COS and LSA when predicting recall.",
+          escape = FALSE)
 ```
 
+The lme4 package was then used to create a multilevel logistic regression [CITE HERE], which tested whether the interaction found between the database norms when predicting recall would replicate with the new stimuli set. Participants were used as a random intercept factor with the same main effects and interactions of FSG, COS, and LSA. Again, the type of judgment was used as a control variable. Overall, a signicant three-way interaction was detected between FSG, COS, and LSA (*b* = `r printnum(coef(summary(overall.recall))[11,1])`, *p* < .001). This finding was a partial replication, as this interaction was in the opposite direction as the one found previously. Table \@ref(tab:recall-effects-table) reports main effects, two-way, and three-way interaction values. Simple slopes were then calculated for low, average, and high levels of LSA at the low and high levels of COS, so as to assess how FSG affected recall at varying levels of both COS and LSA. 
 
-EDIT THE SECTION BELOW
+In line with findings from the previous experiment, these analyses yielded significant two-way interactions between LSA and FSG at low COS (*b* = `r printnum(coef(summary(lowcos2))[10,1])`, *p* = `r printp(coef(summary(lowcos2))[10,4])`) and high COS (b = -7.514, p < .001), with no significant two-way interaction being found at average COS (*b* = `r printnum(coef(summary(overall.recall))[10,1])`, *p* = `r printp(coef(summary(overall.recall))[10,4])`). Staying consistent with the process used previously, a second set of simple slopes were then calculated for low, average, and high levels of LSA at the low and high levels of COS, so as to assess how FSG affected recall at varying levels of both COS and LSA. In contrast to previous findings, when both COS and LSA were low, FSG did not predict recall (*b* = `r printnum(coef(summary(lowcoslowlsa2))[7,1])`, *p* = `r printp(coef(summary(lowcoslowlsa2))[7,4])`). At low COS and average LSA, FSG increased in strength and became a significant predictor (*b* = `r printnum(coef(summary(lowcos2))[7,1])`, *p* < `r printp(coef(summary(lowcos2))[7,4])`). Finally, at low COS and high LSA, FSG increased further as a predictor (*b* = `r printnum(coef(summary(lowcoshighlsa2))[7,1])`, *p* `r printp(coef(summary(lowcoshighlsa2))[7,4])`). 
 
-The lme4 package was then used to create a multilevel logistic regression (Pinheiro et al., 2017), which tested whether the interaction found between the database norms when predicting recall would replicate with the new stimuli set. Participants were used as a random intercept factor, and judgment scores and type of judgment being made were controlled for. Overall, a signi???cant three-way interaction was detected between FSG, COS, and LSA (b = -22.572, p < .001). This was a partial replication, as this interaction was in the opposite direction as the one found in Experiment One. Table 10 reports main effects, two-way, and three-way interaction values. As with the previous Experiment, simple slopes were then calculated for low, average, and high levels of LSA at the low and high levels of COS, so as to assess how FSG affected recall at varying levels of both COS and LSA. In line with findings from the previous experiment, these analyses yielded signi???cant two-way interactions between LSA and FSG at low COS (b = 5.590, p = .013) and high COS (b = -7.514, p < .001), with no signi???cant two-way interaction being found at average COS (b = -.962, p = .489). Staying consistent with the process used in Experiment One, a second set of simple slopes were then calculated for low, average, and high levels of LSA at the low and high levels of COS, so as to assess how FSG affected recall at varying levels of both COS and LSA. In contrast to previous findings, when both COS and LSA were low, FSG did not predict recall (b = .087, p = .881). At low COS and average LSA, FSG increased in strength, and became a signi???cant predictor (b = 1.213, p < .001). Finally, at low COS and high LSA, FSG increased further as a predictor (b = 2.339, p < .001). The observed interaction followed a trend opposite of that in Experiment One. Instead of the competitive relationship observed previously for low COS, LSA and FSG were complimentary and increased together. As COS increased FSG and LSA became competitive, which was the opposite of Experiment One. As such, at high COS and low LSA, FSG was a signi???cant predictor (b = 3.900, p < .001). FSG weakened when LSA increased to average levels, (b = 1.606, p < .001), and continued to weaken further when both COS and LSA were high, with FSG decreasing further as a predictor of recall (b = .872, p < .001). Figure 7 displays simple slopes graphs for the three-way interaction when predicting recall. The bottom left ???gure indicates the counterbalancing e???ect of high COS levels of LSA and FSG, while the top left ???gure displays the complementary e???ects where LSA and FSG increased together as predictors of recall at low COS levels. 
+The observed interaction followed a trend opposite of that the pilot study. Instead of the competitive relationship observed previously for low COS, LSA and FSG were complimentary and increased together. As COS increased FSG and LSA became competitive, which was the opposite of previous results.
 
-```{r, include=FALSE}
+As such, at high COS and low LSA, FSG was a significant predictor
+(*b* = `r printnum(coef(summary(highcoslowlsa2))[7,1])`, *p* `r printp(coef(summary(highcoslowlsa2))[7,4])`). FSG weakened when LSA increased to average levels, (*b* = `r printnum(coef(summary(hicos2))[7,1])`, *p* `r printp(coef(summary(hicos2))[7,4])`), and continued to weaken further when both COS and LSA were high, with FSG decreasing further as a predictor of recall (*b* = `r printnum(coef(summary(highcoshighlsa2))[7,1])`, *p* = `r printp(coef(summary(highcoshighlsa2))[7,4])`). Figure @\ref(fig:recall-figure) displays simple slopes graphs for the three-way interaction when predicting recall. The bottom left figure indicates the counterbalancing effect of high COS levels of LSA and FSG, while the top left figure displays the complementary effects where LSA and FSG increased together as predictors of recall at low COS levels. 
+
+```{r recall-figure, echo=FALSE, fig.cap = "Simple slopes graph displaying the slope of FSG when predicting participant recall at low, average, and high LSA split by low, average, and high COS. All variables were mean centered.", fig.height=6, fig.width=6}
 ####Recall graphs####
 ##low cos
 plot4 = ggplot(noout, aes(x = ZCOS_low, y = Recall)) +
@@ -769,51 +848,13 @@ recall.graph
 ##this is the opposite of the pilot
 ```
 
-##Single Word Norms
+## Extension to Single Word Norms
 
-The final group of analyses examined the effects of single word norms on recall and judgments and whether interaction findings from Experiment One would replicate after controlling for single word norms. These analyses were conducted using an expanded dataset which combined data collected across both experiments.
+The final group of analyses examined the effects of single word norms on recall and judgments and whether interaction findings would replicate after controlling for single word norms. These analyses were conducted using an expanded dataset which combined data collected across both experiments.
 
-Single word norms were placed into one of three categories. Frequency (measured with SUBTLEX) and word length were used as measures of lexical information. Age of acquisition, valence, familiarity, concreteness, and imageability were classified as rated properties. Orthographic and phonographic neighborhoods, cue and target set sizes, feature set size, and cosine connectedness were grouped together as neighborhood connections.
+Single word norms were placed into one of three categories. Frequency (measured with SUBTLEX) and word length were used as measures of lexical information. Part of speech was excluded because this variable created a singular matrix. Age of acquisition, valence, familiarity, concreteness, and imageability were classified as rated properties. Orthographic and phonographic neighborhoods, cue and target set sizes, feature set size, and cosine connectedness were grouped together as neighborhood connections.
 
-
-```{r sw judgments, include=FALSE}
-
-####stepwise stuff for judgments####
-nomiss = na.omit(combined)
-
-#word characteristics
-overalljudge.step1 = lm(Judged.Value2 ~ Judgment + 
-                          LogSub.1 + LogSub.2 +
-                          Length.1 + Length.2 +
-                          POS.1 + POS.2,
-                        data = nomiss) 
-stepAIC(overalljudge.step1, direction = "both")$anova
-#best predictors: All of them
-
-#rated properties
-overalljudge.step2 = lm(Judged.Value2 ~ Judgment +
-                          AOA.1 +  AOA.2 +  Familiarity.1 +
-                          Familiarity.2 +  Valence.1 +  Valence.2 + 
-                          Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2,
-                        data = nomiss) 
-stepAIC(overalljudge.step2, direction = "both")$anova
-#best predictors: all of them
-
-##semantics
-overalljudge.step3 = lm(Judged.Value2 ~ Judgment +  
-                          QSS.1 +  TSS.2 +  FSS.1 +
-                          FSS.2 +  COSC.1 +  COSC.2 +  Ortho.1 + 
-                          Ortho.2 +  Phono.1 +  Phono.2,
-                        data = nomiss)
-stepAIC(overalljudge.step3, direction = "both")$anova
-#best predictors: QSS.1 + TSS.2 + FSS.2 + FSS.1 + COSC.2 + Ortho.2 + Phono.1
-
-##overall model using best predictors
-##this will be done hierachically
-
-##lexical properties
-##pos makes model blow up
-
+```{r sw-judgments, include=FALSE}
 ####Hierarchical Judgment Models####
 judgeoverall.1 = lme(Judged.Value2 ~ Judgment + 
                       LogSub.1 + LogSub.2 + Length.1 + Length.2, #POS.1 + POS.2,
@@ -841,7 +882,8 @@ judgeoverall.3 = lme(Judged.Value2 ~ Judgment +
                        AOA.1 +  AOA.2 +  Familiarity.1 +
                        Familiarity.2 +  Valence.1 +  Valence.2 + 
                        Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
-                       QSS.1 + TSS.2 + FSS.2 + FSS.1 + COSC.2 + Ortho.2 + Phono.1,
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2,
                      data = combined,
                      method = "ML", 
                      na.action = "na.omit",
@@ -850,12 +892,12 @@ summary(judgeoverall.3, correlation = T)
 
 ##network norms
 judgeoverall.4 = lme(Judged.Value2 ~ Judgment + 
-                       LogSub.1 + LogSub.2 + Length.1 +Length.2 + # POS.1 + POS.2,
+                       LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
                        AOA.1 +  AOA.2 +  Familiarity.1 +
                        Familiarity.2 +  Valence.1 +  Valence.2 + 
                        Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
-                       QSS.1 +  TSS.2 +  FSS.1 +
-                       FSS.2 + FSS.1 + COSC.2 + Ortho.2 + Phono.1 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                        ZFSG * ZLSA * ZCOS,
                      data = combined,
                      method = "ML", 
@@ -886,12 +928,12 @@ r.squaredGLMM(judgeoverall.4) ##r-squared increaeses with each model
 ####sw judgment moderation####
 ##low cosine
 lowcos3 = lme(Judged.Value2 ~ Judgment + 
-                LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
-                AOA.1 +  AOA.2 +  Familiarity.1 +
-                Familiarity.2 +  Valence.1 +  Valence.2 + 
-                Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
-                QSS.1 +  TSS.2 +  FSS.1 +
-                QSS.1 + TSS.2 + FSS.2 + FSS.1 + COSC.2 + Ortho.2 + Phono.1 +
+                       LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
+                       AOA.1 +  AOA.2 +  Familiarity.1 +
+                       Familiarity.2 +  Valence.1 +  Valence.2 + 
+                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                 ZFSG * ZLSA * ZCOS_low,
               data = combined,
               method = "ML", 
@@ -901,12 +943,12 @@ summary(lowcos3)
 
 ##high cosine
 highcos3 = lme(Judged.Value2 ~ Judgment + 
-                 LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
-                 AOA.1 +  AOA.2 +  Familiarity.1 +
-                 Familiarity.2 +  Valence.1 +  Valence.2 + 
-                 Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
-                 QSS.1 +  TSS.2 +  FSS.1 +
-                 QSS.1 + TSS.2 + FSS.2 + FSS.1 + COSC.2 + Ortho.2 + Phono.1 +
+                       LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
+                       AOA.1 +  AOA.2 +  Familiarity.1 +
+                       Familiarity.2 +  Valence.1 +  Valence.2 + 
+                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                  ZFSG * ZLSA * ZCOS_high,
                data = combined,
                method = "ML", 
@@ -916,12 +958,12 @@ summary(highcos3)
 
 ##low cosine, low lsa
 lowcoslowlsa3 = lme(Judged.Value2 ~ Judgment + 
-                      LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
-                      AOA.1 +  AOA.2 +  Familiarity.1 +
-                      Familiarity.2 +  Valence.1 +  Valence.2 + 
-                      Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
-                      QSS.1 +  TSS.2 +  FSS.1 +
-                      QSS.1 + TSS.2 + FSS.2 + FSS.1 + COSC.2 + Ortho.2 + Phono.1 +
+                       LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
+                       AOA.1 +  AOA.2 +  Familiarity.1 +
+                       Familiarity.2 +  Valence.1 +  Valence.2 + 
+                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                       ZFSG * ZLSA_low * ZCOS_low,
                     data = combined,
                     method = "ML", 
@@ -935,8 +977,8 @@ lowcoshighlsa3 = lme(Judged.Value2 ~ Judgment +
                        AOA.1 +  AOA.2 +  Familiarity.1 +
                        Familiarity.2 +  Valence.1 +  Valence.2 + 
                        Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
-                       QSS.1 +  TSS.2 +  FSS.1 +
-                       QSS.1 + TSS.2 + FSS.2 + FSS.1 + COSC.2 + Ortho.2 + Phono.1 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                        ZFSG * ZLSA_high * ZCOS_low,
                      data = combined,
                      method = "ML", 
@@ -946,12 +988,12 @@ summary(lowcoshighlsa3)
 
 #avg low
 avgcoslowlsa3 = lme(Judged.Value2 ~ Judgment + 
-                      LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
-                      AOA.1 +  AOA.2 +  Familiarity.1 +
-                      Familiarity.2 +  Valence.1 +  Valence.2 + 
-                      Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
-                      QSS.1 +  TSS.2 +  FSS.1 +
-                      QSS.1 + TSS.2 + FSS.2 + FSS.1 + COSC.2 + Ortho.2 + Phono.1 +
+                       LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
+                       AOA.1 +  AOA.2 +  Familiarity.1 +
+                       Familiarity.2 +  Valence.1 +  Valence.2 + 
+                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                       ZFSG * ZLSA_low * ZCOS,
                     data = combined,
                     method = "ML", 
@@ -965,8 +1007,8 @@ avgcoshighlsa3 = lme(Judged.Value2 ~ Judgment +
                        AOA.1 +  AOA.2 +  Familiarity.1 +
                        Familiarity.2 +  Valence.1 +  Valence.2 + 
                        Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
-                       QSS.1 +  TSS.2 +  FSS.1 +
-                       QSS.1 + TSS.2 + FSS.2 + FSS.1 + COSC.2 + Ortho.2 + Phono.1 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                        ZFSG * ZLSA_high* ZCOS,
                      data = combined,
                      method = "ML", 
@@ -980,8 +1022,8 @@ highcoslowlsa3 = lme(Judged.Value2 ~ Judgment +
                        AOA.1 +  AOA.2 +  Familiarity.1 +
                        Familiarity.2 +  Valence.1 +  Valence.2 + 
                        Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
-                       QSS.1 +  TSS.2 +  FSS.1 +
-                       QSS.1 + TSS.2 + FSS.2 + FSS.1 + COSC.2 + Ortho.2 + Phono.1 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                        ZFSG * ZLSA_low * ZCOS_high,
                      data = combined,
                      method = "ML", 
@@ -991,12 +1033,12 @@ summary(highcoslowlsa3)
 
 ##high high
 highcoshighlsa3 = lme(Judged.Value2 ~ Judgment + 
-                        LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
-                        AOA.1 +  AOA.2 +  Familiarity.1 +
-                        Familiarity.2 +  Valence.1 +  Valence.2 + 
-                        Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
-                        QSS.1 +  TSS.2 +  FSS.1 +
-                        QSS.1 + TSS.2 + FSS.2 + FSS.1 + COSC.2 + Ortho.2 + Phono.1 +
+                       LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
+                       AOA.1 +  AOA.2 +  Familiarity.1 +
+                       Familiarity.2 +  Valence.1 +  Valence.2 + 
+                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                         ZFSG * ZLSA_high * ZCOS_high,
                       data = combined,
                       method = "ML", 
@@ -1007,14 +1049,32 @@ summary(highcoshighlsa3)
 
 ```{r sw.judge.effects.table, include=FALSE}
 ####main effects table for sw judgments####
+#since there is no way any of this noise will fit into a publishable table, we shall 
+#print it out in excel
+
+swjudgment = rbind(
+  cbind(rep("Step 1", nrow(summary(judgeoverall.1)$tTable)), summary(judgeoverall.1)$tTable),
+cbind(rep("Step 2", nrow(summary(judgeoverall.2)$tTable)), summary(judgeoverall.2)$tTable),
+cbind(rep("Step 3", nrow(summary(judgeoverall.3)$tTable)), summary(judgeoverall.3)$tTable),
+cbind(rep("Step 4", nrow(summary(judgeoverall.4)$tTable)), summary(judgeoverall.4)$tTable),
+cbind(rep("Low COS Low LSA", nrow(summary(lowcoslowlsa3)$tTable[28:34, ])), summary(lowcoslowlsa3)$tTable[28:34, ]),
+cbind(rep("Low COS Average LSA", nrow(summary(lowcos3)$tTable[28:34, ])), summary(lowcos3)$tTable[28:34, ]),
+cbind(rep("Low COS High LSA", nrow(summary(lowcoshighlsa3)$tTable[28:34, ])), summary(lowcoshighlsa3)$tTable[28:34, ]),
+cbind(rep("High COS Low LSA", nrow(summary(highcoslowlsa3)$tTable[28:34, ])), summary(highcoslowlsa3)$tTable[28:34, ]),
+cbind(rep("High COS Average LSA", nrow(summary(highcos3)$tTable[28:34, ])), summary(highcos3)$tTable[28:34, ]),
+cbind(rep("High COS High LSA", nrow(summary(highcoshighlsa3)$tTable[28:34, ])), summary(highcoshighlsa3)$tTable[28:34, ]))
+
+write.csv(swjudgment, "single word judgments.csv", row.names = T)
+
 ```
-EDIT THE SECTION BELOW
+
+YOU SHOULD EDIT HERE
 
 Next, multilevel modeling was used to investigate whether interaction findings from Experiment One would replicate after controlling for each of the single word norms selected via stepwise analyses. This analysis was conducted hierarchically, with single word norms entered in to the model through a series of steps. Each step corresponded to one of the categories of single word norms, with each model using judgment scores as the dependent variable of interest and controlling for the type of judgment being made. Marginal and Conditional R2 values (R2m and R2c respectively) were calculated at each step of the judgement model using the MuMIn package (Barton, 2018). Marginal R2 describes the proportion of variance that is explained solely by the fixed factors in the model, while the conditional R2 value is used to describe the proportion of the variance that can be explained by both fixed and random factors (Lefcheck, 2013).
+
 Model one examined the lexical properties of words (R2m = .027, R2c = .194). The second model added rated word properties words (R2m = .054, R2c = .220), and the third model added in neighborhood connections (R2m = .068, R2c = .232). Network norms and the three-way interaction between them were entered into the analysis in the fourth and final model (R2m = .118, R2c = .283). 
 
 Table 12 displays main effects and interaction findings for all variables in the step they were entered to control for table size. The main investigation focused on the fourth and final step of the model with the network interaction. The main effects of each individual single word norm are not discussed, however, of notable interest is the way in which several single word predictors tended to balance out across cue and target items. This finding occurred when either the cue or target version of a particular single word norm predictor showed a positive relationship, while the other displayed a negative relationship. Several cue-target predictor pairs displaying this trend were found at each step of the model. Pairs following this trend included frequency (cue b = .014, p < .001; target b = -.032, p < .001), age of acquisition (cue b = .015, p < .001; target b = -.014, p < .001), and feature set size (cue b = .001, p < .001, target b = -.001, p < .001). Therefore, even though it appeared that many features related to single words were significant predictors of judgments, the related cue and target information often canceled each other out in strength.  Consistent with previous judgment models, FSG was found in the final step to be the strongest overall predictor of judgments (b = .391, p < .001). The three-way interaction between network norms was not significant (b = .558, p = .099). To explore potential differences in effects, simple slopes were calculated using the same process as before. Figure 8 displays these findings.  FSG and LSA strength were competitive at all levels of COS, with increases in thematic strength decreasing the overall predictiveness of association strength. These results matched the replication portion of this experiment, indicating that FSG and LSA competition findings still hold, even after controlling for other concept information that is activated when reading in the lexical network. 
-
 
 ```{r sw judgment graphs, include=FALSE}
 ####judgment graphs####
@@ -1078,39 +1138,7 @@ judge.graph.sw
 
 ```
 
-```{r sw recall}
-####stepwise for recall####
-
-#word characteristics
-overallrecall.step1 = glm(Recall ~ Judgment + Judged.Value2 +
-                          LogSub.1 + LogSub.2 +
-                          Length.1 + Length.2 +
-                          POS.1 + POS.2,
-                        data = nomiss,
-                        family = binomial) 
-stepAIC(overallrecall.step1, direction = "both")$anova
-#best predictors: all the things...
-
-#rated properties
-overallrecall.step2 = glm(Recall ~ Judgment + Judged.Value2 +
-                          AOA.1 +  AOA.2 +  Familiarity.1 +
-                          Familiarity.2 +  Valence.1 +  Valence.2 + 
-                          Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2,
-                        data = nomiss,
-                        family = binomial)
-stepAIC(overallrecall.step2, direction = "both")$anova
-#best predictors: AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + QCON.2
-
-##semantics
-overallrecall.step3 = glm(Recall ~ Judgment + Judged.Value2 +
-                           QSS.1 +  TSS.2 +  FSS.1 +
-                           FSS.2 +  COSC.1 +  COSC.2 +  Ortho.1 + 
-                           Ortho.2 +  Phono.1 +  Phono.2,
-                         data = nomiss,
-                         family = binomial)
-stepAIC(overallrecall.step3, direction = "both")$anova
-#best predictors: QSS.1 + TSS.2 + FSS.1 + FSS.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2
-
+```{r sw-recall, include = FALSE}
 ####hierarchical model#####
 ##lexical information
 ##not using pos since it was removed from the judgment models
@@ -1124,10 +1152,11 @@ recalloverall.1 = glmer(Recall ~ (1|Partno) + Judgment +
 summary(recalloverall.1)
 
 ##rated properties
-recalloverall.2 = glmer(Recall ~ (1|Partno) +  Judgment + Judged.Value2 + LogSub.1 + LogSub.2 +
-                       Length.1 + Length.2 + AOA.1 + 
-                         AOA.2 + Familiarity.1 + Familiarity.2 + 
-                         Valence.1 + Valence.2 + Imageability.1 + QCON.2,
+recalloverall.2 = glmer(Recall ~ (1|Partno) +  Judgment + Judged.Value2 + 
+                          LogSub.1 + LogSub.2 + Length.1 + Length.2 + 
+                          AOA.1 +  AOA.2 +  Familiarity.1 + Familiarity.2 +  
+                          Valence.1 +  Valence.2 + 
+                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2,
                        data = combined,
                        family = binomial,
                        control = glmerControl(optimizer = "bobyqa"),
@@ -1135,12 +1164,13 @@ recalloverall.2 = glmer(Recall ~ (1|Partno) +  Judgment + Judged.Value2 + LogSub
 summary(recalloverall.2) ##I don't get the error when set to 0
 
 ##network connections
-recalloverall.3 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + LogSub.1 + LogSub.2 +
-                          Length.1 + Length.2 + AOA.1 + 
-                          AOA.2 + Familiarity.1 + Familiarity.2 + 
-                          Valence.1 + Valence.2 + Imageability.1 + QCON.2 +
-                          QSS.1 + TSS.2 + FSS.1 + FSS.2 + Ortho.1 + 
-                          Ortho.2 + Phono.1 + Phono.2,
+recalloverall.3 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + 
+                          LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
+                       AOA.1 +  AOA.2 +  Familiarity.1 +
+                       Familiarity.2 +  Valence.1 +  Valence.2 + 
+                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2,
                        data = combined,
                        family = binomial,
                        control = glmerControl(optimizer = "bobyqa"),
@@ -1148,13 +1178,14 @@ recalloverall.3 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + LogSub.
 summary(recalloverall.3)
 
 ##network norms
-recalloverall.4 = glmer(Recall ~ (1|Partno) +  Judgment +Judged.Value2 + LogSub.1 + LogSub.2 +
-                         Length.1 + Length.2 + AOA.1 + 
-                         AOA.2 + Familiarity.1 + Familiarity.2 + 
-                         Valence.1 + Valence.2 + Imageability.1 + QCON.2 +
-                         QSS.1 + TSS.2 + FSS.1 + FSS.2 + Ortho.1 + 
-                         Ortho.2 + Phono.1 + Phono.2 +
-                         ZFSG * ZLSA * ZCOS,
+recalloverall.4 = glmer(Recall ~ (1|Partno) +  Judgment + Judged.Value2 + 
+                          LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
+                       AOA.1 +  AOA.2 +  Familiarity.1 +
+                       Familiarity.2 +  Valence.1 +  Valence.2 + 
+                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
+                       ZFSG * ZLSA * ZCOS,
                        data = combined,
                        family = binomial,
                        control = glmerControl(optimizer = "bobyqa"),
@@ -1170,12 +1201,13 @@ sem.model.fits(recalloverall.4)
 
 ####moderation -- sw recall####
 #low cosine
-lowcos4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + LogSub.1 + LogSub.2 +
-                   Length.1 + Length.2 + AOA.1 + 
-                   AOA.2 + Familiarity.1 + Familiarity.2 + 
-                   Valence.1 + Valence.2 + Imageability.1 + QCON.2 +
-                   QSS.1 + TSS.2 + FSS.1 + FSS.2 + Ortho.1 + 
-                   Ortho.2 + Phono.1 + Phono.2 +
+lowcos4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + 
+                  LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
+                       AOA.1 +  AOA.2 +  Familiarity.1 +
+                       Familiarity.2 +  Valence.1 +  Valence.2 + 
+                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                  ZCOS_low * ZLSA * ZFSG,
                 data = combined,
                 family = binomial,
@@ -1184,12 +1216,13 @@ lowcos4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + LogSub.1 + LogS
 summary(lowcos4)
 
 ##high cosine
-hicos4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + LogSub.1 + LogSub.2 +
-                 Length.1 + Length.2 + AOA.1 + 
-                 AOA.2 + Familiarity.1 + Familiarity.2 + 
-                 Valence.1 + Valence.2 + Imageability.1 + QCON.2 +
-                 QSS.1 + TSS.2 + FSS.1 + FSS.2 + Ortho.1 + 
-                 Ortho.2 + Phono.1 + Phono.2 + 
+hicos4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + 
+                 LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
+                       AOA.1 +  AOA.2 +  Familiarity.1 +
+                       Familiarity.2 +  Valence.1 +  Valence.2 + 
+                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 + 
                  ZCOS_high * ZLSA * ZFSG,
                data = combined,
                family = binomial,
@@ -1198,12 +1231,13 @@ hicos4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + LogSub.1 + LogSu
 summary(hicos4)
 
 ##low cosine low lsa
-lowcoslowlsa4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + LogSub.1 + LogSub.2 +
-                        Length.1 + Length.2 + AOA.1 + 
-                        AOA.2 + Familiarity.1 + Familiarity.2 + 
-                        Valence.1 + Valence.2 + Imageability.1 + QCON.2 +
-                        QSS.1 + TSS.2 + FSS.1 + FSS.2 + Ortho.1 + 
-                        Ortho.2 + Phono.1 + Phono.2 +
+lowcoslowlsa4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + 
+                        LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
+                       AOA.1 +  AOA.2 +  Familiarity.1 +
+                       Familiarity.2 +  Valence.1 +  Valence.2 + 
+                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                         ZCOS_low * ZLSA_low * ZFSG,
                       data = combined,
                       family = binomial,
@@ -1212,12 +1246,13 @@ lowcoslowlsa4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + LogSub.1 
 summary(lowcoslowlsa4)
 
 ##low cosine high lsa
-lowcoshighlsa4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + LogSub.1 + LogSub.2 +
-                         Length.1 + Length.2 + AOA.1 + 
-                         AOA.2 + Familiarity.1 + Familiarity.2 + 
-                         Valence.1 + Valence.2 + Imageability.1 + QCON.2 +
-                         QSS.1 + TSS.2 + FSS.1 + FSS.2 + Ortho.1 + 
-                         Ortho.2 + Phono.1 + Phono.2 +
+lowcoshighlsa4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + 
+                         LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
+                       AOA.1 +  AOA.2 +  Familiarity.1 +
+                       Familiarity.2 +  Valence.1 +  Valence.2 + 
+                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                          ZCOS_low * ZLSA_high * ZFSG,
                        data = combined,
                        family = binomial,
@@ -1226,12 +1261,13 @@ lowcoshighlsa4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + LogSub.1
 summary(lowcoshighlsa4)
 
 ##high low
-highcoslowlsa4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + LogSub.1 + LogSub.2 +
-                         Length.1 + Length.2 + AOA.1 + 
-                         AOA.2 + Familiarity.1 + Familiarity.2 + 
-                         Valence.1 + Valence.2 + Imageability.1 + QCON.2 +
-                         QSS.1 + TSS.2 + FSS.1 + FSS.2 + Ortho.1 + 
-                         Ortho.2 + Phono.1 + Phono.2 +
+highcoslowlsa4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + 
+                         LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
+                       AOA.1 +  AOA.2 +  Familiarity.1 +
+                       Familiarity.2 +  Valence.1 +  Valence.2 + 
+                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                          ZCOS_high * ZLSA_low * ZFSG,
                        data = combined,
                        family = binomial,
@@ -1240,12 +1276,13 @@ highcoslowlsa4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + LogSub.1
 summary(highcoslowlsa4)
 
 ##high high
-highcoshighlsa4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + LogSub.1 + LogSub.2 +
-                          Length.1 + Length.2 + AOA.1 + 
-                          AOA.2 + Familiarity.1 + Familiarity.2 + 
-                          Valence.1 + Valence.2 + Imageability.1 + QCON.2 +
-                          QSS.1 + TSS.2 + FSS.1 + FSS.2 + Ortho.1 + 
-                          Ortho.2 + Phono.1 + Phono.2 +
+highcoshighlsa4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + 
+                          LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
+                       AOA.1 +  AOA.2 +  Familiarity.1 +
+                       Familiarity.2 +  Valence.1 +  Valence.2 + 
+                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                           ZCOS_high * ZLSA_high * ZFSG,
                         data = combined,
                         family = binomial,
@@ -1254,12 +1291,13 @@ highcoshighlsa4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + LogSub.
 summary(highcoshighlsa4)
 
 ##avg low
-avgcoslowlsa4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + LogSub.1 + LogSub.2 +
-                        Length.1 + Length.2 + AOA.1 + 
-                        AOA.2 + Familiarity.1 + Familiarity.2 + 
-                        Valence.1 + Valence.2 + Imageability.1 + QCON.2 +
-                        QSS.1 + TSS.2 + FSS.1 + FSS.2 + Ortho.1 + 
-                        Ortho.2 + Phono.1 + Phono.2 +
+avgcoslowlsa4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + 
+                        LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
+                       AOA.1 +  AOA.2 +  Familiarity.1 +
+                       Familiarity.2 +  Valence.1 +  Valence.2 + 
+                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                         ZCOS * ZLSA_low * ZFSG,
                       data = combined,
                       family = binomial,
@@ -1268,12 +1306,13 @@ avgcoslowlsa4 = glmer(Recall ~ (1|Partno) + Judgment + Judged.Value2 + LogSub.1 
 summary(avgcoslowlsa4)
 
 ##avg high
-avgcoshighlsa4 = glmer(Recall ~ (1|Partno) +  Judgment +Judged.Value2 + LogSub.1 + LogSub.2 +
-                         Length.1 + Length.2 + AOA.1 + 
-                         AOA.2 + Familiarity.1 + Familiarity.2 + 
-                         Valence.1 + Valence.2 + Imageability.1 + QCON.2 +
-                         QSS.1 + TSS.2 + FSS.1 + FSS.2 + Ortho.1 + 
-                         Ortho.2 + Phono.1 + Phono.2 +
+avgcoshighlsa4 = glmer(Recall ~ (1|Partno) +  Judgment +Judged.Value2 + 
+                         LogSub.1 + LogSub.2 + Length.1 + Length.2 + # POS.1 + POS.2,
+                       AOA.1 +  AOA.2 +  Familiarity.1 +
+                       Familiarity.2 +  Valence.1 +  Valence.2 + 
+                       Imageability.1 +  Imageability.2 +  QCON.1 +  QCON.2 +
+                       QSS.1 + TSS.2 + FSS.1 + FSS.2 + 
+                       COSC.1 + COSC.2 + Ortho.1 + Ortho.2 + Phono.1 + Phono.2 +
                          ZCOS * ZLSA_high * ZFSG,
                        data = combined,
                        family = binomial,
@@ -1284,6 +1323,22 @@ summary(avgcoshighlsa4)
 
 ```{r sw.recall.effects.table, include=FALSE}
 ####main effects for sw recall####
+swrecall = rbind(
+  cbind(rep("Step 1", nrow(coef(summary(recalloverall.1)))), coef(summary(recalloverall.1))),
+cbind(rep("Step 2", nrow(coef(summary(recalloverall.2)))), coef(summary(recalloverall.2))),
+cbind(rep("Step 3", nrow(coef(summary(recalloverall.3)))), coef(summary(recalloverall.3))),
+cbind(rep("Step 4", nrow(coef(summary(recalloverall.4)))), coef(summary(recalloverall.4))),
+cbind(rep("Low COS Low LSA", nrow(coef(summary(lowcoslowlsa4))[29:35, ])), coef(summary(lowcoslowlsa4))[29:35, ]),
+cbind(rep("Low COS Average LSA", nrow(coef(summary(lowcos4))[29:35, ])), coef(summary(lowcos4))[29:35, ]),
+cbind(rep("Low COS High LSA", nrow(coef(summary(lowcoshighlsa4))[29:35, ])), coef(summary(lowcoshighlsa4))[29:35, ]),
+cbind(rep("Average COS Low LSA", nrow(coef(summary(avgcoslowlsa4))[29:35, ])), coef(summary(avgcoslowlsa4))[29:35, ]),
+cbind(rep("Average COS High LSA", nrow(coef(summary(avgcoshighlsa4))[29:35, ])), coef(summary(avgcoshighlsa4))[29:35, ]),
+cbind(rep("High COS Low LSA", nrow(coef(summary(highcoslowlsa4))[29:35, ])), coef(summary(highcoslowlsa4))[29:35, ]),
+cbind(rep("High COS Average LSA", nrow(coef(summary(hicos4))[29:35, ])), coef(summary(hicos4))[29:35, ]),
+cbind(rep("High COS High LSA", nrow(coef(summary(highcoshighlsa4))[29:35, ])), coef(summary(highcoshighlsa4))[29:35, ])
+)
+
+write.csv(swrecall, "single word recall.csv", row.names = T)
 
 ```
 
