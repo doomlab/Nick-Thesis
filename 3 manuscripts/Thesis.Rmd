@@ -21,7 +21,7 @@ author_note: >
   Nicholas P. Maxwell is a graduate student at Missouri State University. Erin M. Buchanan is an Associate Professor of Psychology at Missouri State University.
 
 abstract: >
- Need new abstract explaining results
+ This study investigates the relationship between three measures of word pair overlap and multiple single word norms when predicting judgments of item relatedness and cued-recall performance. Previous work by Maxwell and Buchanan has found significant three-way interactions between associative, semantic, and thematic word overlap when predicting participant judgment strength and recall performance, expanding upon previous work by @Maki2007a. This study first sought to replicate findings from a previous study using a novel set of stimuli. The second aim of this study was to further explore the structure of memory by investigating the effects of several measures of single concept information (i.e., word frequency, concreteness, etc.) on recall accuracy and relatedness judgments. Overall, interaction replications were partially successful, with significant three-way interactions between overlap measures being found only when predicting recall. The implications of these findings within the context of a three-tiered hypothesis of memory. Limitations of existing normed databases are also discussed.
   
 
   
