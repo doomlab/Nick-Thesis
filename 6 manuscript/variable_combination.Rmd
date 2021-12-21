@@ -1,0 +1,57 @@
+---
+title: "Variable Combination"
+author: "Erin M. Buchanan"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries
+
+```{r}
+library(rio)
+```
+
+## Data
+
+```{r}
+DF <- import("Melted Data Thesis.csv")
+DF2 <- import("Melted Data pilot.csv")
+
+colnames(DF2) <- colnames(DF)
+totalDF <- rbind(DF, DF2)
+```
+
+## Check Data
+
+```{r}
+huge_test <- list()
+
+for (wordpair in unique(totalDF$`Word Pair`)){
+  temp <- totalDF[totalDF$`Word Pair` == wordpair , ]
+  
+  huge_test[[wordpair]] <- describe(temp)
+  
+}
+
+hugeDF <- do.call(rbind, huge_test)
+hugeDF$words <- rownames(hugeDF)
+
+checkDF <- subset(hugeDF, sd != 0)
+checkDF <- subset(checkDF, !grepl(".Partno|.Judg|.Recall", checkDF$words))
+```
+
+## Variables
+
+Factors:
+
+  - Overlap statistics: COS + LSA + FSG
+  - Frequency: LogSub.1 + LogSub.2 + LogHAL.1 + LogHAL.2
+  - Characteristics: Length.1 + Length.2 +  Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2
+  - Neighborhood: Ortho.1 + Ortho.2 + Phono.1 + Phono.2
+  - Rated: AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageabilty.2 + QCON.1 + QCON.2 
+  - Network: QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2
+
