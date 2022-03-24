@@ -13,19 +13,99 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(rio)
+library(psych)
+library(dplyr)
+library(tidyr)
+library(lsa)
 ```
 
 ## Data
+
+These data files were originally part of the Nick-Pilot github (for his pilot study), and then we added the official thesis data in this github. Both datasets were used in our previous publication on this topic. 
 
 ```{r}
 DF <- import("Melted Data Thesis.csv")
 DF2 <- import("Melted Data pilot.csv")
 
+DF$where <- "Thesis"
+DF2$where <- "Pilot"
+
 colnames(DF2) <- colnames(DF)
 totalDF <- rbind(DF, DF2)
 ```
 
+## Update Data
+
+```{r}
+# separate cue and target 
+totalDF$`Word Pair` <- gsub("\\...", "_", totalDF$`Word Pair`)
+totalDF <- totalDF %>% 
+  separate(col = `Word Pair`, into = c("Cue", "Target"), sep = "_")
+totalDF$Cue <- tolower(totalDF$Cue)
+totalDF$Target <- tolower(totalDF$Target)
+totalDF$Judgment <- tolower(totalDF$Judgment)
+
+# create new data frame to put new statistics in 
+updateDF <- totalDF %>% 
+  select(Partno, Judgment, Cue, Target, `Judged Value`, Recall)
+
+# Overlap statistics 
+# buchanan cos "semantics"
+features <- import("data_values/final words 2017.xlsx")
+features <- features %>% 
+  select(where, cue, translated, normalized_translated) %>% 
+  arrange(where)
+features <- features[!duplicated(features), ]
+features <- features[!duplicated(features[ , c("cue", "translated")]), ]
+
+# pivot wider to a cue-feature matrix
+cfmatrix <- features %>% 
+  select(cue, translated, normalized_translated) %>% 
+  pivot_wider(id_cols = cue, names_from = translated, 
+              values_from = normalized_translated, values_fill = 0)
+
+# calculate a cosine matrix
+cosmatrix <- cosine(as.matrix(t(cfmatrix[ , -1])))
+```
+
+$$
+\frac{\sum_{i=1}^{n} A_i \times B_i} {\sqrt{\sum_{i=1}^{n} A_i^2} \times \sqrt{\sum_{i=1}^{n} B_i^2}}
+$$
+
+This formula is similar to a dot-product correlation, where $A_i$ and $B_i$ indicate the overlapping frequency percent between cue A and cue B. The *i* subscript denotes the current feature, and when features match, the frequencies are multiplied together and summed across all matches ($\Sigma$). For the denominator, the feature frequency is first squared and summed from *i* to *n* features for cue A and B. The square root of these summation values is then multiplied together. In essence, the numerator calculates the overlap of feature frequency for matching features, while the denominator accounts for the entire feature frequency set for each cue. Cosine values range from 0 (no overlapping features) to 1 (complete overlapping features). With over four thousand cue words from all data sources [i.e., the current paper plus; @Buchanan2013; @McRae2005; @Vinson2008], just under twenty million cue-cue cosine combinations can be calculated. 
+
+
+# swow fsg "association"
+# mandera word2vec model themes for LSA "thematics"
+
+
+
+
+# frequency statistics - note that subtitle and hal are correlated .86 and .90 
+# so let's pick the most recent one
+# log subtitle frequencies 
+
+# characteristics 
+# length, phonemes, syllables, morphemes 
+# note that length, syllables, and phonemes are all correlated above .80
+# so let's go with length and morphemes
+
+# neighborhood
+# orthographic and phonographic (correlation is .7, but can probably keep both)
+
+# rated
+# aoa, familiar, valence, imageability, concreteness
+
+# network statistics
+# set size - number of items directly connected going from cue-target
+# feature set size - number of features for target/cue
+
+```
+
+
 ## Check Data
+
+This section checks the statistics for each word pair attached - the judgments and recall *should* have a standard deviation because they are variable across participants. The other statistics are based on item and should not have a standard deviation because they are static. I am using this section to find the ones with numbers that do not make sense. 
 
 ```{r}
 huge_test <- list()
