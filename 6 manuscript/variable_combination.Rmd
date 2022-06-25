@@ -17,6 +17,7 @@ library(psych)
 library(dplyr)
 library(tidyr)
 library(lsa)
+library(morphemepiece)
 ```
 
 ## Data
@@ -36,6 +37,8 @@ totalDF <- rbind(DF, DF2)
 
 ## Update Data
 
+First, we will import the data and format for the updated number calculations. 
+
 ```{r}
 # separate cue and target 
 totalDF$`Word Pair` <- gsub("\\...", "_", totalDF$`Word Pair`)
@@ -48,8 +51,13 @@ totalDF$Judgment <- tolower(totalDF$Judgment)
 # create new data frame to put new statistics in 
 updateDF <- totalDF %>% 
   select(Partno, Judgment, Cue, Target, `Judged Value`, Recall)
+```
 
-# Overlap statistics 
+## Overlap Statistics 
+
+This chunk calculates the cosine between the two vectors of features from the Buchanan et al. 2019 semantic feature production norms. Cosine similarity ranges from 0 (unrelated) to 1 (related) for word pairs. 
+
+```{r}
 # buchanan cos "semantics"
 features <- import("data_values/final words 2017.xlsx")
 features <- features %>% 
@@ -58,80 +66,310 @@ features <- features %>%
 features <- features[!duplicated(features), ]
 features <- features[!duplicated(features[ , c("cue", "translated")]), ]
 
+# fix olympic
+features$cue[features$cue == "olympics"] <- "olympic"
+
+# grab only the cue-targets we need
+word_list <- unique(c(updateDF$Cue, updateDF$Target))
+
 # pivot wider to a cue-feature matrix
 cfmatrix <- features %>% 
   select(cue, translated, normalized_translated) %>% 
+  filter(cue %in% word_list) %>% 
   pivot_wider(id_cols = cue, names_from = translated, 
               values_from = normalized_translated, values_fill = 0)
 
 # calculate a cosine matrix
 cosmatrix <- cosine(as.matrix(t(cfmatrix[ , -1])))
+rownames(cosmatrix) <- colnames(cosmatrix) <- cfmatrix$cue
+
+# merge back into smaller list 
+unique_list <- updateDF %>% select(Cue, Target) %>% unique()
+unique_list$cosine <- NA
+for (i in 1:nrow(unique_list)){
+  unique_list$cosine[i] <- cosmatrix[unique_list$Cue[i], unique_list$Target[i]]
+}
+```
+ 
+This section calculates the free association from the Small World of Words Project. These values indicate the number of times a cue word elicits a target word (forward strength). These values are normalized to the values available, as normal forward strengths are probabilities by sample size, while this version is frequency by available responses. (i.e., if you let each person put in three answers, you cannot calculate probability as 1/person, rather it's 1/total possible answers, which cannot ever reach 100 likelihood because they won't write the answer three times ... so you normalize it so it's more like 1/x people). 
+
+```{r}
+# SWOW fsg "association"
+SWOW <- import("data_values/strength.SWOW-EN.R123.csv.zip")
+SWOW$cue <- tolower(SWOW$cue)
+SWOW$response <- tolower(SWOW$response)
+
+# merge with small list
+unique_list <- 
+  unique_list %>% 
+  left_join((SWOW %>% select(cue, response, R123.Strength)), 
+            by = c("Cue" = "cue", "Target" = "response"))
+
+#normalize SWOW as the score is not number of participants who said X / number of participants, but instead is number of participants who said X / number of answers
+#normalized = (x-min(x)) / (max(x) - min(x))
+unique_list$fsg <- (unique_list$R123.Strength - min(unique_list$R123.Strength, na.rm = T)) / (max(unique_list$R123.Strength, na.rm = T) - min(unique_list$R123.Strength, na.rm = T))
+
+# missing values - are they zero? 
+setdiff(unique_list$Cue, SWOW$cue)
+unique_list$R123.Strength[is.na(unique_list$R123.Strength)] <- 0 
 ```
 
-$$
-\frac{\sum_{i=1}^{n} A_i \times B_i} {\sqrt{\sum_{i=1}^{n} A_i^2} \times \sqrt{\sum_{i=1}^{n} B_i^2}}
-$$
+Indirect association is the cosine overlap in free association lists from SWOW. This value is akin to cosine calculated above - however instead of feature overlap, we calculate the number of shared responses given the cue word. This value is from our original paper on this topic, per a reviewer suggestion. 
 
-This formula is similar to a dot-product correlation, where $A_i$ and $B_i$ indicate the overlapping frequency percent between cue A and cue B. The *i* subscript denotes the current feature, and when features match, the frequencies are multiplied together and summed across all matches ($\Sigma$). For the denominator, the feature frequency is first squared and summed from *i* to *n* features for cue A and B. The square root of these summation values is then multiplied together. In essence, the numerator calculates the overlap of feature frequency for matching features, while the denominator accounts for the entire feature frequency set for each cue. Cosine values range from 0 (no overlapping features) to 1 (complete overlapping features). With over four thousand cue words from all data sources [i.e., the current paper plus; @Buchanan2013; @McRae2005; @Vinson2008], just under twenty million cue-cue cosine combinations can be calculated. 
+```{r}
+# indirect association 
+unique_list$indirect <- NA
 
+for (i in 1:length(unique_list$Cue)){ #loop over each word
+  
+  temp1 <- SWOW[tolower(SWOW$cue) == unique_list$Cue[i], ]
+  temp2 <- SWOW[tolower(SWOW$cue) == unique_list$Target[i], ]
+  
+  temp_merge <- merge(temp1, temp2, by = "response", all = T)
+  temp_merge$R123.Strength.x[is.na(temp_merge$R123.Strength.x)] <- 0
+  temp_merge$R123.Strength.y[is.na(temp_merge$R123.Strength.y)] <- 0
+  
+  unique_list$indirect[i] <- cosine(temp_merge$R123.Strength.x, temp_merge$R123.Strength.y)
 
-# swow fsg "association"
+}
+```
+
+This section calculates the cosine between word2vec vectors from the word2vec model for English from Mandera et al. These values are meant to represent "themes" as vector space models capture both association and semantics. 
+
+```{r}
 # mandera word2vec model themes for LSA "thematics"
+# http://meshugga.ugent.be/snaut-downloads/spaces/english/predict/english-all.words-cbow-window.6-dimensions.300-ukwac_subtitle_en.w2v.gz
+# file is large, can't store it here 
 
+## things I did to get it usable
+### download
+### unzip
+### change the name to .txt
+### you need to skip the first two lines 
+# themes <- import("data_values/english-all.words-cbow-window.6-dimensions.300-ukwac_subtitle_en.txt", skip = 3)
+# themes <- themes %>% filter(V1 %in% word_list)
+# export(themes, "data_values/mandera_word2vec.csv", row.names = F)
 
+themes <- import("data_values/mandera_word2vec.csv")
+rownames(themes) <- themes$V1
+themes$V1 <- NULL
+unique_list$themes <- NA
+for (i in 1:nrow(unique_list)){
+  unique_list$themes[i] <- cosine(t(as.matrix(themes[c(unique_list$Cue[i], unique_list$Target[i]), ])))[2]
+}
+```
 
+# Frequency Statistics
 
-# frequency statistics - note that subtitle and hal are correlated .86 and .90 
-# so let's pick the most recent one
+This section merges in the log frequency values from the English Subtitle Project.
+
+```{r}
 # log subtitle frequencies 
+# not using HAL because correlated at .86
+sub <- import("data_values/SUBTLEXusfrequencyabove1.zip")
+sub$Word <- tolower(sub$Word)
+unique_list <- unique_list %>% 
+  left_join((sub %>% select(Word, Lg10WF)),
+            by = c("Cue" = "Word")) %>% 
+  rename(freq_cue = Lg10WF) %>% 
+  left_join((sub %>% select(Word, Lg10WF)), 
+            by = c("Target" = "Word")) %>% 
+  rename(freq_target = Lg10WF)
+```
 
-# characteristics 
+# Characteristic Statistics
+
+In this section, we calculate word length (i.e., number of characters) and number of morphemes.
+
+```{r}
 # length, phonemes, syllables, morphemes 
 # note that length, syllables, and phonemes are all correlated above .80
 # so let's go with length and morphemes
+unique_list$length_cue <- nchar(unique_list$Cue)
+unique_list$length_target <- nchar(unique_list$Target)
 
-# neighborhood
-# orthographic and phonographic (correlation is .7, but can probably keep both)
+unique_list$morpheme_cue <- unlist(
+  lapply(morphemepiece_tokenize(
+      unique_list$Cue,
+      vocab = morphemepiece_vocab(),
+      lookup = morphemepiece_lookup(),
+      unk_token = "[UNK]",
+      max_chars = 100), 
+    length))
 
-# rated
-# aoa, familiar, valence, imageability, concreteness
-
-# network statistics
-# set size - number of items directly connected going from cue-target
-# feature set size - number of features for target/cue
-
+unique_list$morpheme_target <- unlist(
+  lapply(morphemepiece_tokenize(
+      unique_list$Target,
+      vocab = morphemepiece_vocab(),
+      lookup = morphemepiece_lookup(),
+      unk_token = "[UNK]",
+      max_chars = 100), 
+    length))
 ```
 
+# Neighborhood Statistics 
 
-## Check Data
-
-This section checks the statistics for each word pair attached - the judgments and recall *should* have a standard deviation because they are variable across participants. The other statistics are based on item and should not have a standard deviation because they are static. I am using this section to find the ones with numbers that do not make sense. 
+Orthographic and phonographic neighborhood are merged into the data. Orthographic = the number of similar spelled words, phonographic = number of similar sounding words.  
 
 ```{r}
-huge_test <- list()
+# orthographic and phonographic (correlation is .7, but can probably keep both)
+# grabbed from https://clearpond.northwestern.edu/clearpond_database.cgi
+neighbor <- import("data_values/clearpondEN_X249J.txt")
+neighbor$Word <- tolower(neighbor$Word)
 
-for (wordpair in unique(totalDF$`Word Pair`)){
-  temp <- totalDF[totalDF$`Word Pair` == wordpair , ]
-  
-  huge_test[[wordpair]] <- describe(temp)
-  
-}
+unique_list <- unique_list %>% 
+  left_join((neighbor %>% select(Word, OTAN, PTAN)), 
+            by = c("Cue" = "Word")) %>% 
+  rename(ortho_cue = OTAN, phono_cue = PTAN)  %>% 
+  left_join((neighbor %>% select(Word, OTAN, PTAN)), 
+            by = c("Target" = "Word")) %>% 
+  rename(ortho_target = OTAN, phono_target = PTAN)
 
-hugeDF <- do.call(rbind, huge_test)
-hugeDF$words <- rownames(hugeDF)
-
-checkDF <- subset(hugeDF, sd != 0)
-checkDF <- subset(checkDF, !grepl(".Partno|.Judg|.Recall", checkDF$words))
+unique_list$ortho_target[is.na(unique_list$ortho_target)] <- 
+unique_list$phono_target[is.na(unique_list$phono_target)] <- 0
 ```
 
-## Variables
+# Rating Statistics 
 
-Factors:
+In this section, we merge in ratings of age of acquisition. AOA is a rating of what age you think you learned a word (subjective rating). 
 
-  - Overlap statistics: COS + LSA + FSG
-  - Frequency: LogSub.1 + LogSub.2 + LogHAL.1 + LogHAL.2
-  - Characteristics: Length.1 + Length.2 +  Phonemes.1 + Phonemes.2 + Syllables.1 + Syllables.2 + Morphemes.1 + Morphemes.2
-  - Neighborhood: Ortho.1 + Ortho.2 + Phono.1 + Phono.2
-  - Rated: AOA.1 + AOA.2 + Familiarity.1 + Familiarity.2 + Valence.1 + Valence.2 + Imageability.1 + Imageabilty.2 + QCON.1 + QCON.2 
-  - Network: QSS.1 + TSS.2 + FSS.1 + FSS.2 + COSC.1 + COSC.2
+```{r}
+# aoa, familiar, valence, imageability, concreteness
+aoa <- import("data_values/AoA_ratings_Kuperman_et_al_BRM.zip")
+aoa$Word <- tolower(aoa$Word)
+
+unique_list <- unique_list %>% 
+  left_join((aoa %>% select(Word, Rating.Mean)), 
+            by = c("Cue" = "Word")) %>% 
+  rename(aoa_cue = Rating.Mean)  %>% 
+  left_join((aoa %>% select(Word, Rating.Mean)), 
+            by = c("Target" = "Word")) %>% 
+  rename(aoa_target = Rating.Mean)
+
+unique_list$aoa_cue <- as.numeric(unique_list$aoa_cue)
+unique_list$aoa_target <- as.numeric(unique_list$aoa_target)
+```
+
+This section merges ratings of valence (positive, negative) for each cue and target. 
+
+```{r}
+valence <- import("data_values/Ratings_Warriner_et_al.csv")
+valence$Word <- tolower(valence$Word)
+
+unique_list <- unique_list %>% 
+  left_join((valence %>% select(Word, V.Mean.Sum)), 
+            by = c("Cue" = "Word")) %>% 
+  rename(valence_cue = V.Mean.Sum)  %>% 
+  left_join((valence %>% select(Word, V.Mean.Sum)), 
+            by = c("Target" = "Word")) %>% 
+  rename(valence_target = V.Mean.Sum)
+```
+
+This section merges ratings of how abstract (low) to concrete (high) words are. 
+
+```{r}
+concrete <- import("data_values/Concreteness_ratings_Brysbaert_et_al_BRM.xlsx")
+concrete$Word <- tolower(concrete$Word)
+
+unique_list <- unique_list %>% 
+  left_join((concrete %>% select(Word, Conc.M)), 
+            by = c("Cue" = "Word")) %>% 
+  rename(concrete_cue = Conc.M)  %>% 
+  left_join((concrete %>% select(Word, Conc.M)), 
+            by = c("Target" = "Word")) %>% 
+  rename(concrete_target = Conc.M)
+```
+
+These two sections merge two different databases with imageability and familiarility in them. We average the two ratings when avaliable and use the one when only one is avaliable. 
+
+```{r}
+toglia <- import("data_values/Toglia_Battignorms1.txt")
+toglia$Word <- tolower(toglia$V1)
+
+unique_list <- unique_list %>% 
+  left_join((toglia %>% select(Word, imagery, familiar)), 
+            by = c("Cue" = "Word")) %>% 
+  rename(familiar_cue = familiar, imagery_cue = imagery)  %>% 
+  left_join((toglia %>% select(Word, imagery, familiar)), 
+            by = c("Target" = "Word")) %>% 
+  rename(familiar_target = familiar, imagery_target = imagery)
+
+unique_list$familiar_cue <- gsub("[1-9]     ", "", unique_list$familiar_cue)
+unique_list$familiar_target <- gsub("[1-9]     ", "", unique_list$familiar_target)
+
+unique_list$familiar_cue <- as.numeric(unique_list$familiar_cue)
+unique_list$familiar_target <- as.numeric(unique_list$familiar_target)
+```
+
+```{r}
+glasgow <- import("data_values/13428_2018_1099_MOESM2_ESM.csv")
+glasgow$Words <- tolower(glasgow$Words)
+
+unique_list <- unique_list %>% 
+  left_join((glasgow %>% select(Words, imag_M, fam_M)), 
+            by = c("Cue" = "Words")) %>% 
+  rename(familiar_cue2 = fam_M, imagery_cue2 = imag_M)  %>% 
+  left_join((glasgow %>% select(Words, imag_M, fam_M)), 
+            by = c("Target" = "Words")) %>% 
+  rename(familiar_target2 = fam_M, imagery_target2 = imag_M)
+
+unique_list <- unique_list %>% 
+  group_by(Cue) %>% 
+  mutate(familiar_cue_all = mean(c(familiar_cue, familiar_cue2), na.rm = T), 
+         familiar_target_all = mean(c(familiar_target, familiar_target2), na.rm = T), 
+         imagery_cue_all = mean(c(imagery_cue, imagery_cue2), na.rm = T), 
+         imagery_target_all = mean(c(imagery_target, imagery_target2), na.rm = T))
+
+unique_list$familiar_cue_all[is.nan(unique_list$familiar_cue_all)] <- NA
+unique_list$imagery_cue_all[is.nan(unique_list$imagery_cue_all)] <- NA
+
+unique_list$familiar_target_all[is.nan(unique_list$familiar_target_all)] <- NA
+unique_list$imagery_target_all[is.nan(unique_list$imagery_target_all)] <- NA
+```
+
+# Network Statistics
+
+Set size is the number of words that someone can say in response to a cue word (i.e., how many free associates does a cue or target have). 
+
+```{r}
+# set size - number of items directly connected going from cue-target using SWOW
+unique_list <- unique_list %>% 
+  left_join(
+    (SWOW %>% group_by(cue) %>% 
+       summarize(cue_ss = n()) %>% select(cue, cue_ss)), 
+     by = c("Cue" = "cue")
+    ) %>% 
+  left_join(
+    (SWOW %>% group_by(response) %>% 
+       summarize(target_ss = n()) %>% select(response, target_ss)), 
+     by = c("Target" = "response")
+    )
+```
+
+Feature set size is the number of features that people listed with a word. 
+
+```{r}
+# feature set size - number of features for target/cue for buchanan et al.
+unique_list <- unique_list %>% 
+  left_join(
+    (features %>% group_by(cue) %>% 
+       summarize(cue_fss = n()) %>% select(cue, cue_fss)), 
+     by = c("Cue" = "cue")
+    ) %>% 
+  left_join(
+    (features %>% group_by(translated) %>% 
+       summarize(target_fss = n()) %>% select(translated, target_fss)), 
+     by = c("Target" = "translated")
+    )
+```
+
+# Export
+
+```{r}
+updateDF <- updateDF %>% 
+  left_join(unique_list[!duplicated(unique_list %>% select(Cue, Target)), ],
+            by = c("Cue" = "Cue", "Target" = "Target"))
+
+export(updateDF, "final_data/combined_data.csv", row.names = F)
+```
 

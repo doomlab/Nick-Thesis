@@ -1,0 +1,162 @@
+---
+title: "Original Analyses"
+author: "Erin M. Buchanan"
+date: '2022-06-25'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries
+
+```{r}
+library(rio)
+library(dplyr)
+library(nlme)
+library(MuMIn)
+```
+
+## Data 
+
+```{r}
+DF <- import("final_data/combined_data.csv")
+DF$Rating <- (DF$`Judged Value`)/100
+```
+
+## Research Question 1
+
+Does the measurement of similarity impact the calibration estimate of judgments separated by judgment type?  
+
+For the first model, we will use direct and indirect association to predict ratings to examine Judgments of Rating(s). 
+
+IVs:
+
+  - fsg: direct association
+  - indirect: indirect association 
+  - judgment: type of judgment
+  - random intercept of participant
+
+```{r}
+model1 <- lme(Rating ~ fsg*Judgment + indirect*Judgment, 
+              data = DF, 
+              na.action = "na.omit", 
+              random = list(~1|Partno))
+
+summary(model1)
+r.squaredGLMM(model1)
+
+assoc <- lme(Rating ~ fsg + indirect, 
+              data = DF %>% filter(Judgment == "associative"), 
+              na.action = "na.omit", 
+              random = list(~1|Partno))
+
+summary(assoc)
+r.squaredGLMM(assoc)
+
+sem <- lme(Rating ~ fsg + indirect, 
+              data = DF %>% filter(Judgment == "semantic"), 
+              na.action = "na.omit", 
+              random = list(~1|Partno))
+
+summary(sem)
+r.squaredGLMM(sem)
+
+theme <- lme(Rating ~ fsg + indirect, 
+              data = DF %>% filter(Judgment == "thematic"), 
+              na.action = "na.omit", 
+              random = list(~1|Partno))
+
+summary(theme)
+r.squaredGLMM(theme)
+```
+
+Thoughts:
+
+  - Model 1 shows me that indirect/direct predict judgments, and there's an interaction between judgments and the measurement type. 
+  - Association: Direct > Indirect
+  - Semantic: Direct > Indirect but indirect > association 
+  - Thematic: Direct ~ Indirect and weaker than these other two 
+
+```{r}
+model2 <- lme(Rating ~ fsg*Judgment + cosine*Judgment + themes*Judgment, 
+              data = DF, 
+              na.action = "na.omit", 
+              random = list(~1|Partno))
+
+summary(model2)
+r.squaredGLMM(model2)
+
+assoc2 <- lme(Rating ~ fsg + cosine + themes, 
+              data = DF %>% filter(Judgment == "associative"), 
+              na.action = "na.omit", 
+              random = list(~1|Partno))
+
+summary(assoc2)
+r.squaredGLMM(assoc2)
+
+sem2 <- lme(Rating ~ fsg + cosine + themes, 
+              data = DF %>% filter(Judgment == "semantic"), 
+              na.action = "na.omit", 
+              random = list(~1|Partno))
+
+summary(sem2)
+r.squaredGLMM(sem2)
+
+theme2 <- lme(Rating ~ fsg + cosine + themes, 
+              data = DF %>% filter(Judgment == "thematic"), 
+              na.action = "na.omit", 
+              random = list(~1|Partno))
+
+summary(theme2)
+r.squaredGLMM(theme2)
+```
+
+Thoughts:
+
+  - Model 2 shows me interactions again with the judgment type and measurement type.
+  - Association: direct > themes > cosine 
+  - Semantic: direct > cosine > themes (hmmm)
+  - Themes: direct > themes > cosine 
+  
+Final thoughts:
+
+  - Sigh, Simon is probably right. Indirect and direct *is* the same basic pattern without considering vector space models. 
+  - The R2 values also support that the two variables cover the same amount of variances as the three. 
+
+## Research Question 2
+
+Beyond similarity, what else predicts the final judgment score? 
+
+```{r}
+the_kitchen_sink <- lme(
+  Rating ~ Judgment + fsg + indirect + 
+    freq_cue + freq_target + 
+    length_cue + length_target + morpheme_cue + morpheme_target + 
+    ortho_cue + ortho_target + phono_cue + phono_target + 
+    aoa_cue + aoa_target + valence_cue + valence_target + concrete_cue + concrete_target + imagery_cue_all + imagery_target_all + familiar_cue_all + familiar_target_all + 
+    cue_ss + target_ss + cue_fss + target_fss,
+  data = DF, 
+  na.action = "na.omit", 
+              random = list(~1|Partno)
+  )
+
+summary(the_kitchen_sink)
+r.squaredGLMM(the_kitchen_sink)
+```
+
+Thoughts:
+
+  - Save me from this madness. It's the idea we want, but I have no good concept how to understand which variable is the most useful in this set. 
+  - It is only adding a very small contribution to the overall variance accounted for, so, I'd love to sort through what is most useful or most contributing. 
+  - Other thoughts is the we should probably scale all of these to the same scale. 
+  - And probably separate them by judgment type, but at the moment, it's just all a significant soup with no clear reason why one thing is better than the other. 
+
+## Research Question 3
+
+How much does each word contribute to the prediction? 
+
+Thoughts:
+
+  - If I was to run an analysis here, it would probably be the same model as above with only the cue_ variables, and then a separate one with only the target_ variables and try to make some claims on the R2. I still have the same overall problem with not knowing what is useful in all the variables. 
